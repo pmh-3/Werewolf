@@ -1,0 +1,26 @@
+.welcome-page {
+    height: 600px;
+    text-align: center;
+    color:rgba(216, 125, 5, 0.945);
+    font-family: carnivalee-freakshow;
+    background-image: url('./assets/images/background/werewolfBackground/8617.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.welcome-page h1 {
+    font-size: 120px;
+    padding-top: 140px;
+
+}
+
+.welcome-page button {
+    font-family: carnivalee-freakshow; 
+    font-size: 40px;
+    color: white;
+    background-color: rgba(216, 125, 5, 0.945);
+    padding: 5px 10px 10px 10px;
+    margin: 50px;
+    border: unset;
+
+}

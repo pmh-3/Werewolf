@@ -1,0 +1,39 @@
+
+.lounge {
+    height: 600px;
+    color:rgb(95, 47, 2);
+    font-family: carnivalee-freakshow;
+    background-image: url('./assets/images/background/playerDay/Autumn30.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.lounge h1 {
+    font-size: 70px;
+    text-align: right;
+    padding-top: 30px;
+    padding-right: 30px;
+
+}
+
+.lounge h3 {
+    font-size: 40px;
+    text-align: right;
+    padding-right: 30px;
+    padding-top: 210px;
+}
+
+.lounge button {
+    margin-left: 90px;
+
+}
+
+.lounge img {
+    height: 80px;
+    padding-left: 100px;
+    margin: 10px;
+    border: tomato;
+    border-top-width: thick;
+
+}
