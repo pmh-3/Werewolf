@@ -1,9 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
 import './GameInstruction.css';
+import Timer from './Components/Timer';
 
 function GameInstruction(){
   const history = useHistory();
+
+  const timesUp = () => {
+    history.push("/SSDay");
+	}
 
   return (
       <>
@@ -17,8 +22,8 @@ function GameInstruction(){
         At night, the wolves will kill one of you.<br></br>
         During daytime, one of you will be voted out of the village.<br></br>
         Don't let others see your identity! Good luck!
+        <Timer timesUp ={timesUp}></Timer>
         </h2>
-  
         <button  onClick={() => history.push("/SSNight")} >GoToNight</button>
        
       </div>

@@ -4,6 +4,13 @@ import './SSDay.css';
 
 function SSDay(){
   const history = useHistory();
+  const [players,setPlayers] = useState([]);
+
+  useEffect(()=>{
+    //call server to retrieve remaining players
+    setPlayers(['Zi','Jason','Nirmalya','Charlie', 'Peter']);
+
+  },[])
 
   return (
       <>
@@ -11,13 +18,17 @@ function SSDay(){
         <h1>
         What happened last night
         </h1> 
+        <h1>
+          {players.map((n)=>(
+            <li>{n}</li>
+          ))}
+        </h1>
         <h3>
-        Show a list of current players and status 
-        Now discuss and vote on whom you think should be kicked out of the town!
+        Now discuss and vote on whom you think should be kicked out of town!
         </h3>
       
 
-        <button  onClick={() => history.push("/WelcomePage")} >GoToMain</button>
+        <button  onClick={() => history.push("/")} >GoToMain</button>
        
       </div>
       </>

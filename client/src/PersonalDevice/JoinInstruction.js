@@ -35,15 +35,15 @@ function JoinInstruction(){
         </h2>
         <input type='text' />
         {/* <button onClick={() => handleClick()}>ReturnToMain</button> */}
-
-        <button  onClick={() => history.push("/Lounge")} >GoToLounge</button>
         <h2>
         ENTER YOUR NAME
         </h2>
         <input type='text' />
-        
+        <button  onClick={() => history.push("/PDLounge")} >GoToLounge</button>
       </div>
+      
       </>
   )
 }
 export default JoinInstruction;
+

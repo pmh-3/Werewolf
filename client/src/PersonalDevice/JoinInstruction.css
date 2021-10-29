@@ -1,10 +1,10 @@
 
 .join-instruction {
-    height: 600px;
+    height: 100vh;
     color:rgb(248, 165, 10);
     text-align: center;
     font-family: carnivalee-freakshow;
-    background-image: url('./assets/images/background/playerNight/Mountain\ 02.jpg');
+    background-image: url('../assets/images/background/playerNight/Mountain\ 02.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center-left;
