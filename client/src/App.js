@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import WelcomePage from './WelcomePage.js';
 import JoinInstruction from './PersonalDevice/JoinInstruction.js';
-import Lounge from './Lounge.js';
-import GameInstruction from './GameInstruction.js'
-import SSDay from './SSDay.js';
-import SSNight from './SSNight.js';
+import Lounge from './TV/Lounge.js';
+import GameInstruction from './TV/GameInstruction'
+import SSDay from './TV/SSDay.js';
+import SSNight from './TV/SSNight.js';
 import './App.css';
 import PDLounge from './PersonalDevice/PDLounge.js';
 import PDDay from './PersonalDevice/PDDay.js';

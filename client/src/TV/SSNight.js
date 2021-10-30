@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
 import './SSNight.css';
-import Timer from './Components/Timer';
+import Timer from '../Components/Timer';
 
 function SSNight(){
   const history = useHistory();

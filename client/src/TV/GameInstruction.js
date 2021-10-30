@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
 import './GameInstruction.css';
-import Timer from './Components/Timer';
+import Timer from '../Components/Timer';
 
 function GameInstruction(){
   const history = useHistory();

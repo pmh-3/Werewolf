@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
-import '../Lounge.css';
+import '../TV/Lounge.css';
 import villager from '../assets/images/roles/villager.png'
 import werewolf from '../assets/images/roles/werewolf.png'
 import healer from '../assets/images/roles/healer.png'
