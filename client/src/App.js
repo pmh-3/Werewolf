@@ -11,10 +11,13 @@ import PDLounge from './PersonalDevice/PDLounge.js';
 import PDDay from './PersonalDevice/PDDay.js';
 import PDNight from './PersonalDevice/PDNight.js';
 import Role from './PersonalDevice/Role';
+import Device from './PersonalDevice/PersonalDevice.js';
+
 
 function App() {
 
   const [state,setState] = useState('init');
+  const [playerState, setPlayerState] = useState('join');
   //default home page is always just "/"
 
   return (
@@ -31,6 +34,7 @@ function App() {
     <Route path="/Role" render={() => <Role />} />
     <Route path="/PDNight" render={() => <PDNight />} />
     <Route path="/PDDay" render={() => <PDDay />} />
+    <Route path="/device" render={() => <Device super = {playerState} />} />
 
     </Router>
     </div>

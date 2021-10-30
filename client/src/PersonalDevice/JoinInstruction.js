@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
 import './JoinInstruction.css';
 
-function JoinInstruction(){
+function JoinInstruction({gotoHandle}){
   const history = useHistory();
 
   // const [example, setExample] = useState(['Count']);
@@ -39,7 +39,7 @@ function JoinInstruction(){
         ENTER YOUR NAME
         </h2>
         <input type='text' />
-        <button  onClick={() => history.push("/PDLounge")} >GoToLounge</button>
+        <button  onClick={() => gotoHandle("lounge")} >GoToLounge</button>
       </div>
       
       </>

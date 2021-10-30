@@ -16,7 +16,7 @@ function WelcomePage() {
           Werewolf
           </h1> 
           <button onClick={() => history.push("/Lounge")} >START</button>
-          <button onClick={() => history.push("/JoinInstruction")} >JOIN</button>
+          <button onClick={() => history.push("/device")} >JOIN</button>
         </div>
         </>
     )
