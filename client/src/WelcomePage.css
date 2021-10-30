@@ -1,11 +1,13 @@
+html {
+    background: url('./assets/images/background/werewolfBackground/8617.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
 .welcome-page {
     height: 100vh; 
     text-align: center;
     color:rgba(216, 125, 5, 0.945);
     font-family: carnivalee-freakshow;
-    background-image: url('./assets/images/background/werewolfBackground/8617.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .welcome-page h1 {
