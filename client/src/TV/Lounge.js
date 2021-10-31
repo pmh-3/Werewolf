@@ -1,54 +1,63 @@
 import React, {useState, useEffect} from 'react';
-import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
+import {BrowserRouter as Router, Route, Redirect, useHistory, BrowserRouter} from "react-router-dom";
 import './Lounge.css';
-import villager from '../assets/images/roles/villager.png'
-import werewolf from '../assets/images/roles/werewolf.png'
-import healer from '../assets/images/roles/healer.png'
+import Timer from '../Components/Timer';
 
-function Lounge(){
+function Lounge({gotoHandle}){
   const history = useHistory();
   const [code, setCode] = useState("");
   const [isReady, setisReady] = useState(0);
+  const [players,setPlayers] = useState([]);
 
-  const createRoom = ()=>{
-    setCode("XYZ");
-    //call Server to create a room and return a code
-    return code;
-  }
-
-  
   useEffect(() =>{
     createRoom();
   },[])
 
-  //Server sends a message to this page to start the game by moving to instructions
+  const createRoom = ()=>{
+    setCode("XXX");
+    // TODO: Call Server to create a room and return a code
+    // TODO: Call Server to get player's names (and possibly unique ID?) 
+    setPlayers(['XXX','XXX','XXX','XXX', 'XXX']);
+    
+    return code;
+  }
+
+  const timesUp = () => {
+    console.log("time up in lounge");
+    gotoHandle("intro");
+	}
 
   return (
       <>
       <div className="lounge">
         <h1>
+        Werewolf<br></br>
         Lounge
         </h1> 
         <h1>
-        Enter ROOM CODE: {code}
+        Enter ROOM CODE:<br></br> {code}
         </h1>
-        <h1>
-          First Player to join, starts the game.
-        </h1>
-
-        <button  onClick={() => history.push("/GameInstruction")} >GoToInstruction</button>
-
-    
-        <img className='villager' src={villager}></img> 
-        <img className='werewolf' src={werewolf}></img> 
-        <img className='healer' src={healer}></img> 
-
+        <h2>
+        Players joined: 
+        {players.map((n)=>(
+          <li>{n}</li>
+        ))}
+        </h2>
+        <h2>
+          FIRST Player to join, press start on phone to start game.
+          <Timer timesUp ={timesUp}></Timer>
+        </h2>
         <h3>
         WAITING FOR PLAYERS ...
         </h3>
-        
+
+       <button  onClick={() => history.push("/Introduction")} >GotoIntroduction</button>
+
+       
       </div>
       </>
   )
 }
 export default Lounge;
+
+
