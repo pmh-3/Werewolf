@@ -8,6 +8,35 @@ const util = require('util');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+var players;
+
+
+const createRoom = () => {
+    //init player array
+    
+
+    //send room code, player array
+}
+
+const joinRoom = () => {
+    
+}
+
+const sendState = () => {
+//lounge
+//Intro + ROLE
+}
+
+const sendEaten = () => {
+    
+}
+
+const asignRole = () => {
+
+}
+
+
+
 const serverFX = () => {
     app.get('/getPlays', (req, res) => {
 
@@ -33,5 +62,7 @@ const serverFX = () => {
 
 app.listen(port, () => console.log(`Listening on port ${port}`)); 
 serverFX();
+
+
 
 
