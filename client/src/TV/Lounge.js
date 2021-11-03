@@ -9,9 +9,11 @@ function Lounge({gotoHandle}){
   const [isReady, setisReady] = useState(0);
   const [players,setPlayers] = useState([]);
 
+
   useEffect(() =>{
     createRoom();
   },[])
+
 
   const createRoom = ()=>{
     setCode("XXX");
