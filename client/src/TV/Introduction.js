@@ -14,8 +14,10 @@ function Introduction({gotoHandle}){
 
   useEffect(() =>{
     // TODO: Call server to get how many wolves, how many villagers 
+    
 
   },[])
+
 
   return (
       <>

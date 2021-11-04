@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
-import '../TV/Lounge.css';
+import Timer from "../Components/Timer";
+
+
 import villager from '../assets/images/roles/villager.png'
 import werewolf from '../assets/images/roles/werewolf.png'
 import healer from '../assets/images/roles/healer.png'
 
-function Lounge(){
+function DLounge({gotoHandle}){
   const history = useHistory();
   const [code, setCode] = useState("");
   const [isReady, setisReady] = useState(0);
@@ -14,6 +16,12 @@ function Lounge(){
       //tell server players are ready
       history.push("/Role");
   }
+
+
+  const timesUp = () => {
+    console.log("time up in day");
+    gotoHandle("role");
+	}
 
 
 
@@ -38,9 +46,12 @@ function Lounge(){
         <h3>
         WAITING FOR PLAYERS ...
         </h3>
-        
+        <Timer timesUp ={timesUp}></Timer>
+        <button  onClick={() => gotoHandle("role")} >GoToRole</button>
+
+
       </div>
       </>
   )
 }
-export default Lounge;
+export default DLounge;
