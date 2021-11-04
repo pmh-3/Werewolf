@@ -34,7 +34,7 @@ function Introduction({gotoHandle}){
 
         
         
-        <button  onClick={() => history.push("/SSNight")} >GoToNight</button>
+        <button  onClick={() => gotoHandle("night")} >GoToNight</button>
        
       </div>
       </>

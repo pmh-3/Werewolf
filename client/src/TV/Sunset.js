@@ -29,7 +29,7 @@ function Sunset({gotoHandle}){
           </h1>
          
         
-        <button  onClick={() => history.push("/End")} >GotoEnd</button>
+        <button  onClick={() => gotoHandle("end")} >GotoEnd</button>
        
       </div>
       </>

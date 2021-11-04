@@ -31,7 +31,7 @@ function Sunrise({gotoHandle}){
           </h1>
          
         
-        <button  onClick={() => history.push("/SSDay")} >GotoDay</button>
+        <button  onClick={() => gotoHandle("day")} >GotoDay</button>
        
       </div>
       </>

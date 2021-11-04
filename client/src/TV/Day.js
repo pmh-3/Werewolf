@@ -31,7 +31,7 @@ function Day({gotoHandle}){
         <Timer timesUp ={timesUp}></Timer>
         </h1> 
        
-        <button  onClick={() => history.push("/Sunset")} >goToSunset</button>
+        <button  onClick={() => gotoHandle("sunset")} >goToSunset</button>
        
       </div>
       </>

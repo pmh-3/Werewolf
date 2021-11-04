@@ -22,7 +22,7 @@ function Night({gotoHandle}){
           </h1>
          
     
-        <button  onClick={() => history.push("/Sunrise")} >GotoSunrise</button>
+        <button  onClick={() => gotoHandle("sunrise")} >GotoSunrise</button>
        
       </div>
       </>

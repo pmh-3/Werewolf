@@ -68,7 +68,7 @@ function Lounge({gotoHandle}){
         WAITING FOR PLAYERS ...
         </h3>
 
-       <button  onClick={() => history.push("/Introduction")} >GotoIntroduction</button>
+       <button  onClick={() => gotoHandle("intro")} >GotoIntroduction</button>
 
        
       </div>
