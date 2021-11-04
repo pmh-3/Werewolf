@@ -1,37 +1,99 @@
-const { query } = require('express');
 const express = require('express'); 
-const {readFileSync, writeFileSync} = require('fs');
+const http = require("http");
+const socketIo = require("socket.io");
+const port = process.env.PORT || 6006; 
+const index = require("./routes/index");
 const app = express(); 
-const port = process.env.PORT || 6000; 
-const util = require('util');
+var Game = require('./Game');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(index);
+const server = http.createServer(app);
+const io = socketIo(server, {
+    cors: { origin: "*" }
+});
 
-const serverFX = () => {
-    app.get('/getPlays', (req, res) => {
-
-        const count = readFileSync('./dummyDB.txt', 'utf-8');
-        const newCount = parseInt(count) + 1;
-
-        writeFileSync('./dummyDB.txt', String(newCount));
-        console.log('new count: ', newCount);
-
-        res.send({
-            plays: String(newCount)
-        })
-
+/***********************Example ***************************/
+let interval;
+io.on("connection", (socket) => {
+    console.log("New client connected");
+    if(interval) {
+        clearInterval(interval);
+    }
+    interval = setInterval(() => getApiAndEmit(socket), 1000);
+    socket.on("disconnect", () => {
+        console.log("Client disconnected");
+        clearInterval(interval);
     });
 
-    app.post('/addLeader', (req, res) => {
-        var Name = req.body.name;
-        res.send(
-        `I received your POST request. This is what you sent me: ${req.body.name}`,
-        );
-    });
+
+//socket argument is nothing more than a com channel
+const getApiAndEmit = socket => {
+    const response = new Date();
+    //Emit new message to be consumed by client
+    socket.emit("FromAPI", response);
+};
+/***********************Example ***************************/
+
+var rooms = [];
+
+socket.on("createRoom", () => {
+    code = createRoom();
+    io.emit("code", code);
+});
+
+const createRoom = () => {
+
+    code = makeid();
+    console.log(`creating room ${code}`);
+    game = new Game.Game(code);
+    rooms.append(game);
+    
 }
 
-app.listen(port, () => console.log(`Listening on port ${port}`)); 
-serverFX();
+function makeid() {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < 4; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * 
+        charactersLength));
+    }
+    return result;
+}
 
+socket.on("join", (code, name)=> {
 
+    for(g in rooms){
+        if(g.code == code){
+            currentGame = g;
+        }
+    }
+    currentGame.Game.addPlayer(name);
+    socket.send("Joined!");
+});
+
+const sendState = () => {
+    //How do i send the right game's state to the right clients?
+    //Does the client have to send the code every time
+    //or is there a way to store and emit to specific clients 
+}
+
+const recordWolfVotes = () =>{
+
+}
+
+const rescordAllVotes = () => {
+
+}
+
+const sendEaten = () => {
+    
+}
+
+const asignRole = () => {
+
+}
+
+});//Socket is always on
+
+server.listen(port, () => console.log(`Listening on port ${port}`));
