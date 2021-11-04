@@ -2,26 +2,41 @@ import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory, BrowserRouter} from "react-router-dom";
 import './Lounge.css';
 import Timer from '../Components/Timer';
+import socketIOClient from "socket.io-client";
+const ENDPOINT = "http://127.0.0.1:6006";
 
 function Lounge({gotoHandle}){
   const history = useHistory();
   const [code, setCode] = useState("");
   const [isReady, setisReady] = useState(0);
   const [players,setPlayers] = useState([]);
-
+  const socket = socketIOClient(ENDPOINT);
 
   useEffect(() =>{
-    createRoom();
+
+    socket.send("createRoom", data => {
+      createRoom(data);
+    });
+    //CLEAN UP THE EFFECT
+    return () => socket.disconnect();
   },[])
 
+  socket.on("code", data => {
+    createRoom(data);
+  });
 
-  const createRoom = ()=>{
-    setCode("XXX");
+  const createRoom = (code)=>{
+
+    setCode(code);
     // TODO: Call Server to create a room and return a code
     // TODO: Call Server to get player's names (and possibly unique ID?) 
     setPlayers(['XXX','XXX','XXX','XXX', 'XXX']);
     
     return code;
+  }
+
+  const addPlayers = ()=>{
+
   }
 
   const timesUp = () => {
