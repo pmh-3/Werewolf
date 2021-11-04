@@ -11,12 +11,22 @@ function WelcomePage() {
 
     return (
         <>
-        <div className='welcome-page'>
-          <h1>
+        <div className="text-center font-spooky">
+          <p className="pt-24 text-computer text-orange">
           Werewolf
-          </h1> 
-          <button onClick={() => history.push("/TV")} >START</button>
-          <button onClick={() => history.push("/device")} >JOIN</button>
+          </p> 
+          <button 
+            className="text-8xl bg-orange text-teeth text-button hover:bg-darkOrange px-10 rounded-full mr-4 inline-flex " 
+            onClick={() => history.push("/TV")} 
+          >
+            START
+          </button>
+          <button 
+            className="bg-orange text-teeth text-button hover:bg-darkOrange px-12 rounded-full inline-flex"
+            onClick={() => history.push("/device")} 
+          >
+            JOIN
+          </button>
           <h1>
             <SIOEX/>
           </h1>
