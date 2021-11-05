@@ -20,17 +20,16 @@ function Day({gotoHandle}){
 
   return (
       <>
-      <div className="day">
+      <div className="day text-orange font-spooky text-center text-large">
         <h1>
-        VOTING PAGE
-        
+        VOTE SOMEONE OUT OF THE TOWN
         {players.map((n)=>(
           <li>{n}</li>
         ))}
         <Timer timesUp ={timesUp}></Timer>
         </h1> 
        
-        <button  onClick={() => gotoHandle("sunset")} >goToSunset</button>
+        <button className="text-medium absolute bottom-5 left-3" onClick={() => gotoHandle("sunset")} >goToSunset</button>
        
       </div>
       </>

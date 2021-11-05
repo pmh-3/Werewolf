@@ -12,16 +12,15 @@ function Night({gotoHandle}){
 
   return (
       <>
-      <div className="night">
-        <h1>
-          NIGHT PAGE
+      <div className="night text-orange font-spooky">
+        <h1 className="text-center text-header">
+          NIGHT HAS FALLEN
           <br></br>
-          All wolves have to agree on the same person before time runs out! Otherwise, no one is killed!
           <Timer timesUp ={timesUp}></Timer>
           </h1>
          
     
-        <button  onClick={() => gotoHandle("sunrise")} >GotoSunrise</button>
+        <button className="text-medium absolute bottom-5 left-3"  onClick={() => gotoHandle("sunrise")} >GotoSunrise</button>
        
       </div>
       </>

@@ -20,23 +20,16 @@ function Introduction({gotoHandle}){
 
   return (
       <>
-      <div className="introduction">
-        <h1>
-        Introduction
-        </h1> 
-        <h1>
-        There are currently XXX wolves here in town!<br></br>
-        The town's destiny depends on XXX villagers!<br></br>
-        The wolves can kill at night.<br></br>
-        Everyone will vote during the day.<br></br>
-        Don't let others see your identity!<br></br> Good luck!
+      <div className="introduction text-orange font-spooky"> 
+        <h1 className="text-center text-large">
+        Wolves have infiltrated the town!<br></br>
+        The wolves will kill once night falls.<br></br>
+        The town's destiny depends on the villagers!<br></br>
+        Everyone will vote to kick out someone once day breaks.<br></br>
+        Don't trust anyone with your identity!<br></br> Good luck!
         <Timer timesUp ={timesUp}></Timer>
-        </h1>
-
-        
-        
-        <button  onClick={() => gotoHandle("night")} >GoToNight</button>
-       
+        </h1>   
+        <button className="text-medium absolute bottom-5 left-3"  onClick={() => gotoHandle("night")} >GoToNight</button>
       </div>
       </>
   )

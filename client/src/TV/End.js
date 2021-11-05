@@ -21,21 +21,20 @@ function End({gotoHandle}){
 
   return (
       <>
-      <div className="end">
-        <h1>
-          XXXX WON!<br></br>
-          <br></br>
-          Here is everyone's identity:
+      <div className="end text-center text-large text-orange font-spooky">
+        <h1 className="text-header">
+          XXXX WON!
+          <p className="text-large">
+          Identity reveal:
           {players.map((n)=>(
           <li>{n}</li>
           ))}
-        
-
           <Timer timesUp ={timesUp}></Timer>
+          </p>
           </h1>
          
         
-        <button  onClick={() => history.push("/")} >GotoMain</button>
+        <button className="text-medium absolute bottom-5 left-3"  onClick={() => history.push("/")} >GotoMain</button>
        
       </div>
       </>

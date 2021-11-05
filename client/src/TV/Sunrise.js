@@ -19,19 +19,16 @@ function Sunrise({gotoHandle}){
 
   return (
       <>
-      <div className="sunrise">
-        <h1>
+      <div className="sunrise text-orange font-spooky">
+        <h1 className="text-center text-large">
           SUNRISE<br></br>
-          SORRY XXX was killed<br></br>
-          OR<br></br>
-          NO ONE was killed<br></br>
+          XXX was killed<br></br>
+          XXX was Saved<br></br>
+         <br></br>
           NOW it's time to discuss and vote one of you OUT!
           <Timer timesUp ={timesUp}></Timer>
           </h1>
-         
-        
-        <button  onClick={() => gotoHandle("day")} >GotoDay</button>
-       
+        <button className="text-medium absolute bottom-5 left-3"onClick={() => gotoHandle("day")} >GotoDay</button>
       </div>
       </>
   )

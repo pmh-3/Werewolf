@@ -18,17 +18,17 @@ function Sunset({gotoHandle}){
 
   return (
       <>
-      <div className="sunset">
+      <div className="sunset text-large text-center text-orange font-spooky">
         <h1>
           SUNSET<br></br>
-          XXX is voted OUT! <br></br>
-          IF GAME DIDN'T END, LOOP BACK TO NIGHT PAGE <br></br>
-          OTHERWISE GO TO END <br></br>
+          XXX has been voted OUT! <br></br>
+          {/* IF GAME DIDN'T END, LOOP BACK TO NIGHT PAGE <br></br>
+          OTHERWISE GO TO END  */}<br></br>
           <Timer timesUp ={timesUp}></Timer>
           </h1>
          
         
-        <button  onClick={() => gotoHandle("end")} >GotoEnd</button>
+        <button className="text-medium absolute bottom-5 left-3"  onClick={() => gotoHandle("end")} >GotoEnd</button>
        
       </div>
       </>

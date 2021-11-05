@@ -58,9 +58,9 @@ function Lounge({gotoHandle}){
           </p>
         </p>
       </h1>
-        <p className="text-header absolute top-0 right-3">
-        Enter ROOM CODE :<br></br> 
-          <p className="absolute top-201 right-10 bg-orange text-teeth rounded px-10">
+        <p className="text-large absolute top-0 right-10">
+        ENTER ROOM CODE <br></br> 
+          <p className="text-header absolute top-201 right-10 bg-orange text-teeth rounded px-10">
           XYZ
           {/*  This will be repaced later with {code} */}
           </p>
@@ -69,10 +69,10 @@ function Lounge({gotoHandle}){
           FIRST Player to join, press start on phone to start game.
           <Timer timesUp ={timesUp}></Timer>
         </h2>
-        <p className="absolute bottom-5 right-3 text-small">
+        <p className="absolute bottom-5 right-3 text-medium">
         WAITING FOR PLAYERS ...
         </p>
-       <button className="absolute bottom-5 left-3 text-small"  onClick={() => gotoHandle("intro")} >GotoIntroduction</button>
+       <button className="absolute bottom-5 left-3 text-medium"  onClick={() => gotoHandle("intro")} >GotoIntroduction</button>
       </div>
       </>
   )
