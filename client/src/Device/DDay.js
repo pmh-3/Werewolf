@@ -21,7 +21,9 @@ function DDay({gotoHandle}){
       <>
       <div>
         <h1>
-        Device Day: VOTING PAGE
+        DEVICE DAY: VOTING PAGE
+        <br></br>
+        Pick someone! 
         
         {players.map((n)=>(
           <li>{n}</li>
@@ -29,7 +31,7 @@ function DDay({gotoHandle}){
         <Timer timesUp ={timesUp}></Timer>
         </h1> 
        
-        <button  onClick={() => gotoHandle("sunset")} >goToSunset</button>
+        <button  onClick={() => gotoHandle("sunset")} >goToSunsetButton</button>
        
       </div>
       </>

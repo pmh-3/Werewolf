@@ -20,15 +20,14 @@ function DSunset({gotoHandle}){
       <>
       <div className="sunset">
         <h1>
-          SUNSET<br></br>
-          XXX is voted OUT! <br></br>
-          IF GAME DIDN'T END, LOOP BACK TO NIGHT PAGE <br></br>
-          OTHERWISE GO TO END <br></br>
+          DEVICE SUNSET PAGE<br></br>
+          (IF GAME DIDN'T END, LOOP BACK TO NIGHT PAGE<br></br>
+          OTHERWISE GO TO END)<br></br>
           <Timer timesUp ={timesUp}></Timer>
           </h1>
          
         
-          <button  onClick={() => gotoHandle("end")} >GoToEnd</button>
+          <button  onClick={() => gotoHandle("end")} >GoToEndButton</button>
        
       </div>
       </>

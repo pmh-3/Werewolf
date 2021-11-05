@@ -36,9 +36,7 @@ function TV(){
     }else if(selector == "sunset") {
         screen = <Sunset gotoHandle = {goto}/>
     }else if(selector == "end") {
-        screen = <End gotoHandle = {goto}/>
-    }else {
-        console.log("end of game")
+        screen = <End/>
     }
 
   return (
