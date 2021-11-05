@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory, BrowserRouter} from "react-router-dom";
-import Timer from '../Components/Timer';
+import Timer from '../services/Timer';
 import socketIOClient from "socket.io-client";
 const ENDPOINT = "http://127.0.0.1:6006";
 

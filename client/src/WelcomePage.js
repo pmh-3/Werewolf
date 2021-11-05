@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
 import './WelcomePage.css';
-import SIOEX from './Components/SocketIO_EX'; 
+import SIOEX from './components/services/SocketIO_EX';
 
 
 function WelcomePage() {

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
-import Timer from '../Components/Timer';
+import Timer from '../services/Timer';
 
 function Sunrise({gotoHandle}){
   const history = useHistory();

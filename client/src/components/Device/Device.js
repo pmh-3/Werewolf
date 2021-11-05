@@ -9,9 +9,9 @@ import DDay from './DDay.js';
 import DSunset from './DSunset.js';
 import DEnd from './DEnd.js';
 
-import villager from '../assets/images/roles/villager.png'
-import werewolf from '../assets/images/roles/werewolf.png'
-import healer from '../assets/images/roles/healer.png'
+import villager from '../../assets/images/roles/villager.png'
+import werewolf from '../../assets/images/roles/werewolf.png'
+import healer from '../../assets/images/roles/healer.png'
 
 function Device(){
     const history = useHistory();

@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
-import Timer from '../Components/Timer';
+import Timer from '../services/Timer';
 
-function DEnd(){
+function End({gotoHandle}){
   const history = useHistory();
   const [players,setPlayers] = useState([]);
 
   const timesUp = () => {
     console.log("time up in end")
-    history.push("/")
+    history.push("/");
     }
 
     useEffect(()=>{
@@ -21,23 +21,23 @@ function DEnd(){
 
   return (
       <>
-      <div className="end">
-        <h1>
-          DEVICE END PAGE: XXXX WON!<br></br>
-          <br></br>
-          Here is everyone's identity:
+      <div className="end text-center text-large text-orange font-spooky">
+        <h1 className="text-header">
+          XXXX WON!
+          <p className="text-large">
+          Identity reveal:
           {players.map((n)=>(
           <li>{n}</li>
           ))}
-        
           <Timer timesUp ={timesUp}></Timer>
+          </p>
           </h1>
          
         
-        <button  onClick={() => history.push("/")} >GotoMain</button>
+        <button className="text-medium absolute bottom-5 left-3"  onClick={() => history.push("/")} >GotoMain</button>
        
       </div>
       </>
   )
 }
-export default DEnd;
+export default End;

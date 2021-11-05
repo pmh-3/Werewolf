@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
-import Timer from "../Components/Timer";
+import Timer from "../services/Timer";
 
 
-import villager from '../assets/images/roles/villager.png'
-import werewolf from '../assets/images/roles/werewolf.png'
-import healer from '../assets/images/roles/healer.png'
+import villager from '../../assets/images/roles/villager.png'
+import werewolf from '../../assets/images/roles/werewolf.png'
+import healer from '../../assets/images/roles/healer.png'
 
 function DRole({gotoHandle}) {
     const history = useHistory();

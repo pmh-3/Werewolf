@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import './App.css';
 import WelcomePage from './WelcomePage.js';
-import Device from './Device/Device.js';
-import TV from './TV/TV.js';
+import Device from './components/Device/Device.js';
+import TV from './components/TV/TV.js';
 function App() {
 
   const [state,setState] = useState('init');
