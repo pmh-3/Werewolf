@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
-import './Day.css';
 import Timer from "../Components/Timer";
 
 function Day({gotoHandle}){

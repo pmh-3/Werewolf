@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
-import './Introduction.css';
 import Timer from '../Components/Timer';
 
 function Introduction({gotoHandle}){
