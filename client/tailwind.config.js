@@ -13,6 +13,10 @@ module.exports = {
     fontSize: {
       'computer': '10rem',
       'TV': '15rem',
+      'header': '6rem',
+      'large': '3rem',
+      'medium': '2rem',
+      'small': '1rem',
       'button': '2rem',
     },
     screens: {

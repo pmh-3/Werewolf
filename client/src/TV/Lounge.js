@@ -31,6 +31,7 @@ function Lounge({gotoHandle}){
     // TODO: Call Server to get player's names (and possibly unique ID?) 
     setPlayers(['XXX','XXX','XXX','XXX', 'XXX']);
     
+    code = "XYZ"; //temp
     return code;
   }
 
@@ -45,31 +46,33 @@ function Lounge({gotoHandle}){
 
   return (
       <>
-      <div className="lounge">
-        <h1>
-        Werewolf<br></br>
-        Lounge
-        </h1> 
-        <h1>
-        Enter ROOM CODE:<br></br> {code}
-        </h1>
-        <h2>
-        Players joined: 
-        {players.map((n)=>(
-          <li>{n}</li>
-        ))}
-        </h2>
-        <h2>
+      <div className="lounge font-spooky text-orange">
+      <h1 className="text-header absolute top-0 left-3">
+        Werewolf
+        <p className="text-medium absolute left-3 top-21">
+          Lounge
+          <p> 
+            {players.map((n)=>(
+            <li>{n}</li>
+            ))}
+          </p>
+        </p>
+      </h1>
+        <p className="text-header absolute top-0 right-3">
+        Enter ROOM CODE :<br></br> 
+          <p className="absolute top-201 right-10 bg-orange text-teeth rounded px-10">
+          XYZ
+          {/*  This will be repaced later with {code} */}
+          </p>
+        </p>
+        <h2 className="absolute bottom-20 left-3 text-medium">
           FIRST Player to join, press start on phone to start game.
           <Timer timesUp ={timesUp}></Timer>
         </h2>
-        <h3>
+        <p className="absolute bottom-5 right-3 text-small">
         WAITING FOR PLAYERS ...
-        </h3>
-
-       <button  onClick={() => gotoHandle("intro")} >GotoIntroduction</button>
-
-       
+        </p>
+       <button className="absolute bottom-5 left-3 text-small"  onClick={() => gotoHandle("intro")} >GotoIntroduction</button>
       </div>
       </>
   )
