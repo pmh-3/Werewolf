@@ -3,10 +3,6 @@ import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router
 import Timer from "../Components/Timer";
 
 
-import villager from '../assets/images/roles/villager.png'
-import werewolf from '../assets/images/roles/werewolf.png'
-import healer from '../assets/images/roles/healer.png'
-
 function DLounge({gotoHandle}){
   const history = useHistory();
   const [code, setCode] = useState("");
@@ -14,41 +10,27 @@ function DLounge({gotoHandle}){
 
   const beginGame = ()=>{
       //tell server players are ready
-      history.push("/Role");
+      gotoHandle("role")
   }
-
-
-  const timesUp = () => {
-    console.log("time up in day");
-    gotoHandle("role");
-	}
-
-
-
-  //Server sends a message to this page to start the game by moving to instructions
 
   return (
       <>
       <div className="lounge">
         <h1>
-        Lounge
+        DEVICE LOUNGE PAGE 
         </h1> 
         <h1>
         First Player to join, starts the game.
         </h1>
-
-        <button  onClick={() =>beginGame() } >Start Game</button>
-
-        <img className='villager' src={villager}></img> 
-        <img className='werewolf' src={werewolf}></img> 
-        <img className='healer' src={healer}></img> 
-
+        <br></br>
+        (players will show up here)...
+        <br></br>
+        <br></br>
         <h3>
-        WAITING FOR PLAYERS ...
+        Waiting for players...
         </h3>
-        <Timer timesUp ={timesUp}></Timer>
-        <button  onClick={() => gotoHandle("role")} >GoToRole</button>
 
+        <button  onClick={() =>beginGame() } >StartGameButton</button>
 
       </div>
       </>

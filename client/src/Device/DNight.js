@@ -15,14 +15,18 @@ function DNight({gotoHandle}){
       <>
       <div className="night">
         <h1>
-          NIGHT PAGE
+          DEVICE NIGHT PAGE
           <br></br>
-          All wolves have to agree on the same person before time runs out! Otherwise, no one is killed!
+          (IDENTITY NAME)
+          <br></br>
+          WHO DO YOU WANT TO XXX (kill/heal/pick)?
+          <br></br>
+          (Show a list of players to be picked)
+
           <Timer timesUp ={timesUp}></Timer>
           </h1>
          
-    
-        <button  onClick={() => gotoHandle("sunrise")} >GotoSunrise</button>
+        <button  onClick={() => gotoHandle("sunrise")} >GotoSunriseButton</button>
        
       </div>
       </>

@@ -45,8 +45,6 @@ function Device(){
         screen = <DSunset gotoHandle = {goto}/>
     }else if(selector == "end") {
         screen = <DEnd/>
-    }else {
-        console.log("end of game")
     }
 
 

@@ -21,16 +21,15 @@ function DSunrise({gotoHandle}){
       <>
       <div className="sunrise">
         <h1>
-          SUNRISE<br></br>
-          SORRY XXX was killed<br></br>
-          OR<br></br>
-          NO ONE was killed<br></br>
-          NOW it's time to discuss and vote one of you OUT!
+          DEVICE SUNRISE PAGE<br></br>
+          
+          (NOT SURE WHAT TO SHOW HERE)
+          <br></br>
+
           <Timer timesUp ={timesUp}></Timer>
           </h1>
-         
         
-          <button  onClick={() => gotoHandle("day")} >GoToDay</button>
+          <button  onClick={() => gotoHandle("day")} >GoToDayButton</button>
        
       </div>
       </>

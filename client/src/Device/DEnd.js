@@ -23,14 +23,13 @@ function DEnd(){
       <>
       <div className="end">
         <h1>
-          XXXX WON!<br></br>
+          DEVICE END PAGE: XXXX WON!<br></br>
           <br></br>
           Here is everyone's identity:
           {players.map((n)=>(
           <li>{n}</li>
           ))}
         
-
           <Timer timesUp ={timesUp}></Timer>
           </h1>
          

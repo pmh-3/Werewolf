@@ -11,7 +11,7 @@ function DRole({gotoHandle}) {
     const history = useHistory();
 
     const [role, setRole] = useState('werewolf');
-    const [instructions, setIns] = useState('you must remain undetected while you eliminate villagers during the night.')
+    const [instructions, setIns] = useState('You must remain undetected while you eliminate villagers during the night.')
 
     useEffect(()=>{
         //receive role from server 
@@ -29,16 +29,19 @@ function DRole({gotoHandle}) {
       <>
       <div>
         <h1>
-        You are a {role}
+        DEVICE ROLE PAGE   
         </h1> 
+        <h2>
+        You are a {role}
+        </h2>
         <h2>
         {instructions}
         </h2>
-
-       <img className='werewolf' src={werewolf}></img> 
+        
+       {/* <img className='werewolf' src={werewolf}></img>  */}
 
        <Timer timesUp ={timesUp}></Timer>
-       <button  onClick={() => gotoHandle("night")} >GoToNight</button>
+       <button  onClick={() => gotoHandle("night")} >GoToNightButton</button>
       </div>
       </>
   )

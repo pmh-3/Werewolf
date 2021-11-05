@@ -9,14 +9,14 @@ function DJoin({gotoHandle}){
   const timesUp = () => {
     console.log("time up in end")
     gotoHandle("lounge");
-    }
+  }
 
 
   return (
       <>
       <div className="join-instruction">
         <h1>
-        Werewolf
+        DEVICE JOIN PAGE
         </h1> 
         <h2>
         ROOM CODE
@@ -27,7 +27,7 @@ function DJoin({gotoHandle}){
         </h2>
         <input type='text' />
         <Timer timesUp ={timesUp}></Timer>
-        <button  onClick={() => gotoHandle("lounge")} >GoToLounge</button>
+        <button  onClick={() => gotoHandle("lounge")} >GoToLoungeButton</button>
       </div>
       
       </>
