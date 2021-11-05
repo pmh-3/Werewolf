@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
-import './Night.css';
 import Timer from '../Components/Timer';
 
 function Night({gotoHandle}){
