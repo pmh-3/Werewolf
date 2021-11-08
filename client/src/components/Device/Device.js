@@ -16,6 +16,7 @@ import healer from '../../assets/images/roles/healer.png'
 function Device(){
     const history = useHistory();
     const [selector, setSel] = useState("join");
+    const [code, setCode] = useState();
 
 
     useEffect(()=>{
@@ -27,12 +28,13 @@ function Device(){
         setSel(newState);
 
     }
+    const setCodeHandle = (c) =>{setCode(c)}
 
     var screen = <></>;
     if(selector == "join"){
-        screen = <DJoin gotoHandle = {goto}/>
+        screen = <DJoin gotoHandle = {goto} setCodeHandle = {setCodeHandle}/>
     }else if(selector == "lounge"){
-        screen = <DLounge gotoHandle = {goto}/>
+        screen = <DLounge gotoHandle = {goto} Gcode = {code}/>
     }else if(selector == "role") {
         screen = <DRole gotoHandle = {goto}/>
     }else if(selector == "night") {

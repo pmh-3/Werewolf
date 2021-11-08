@@ -6,71 +6,66 @@ const index = require("./routes/index");
 const app = express(); 
 var Game = require('./Game');
 
+//If Executioin policy is disabled run: Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 app.use(index);
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: { origin: "*" }
 });
 
-/***********************Example ***************************/
-let interval;
+const rooms = { }
+var games = []
+
 io.on("connection", (socket) => {
     console.log("New client connected");
-    if(interval) {
-        clearInterval(interval);
-    }
-    interval = setInterval(() => getApiAndEmit(socket), 1000);
-    socket.on("disconnect", () => {
-        console.log("Client disconnected");
-        clearInterval(interval);
+
+    socket.on("create-room", () => {
+        console.log("room created");
+        code = createRoom();
+        socket.join(code);
+        //may have to return directly to client if concurent games
+        io.emit("code", code);
     });
 
+    socket.on("join", (code, name)=> {
 
-//socket argument is nothing more than a com channel
-const getApiAndEmit = socket => {
-    const response = new Date();
-    //Emit new message to be consumed by client
-    socket.emit("FromAPI", response);
-};
-/***********************Example ***************************/
+        //can only join an existing game
+        if(rooms[code] != null){
+            console.log("player joined", code, name);
+            socket.join(code);
+            rooms[code].users[socket.id] = name;
+            currentGame = games[0];
+            for(g in games){
+                if(g.code == code){
+                    currentGame = g;
+                }
+            }
+            currentGame.addPlayer(name);
+            io.to(code).emit('joined', name);
+        }
+    });
+});//io.off
 
-var rooms = [];
-
-socket.on("createRoom", () => {
-    code = createRoom();
-    io.emit("code", code);
-});
 
 const createRoom = () => {
-
     code = makeid();
     console.log(`creating room ${code}`);
-    game = new Game.Game(code);
-    rooms.append(game);
-    
+    game = new Game(code);
+    rooms[code] = { users: {} };
+    games.push(game);
+    return code;
 }
 
 function makeid() {
     var result           = '';
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var charactersLength = characters.length;
-    for ( var i = 0; i < 4; i++ ) {
+    for ( var i = 0; i < 3; i++ ) {
         result += characters.charAt(Math.floor(Math.random() * 
         charactersLength));
     }
     return result;
 }
-
-socket.on("join", (code, name)=> {
-
-    for(g in rooms){
-        if(g.code == code){
-            currentGame = g;
-        }
-    }
-    currentGame.Game.addPlayer(name);
-    socket.send("Joined!");
-});
 
 const sendState = () => {
     //How do i send the right game's state to the right clients?
@@ -94,6 +89,22 @@ const asignRole = () => {
 
 }
 
-});//Socket is always on
-
 server.listen(port, () => console.log(`Listening on port ${port}`));
+
+/***********************Example ***************************/
+//     //socket argument is nothing more than a com channel
+//     const getApiAndEmit = socket => {
+//         const response = new Date();
+//         //Emit new message to be consumed by client
+//         socket.emit("FromAPI", response);
+
+//         if(interval) {
+//             clearInterval(interval);
+//         }
+//         interval = setInterval(() => getApiAndEmit(socket), 1000);
+//         socket.on("disconnect", () => {
+//             console.log("Client disconnected");
+//             clearInterval(interval);
+//         });
+//         /***********************Example ***************************/
+// let interval;

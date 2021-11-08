@@ -1,8 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
 import './WelcomePage.css';
-import SIOEX from './components/services/SocketIO_EX';
-
 
 function WelcomePage() {
     const history = useHistory();
@@ -27,9 +25,6 @@ function WelcomePage() {
           >
             JOIN
           </button>
-          <h1>
-            <SIOEX/>
-          </h1>
         </div>
         </>
     )

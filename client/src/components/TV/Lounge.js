@@ -13,31 +13,18 @@ function Lounge({gotoHandle}){
 
   useEffect(() =>{
 
-    socket.send("createRoom", data => {
-      createRoom(data);
-    });
+    socket.emit("create-room");
     //CLEAN UP THE EFFECT
     return () => socket.disconnect();
   },[])
 
   socket.on("code", data => {
-    createRoom(data);
+    setCode(data);
   });
 
-  const createRoom = (code)=>{
-
-    setCode(code);
-    // TODO: Call Server to create a room and return a code
-    // TODO: Call Server to get player's names (and possibly unique ID?) 
-    setPlayers(['XXX','XXX','XXX','XXX', 'XXX']);
-    
-    code = "XYZ"; //temp
-    return code;
-  }
-
-  const addPlayers = ()=>{
-
-  }
+  socket.on("joined", name =>{
+     setPlayers(players => [...players, name]);
+  })
 
   const timesUp = () => {
     console.log("time up in lounge");
@@ -52,6 +39,7 @@ function Lounge({gotoHandle}){
         <p className="text-medium absolute left-3 top-21">
           Lounge
           <p> 
+            Players:
             {players.map((n)=>(
             <li>{n}</li>
             ))}
@@ -61,8 +49,7 @@ function Lounge({gotoHandle}){
         <p className="text-large absolute top-0 right-10">
         ENTER ROOM CODE <br></br> 
           <p className="text-header absolute top-201 right-10 bg-orange text-teeth rounded px-10">
-          XYZ
-          {/*  This will be repaced later with {code} */}
+          {code}
           </p>
         </p>
         <h2 className="absolute bottom-20 left-3 text-medium">
