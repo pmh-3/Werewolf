@@ -5,6 +5,8 @@ const port = process.env.PORT || 6006;
 const index = require("./routes/index");
 const app = express(); 
 var Game = require('./Game');
+const { count, timeLog } = require('console');
+const { compileFunction } = require('vm');
 
 //If Executioin policy is disabled run: Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 app.use(index);
@@ -44,6 +46,34 @@ io.on("connection", (socket) => {
             io.to(code).emit('joined', name);
         }
     });
+
+    socket.on("start", (code) => {
+        // can only start an existing game
+        if (rooms[code] != null) {
+            let nextPage = "startGame";
+            console.log("game started", code);
+            socket.join(code);
+            io.to(code).emit('startGame', nextPage);
+
+        }
+    });
+
+    socket.on("startTimer", function(timerLength, nextPage, code) {
+        console.log(nextPage + "timer started");
+        socket.join(code);
+        let countDown = setInterval(function() {
+            io.to(code).emit('counter', timerLength);
+            timerLength--;
+            if (timerLength === 0) {
+                console.log("times up!!!!!!");
+                io.to(code).emit('timesUp', nextPage);
+                clearInterval(countDown);
+            }
+        }, 1000);
+    });
+
+
+    
 });//io.off
 
 
@@ -66,6 +96,7 @@ function makeid() {
     }
     return result;
 }
+
 
 const sendState = () => {
     //How do i send the right game's state to the right clients?

@@ -13,14 +13,20 @@ function DLounge({gotoHandle, Gcode}){
 
   const beginGame = ()=>{
       //tell server players are ready
-      gotoHandle("role")
+      // gotoHandle("role")
+
+    socket.emit('start', code);
+    socket.on('startGame', nextPage => {
+      gotoHandle(nextPage);
+    })
   }
+
 
   socket.on("joined", name =>{
     setPlayers(players => [...players, name]);
  })
 
-  socket.emit('start', code);
+  
 
   return (
       <>
@@ -31,12 +37,6 @@ function DLounge({gotoHandle, Gcode}){
         <h1>
         First Player to join, starts the game.
         </h1>
-        <br></br>
-        Players:
-            {players.map((n)=>(
-            <li>{n}</li>
-            ))}
-        <br></br>
         <br></br>
         <h3>
         Waiting for players...

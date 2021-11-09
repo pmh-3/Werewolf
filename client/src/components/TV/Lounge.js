@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory, BrowserRouter} from "react-router-dom";
-import Timer from '../services/Timer';
 import socketIOClient from "socket.io-client";
 const ENDPOINT = "http://127.0.0.1:6006";
 
-function Lounge({gotoHandle}){
+
+function Lounge({gotoHandle, setSocketHandle}){
   const history = useHistory();
   const [code, setCode] = useState("");
   const [isReady, setisReady] = useState(0);
@@ -15,7 +15,11 @@ function Lounge({gotoHandle}){
 
     socket.emit("create-room");
     //CLEAN UP THE EFFECT
-    return () => socket.disconnect();
+    // return () => socket.disconnect();
+
+    setSocketHandle(socket);
+    
+  
   },[])
 
   socket.on("code", data => {
@@ -26,10 +30,13 @@ function Lounge({gotoHandle}){
      setPlayers(players => [...players, name]);
   })
 
-  const timesUp = () => {
-    console.log("time up in lounge");
-    gotoHandle("intro");
-	}
+  
+  socket.on("startGame", nextPage => {
+    gotoHandle(nextPage);
+  })
+
+  
+
 
   return (
       <>
@@ -54,12 +61,12 @@ function Lounge({gotoHandle}){
         </p>
         <h2 className="absolute bottom-20 left-3 text-medium">
           FIRST Player to join, press start on phone to start game.
-          <Timer timesUp ={timesUp}></Timer>
+
         </h2>
         <p className="absolute bottom-5 right-3 text-medium">
         WAITING FOR PLAYERS ...
         </p>
-       <button className="absolute bottom-5 left-3 text-medium"  onClick={() => gotoHandle("intro")} >GotoIntroduction</button>
+       {/* <button className="absolute bottom-5 left-3 text-medium"  onClick={() => gotoHandle("intro")} >GotoIntroduction</button> */}
       </div>
       </>
   )
