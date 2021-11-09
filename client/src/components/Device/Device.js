@@ -35,8 +35,8 @@ function Device(){
         screen = <DJoin gotoHandle = {goto} setCodeHandle = {setCodeHandle}/>
     }else if(selector == "lounge"){
         screen = <DLounge gotoHandle = {goto} Gcode = {code}/>
-    }else if(selector == "role") {
-        screen = <DRole gotoHandle = {goto}/>
+    }else if(selector == "startGame") {
+        screen = <DRole gotoHandle = {goto} Gcode = {code}/>
     }else if(selector == "night") {
         screen = <DNight gotoHandle = {goto}/>
     }else if(selector == "sunrise") {

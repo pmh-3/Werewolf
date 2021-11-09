@@ -1,21 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
-import Timer from '../services/Timer';
 
-function Introduction({gotoHandle}){
-
+function Introduction({gotoHandle, socket}){
+  const [mySocket, setSocket] = useState(socket);
   const history = useHistory();
 
-  const timesUp = () => {
-    console.log("time up in intro");
-    gotoHandle("night");
-	}
-
   useEffect(() =>{
-    // TODO: Call server to get how many wolves, how many villagers 
-    
+  
 
   },[])
+
+  mySocket.on("timesUp", nextPage => {
+    if (nextPage == "night") {
+      console.log("go to NIGHT");
+      gotoHandle(nextPage);
+    }
+  })
 
 
   return (
@@ -27,9 +27,8 @@ function Introduction({gotoHandle}){
         The town's destiny depends on the villagers!<br></br>
         Everyone will vote to kick out someone once day breaks.<br></br>
         Don't trust anyone with your identity!<br></br> Good luck!
-        <Timer timesUp ={timesUp}></Timer>
         </h1>   
-        <button className="text-medium absolute bottom-5 left-3"  onClick={() => gotoHandle("night")} >GoToNight</button>
+        {/* <button className="text-medium absolute bottom-5 left-3"  onClick={() => gotoHandle("night")} >GoToNight</button> */}
       </div>
       </>
   )

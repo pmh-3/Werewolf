@@ -9,9 +9,11 @@ import Sunset from "./Sunset.js";
 import End from "./End.js";
 
 
+
 function TV(){
     const history = useHistory();
     const [selector, setSel] = useState('init');
+    const [socket, setSocket] = useState();
 
     useEffect(()=>{
         //receive ... from server
@@ -21,12 +23,14 @@ function TV(){
     const goto =(newState)=>{
         setSel(newState); 
     }
+
+    const setSocketHandle = (c) =>{setSocket(c)}
     
     var screen = <></>;
     if(selector == "init"){
-        screen = <Lounge gotoHandle = {goto}/>
-    }else if(selector == "intro"){
-        screen = <Introduction gotoHandle = {goto}/>
+        screen = <Lounge gotoHandle = {goto} setSocketHandle = {setSocketHandle}/>
+    }else if(selector == "startGame"){
+        screen = <Introduction gotoHandle = {goto} socket = {socket}/>
     }else if(selector == "night") {
         screen = <Night gotoHandle = {goto}/>
     }else if(selector == "sunrise") {
