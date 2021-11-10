@@ -11,7 +11,7 @@ function Introduction({gotoHandle, socket}){
   },[])
 
   mySocket.on("timesUp", nextPage => {
-    if (nextPage == "night") {
+    if (nextPage === "night") {
       console.log("go to NIGHT");
       gotoHandle(nextPage);
     }

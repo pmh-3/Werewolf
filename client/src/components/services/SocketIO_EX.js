@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import socketIOClient from "socket.io-client";
-const ENDPOINT = "http://127.0.0.1:6006";
+
 
 export default function SocketIO_EX() {
   const [response, setResponse] = useState("init");

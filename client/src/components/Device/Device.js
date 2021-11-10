@@ -31,22 +31,22 @@ function Device(){
     const setCodeHandle = (c) =>{setCode(c)}
 
     var screen = <></>;
-    if(selector == "join"){
-        screen = <DJoin gotoHandle = {goto} setCodeHandle = {setCodeHandle}/>
-    }else if(selector == "lounge"){
-        screen = <DLounge gotoHandle = {goto} Gcode = {code}/>
-    }else if(selector == "startGame") {
-        screen = <DRole gotoHandle = {goto} Gcode = {code}/>
-    }else if(selector == "night") {
-        screen = <DNight gotoHandle = {goto}/>
-    }else if(selector == "sunrise") {
-        screen = <DSunrise gotoHandle = {goto}/>
-    }else if(selector == "day") {
-        screen = <DDay gotoHandle = {goto}/>
-    }else if(selector == "sunset") {
-        screen = <DSunset gotoHandle = {goto}/>
-    }else if(selector == "end") {
-        screen = <DEnd/>
+    if (selector === "join") {
+      screen = <DJoin gotoHandle={goto} setCodeHandle={setCodeHandle} />;
+    } else if (selector === "lounge") {
+      screen = <DLounge gotoHandle={goto} Gcode={code} />;
+    } else if (selector === "startGame") {
+      screen = <DRole gotoHandle={goto} Gcode={code} />;
+    } else if (selector === "night") {
+      screen = <DNight gotoHandle={goto} />;
+    } else if (selector === "sunrise") {
+      screen = <DSunrise gotoHandle={goto} />;
+    } else if (selector === "day") {
+      screen = <DDay gotoHandle={goto} />;
+    } else if (selector === "sunset") {
+      screen = <DSunset gotoHandle={goto} />;
+    } else if (selector === "end") {
+      screen = <DEnd />;
     }
 
 

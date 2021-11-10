@@ -38,7 +38,7 @@ io.on("connection", (socket) => {
             rooms[code].users[socket.id] = name;
             currentGame = games[0];
             for(g in games){
-                if(g.code == code){
+                if(g.code === code){
                     currentGame = g;
                 }
             }
@@ -64,7 +64,7 @@ io.on("connection", (socket) => {
         let countDown = setInterval(function() {
             io.to(code).emit('counter', timerLength);
             timerLength--;
-            if (timerLength === 0) {
+            if (timerLength ==== 0) {
                 console.log("times up!!!!!!");
                 io.to(code).emit('timesUp', nextPage);
                 clearInterval(countDown);
