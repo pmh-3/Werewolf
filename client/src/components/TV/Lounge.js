@@ -10,12 +10,11 @@ import {
 import { SocketContext } from "../services/Socket";
 import { roomIdState, playersState } from "../services/Atoms";
 
-function Lounge({ gotoHandle }) {
+function Lounge() {
   // SocketContext
   const socket = useContext(SocketContext);
   // useHistory - react router dom
   const history = useHistory();
-
   // room id
   const [roomId, setRoomId] = useRecoilState(roomIdState);
   // current room players
@@ -35,27 +34,11 @@ function Lounge({ gotoHandle }) {
     }
   });
 
-  // socket.on("code", (data) => {
-  //   setCode(data);
-  // });
-
-  // socket.on("joined", (name) => {
-  //   setPlayers((players) => [...players, name]);
-  // });
-
-  // socket.on("startGame", (nextPage) => {
-  //   gotoHandle(nextPage);
-  // });
-
   // Get updated list of players from server
   socket.on("newPlayer", (players) => {
     setPlayers(players);
   });
 
-  // Get nextPage("rolePage") from server
-  // socket.on("goToNextPage", (nextPage) => {
-  //   gotoHandle(nextPage);
-  // })
 
   return (
     <>
@@ -84,7 +67,6 @@ function Lounge({ gotoHandle }) {
         <p className="absolute bottom-5 right-3 text-medium">
           WAITING FOR PLAYERS ...
         </p>
-        {/* <button className="absolute bottom-5 left-3 text-medium"  onClick={() => gotoHandle("intro")} >GotoIntroduction</button> */}
       </div>
     </>
   );

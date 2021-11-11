@@ -1,16 +1,18 @@
 import React, {useState, useEffect} from 'react';
 
-function Timer({timesUp}) {
-    const [seconds, setSeconds] = useState(500);
+function Timer({pageDuration}) {
+  const aduration = 8
+  const [seconds, setSeconds] = useState(aduration);
 
     useEffect(() => {
+      console.log(aduration);
         if (seconds > 0) {
           setTimeout(() => setSeconds(seconds - 1), 1000);
+          console.log(seconds);
         } else if (seconds === 0) {
           setSeconds("Times Up!");
-          timesUp();
         }
-    },[seconds, timesUp]);
+    }, [seconds]);
 
     return (
         <div>

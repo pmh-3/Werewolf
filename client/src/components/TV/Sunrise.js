@@ -1,20 +1,25 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect, useContext } from "react";
+import { SocketContext } from "../services/Socket";
+import { useRecoilState } from "recoil";
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
+import { roomIdState, playersState } from "../services/Atoms";
 import Timer from '../services/Timer';
 
 function Sunrise({gotoHandle}){
-  const history = useHistory();
+  // SocketContext
+  const socket = useContext(SocketContext);
+  // room id
+  const [roomId, setRoomId] = useRecoilState(roomIdState);
+  // Timer duration
+  const [duration, setDuration] = useState();
 
-    useEffect(()=>{
-    //TODO: call server to retrieve who was killed
 
-    },[])
-
-  
-  const timesUp = () => {
-    console.log("time up in sunrise");
-    gotoHandle("day");
-}
+  useEffect(() => {
+    // Receive timer duration from server 
+    socket.on("startTimer", pageTime => {
+      setDuration(pageTime);
+    })
+  });  
 
 
   return (
@@ -26,9 +31,9 @@ function Sunrise({gotoHandle}){
           XXX was Saved<br></br>
          <br></br>
           NOW it's time to discuss and vote one of you OUT!
-          <Timer timesUp ={timesUp}></Timer>
+         
           </h1>
-        <button className="text-medium absolute bottom-5 left-3"onClick={() => gotoHandle("day")} >GotoDay</button>
+        {/* <button className="text-medium absolute bottom-5 left-3"onClick={() => gotoHandle("day")} >GotoDay</button> */}
       </div>
       </>
   )

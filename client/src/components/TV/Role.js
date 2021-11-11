@@ -5,7 +5,8 @@ import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router
 import { roomIdState, playersState } from "../services/Atoms";
 import Timer from '../services/Timer';
 
-function End(){
+
+function Role(){
   // SocketContext
   const socket = useContext(SocketContext);
   // room id
@@ -13,10 +14,9 @@ function End(){
   // Timer duration
   const [duration, setDuration] = useState();
 
-  const history = useHistory();
-
+  
   useEffect(() => {
-   // Receive timer duration from server 
+    // Receive timer duration from server 
     socket.on("startTimer", pageTime => {
       setDuration(pageTime);
     })
@@ -25,22 +25,20 @@ function End(){
 
   return (
       <>
-      <div className="end text-center text-large text-orange font-spooky">
-        <h1 className="text-header">
-          XXXX WON!
-          <p className="text-large">
-          Identity reveal:
-          {/* {players.map((n)=>(
-          <li>{n}</li>
-          ))} */}
-          </p>
-          </h1>
-         
-        
-        {/* <button className="text-medium absolute bottom-5 left-3"  onClick={() => history.push("/")} >GotoMain</button>
-        */}
+      <div className="introduction text-orange font-spooky"> 
+        <h1 className="text-center text-large">
+        Wolves have infiltrated the town!<br></br>
+        The wolves will kill once night falls.<br></br>
+        The town's destiny depends on the villagers!<br></br>
+        Everyone will vote to kick out someone once day breaks.<br></br>
+        Don't trust anyone with your identity!<br></br> Good luck!
+        </h1> 
+        <h2 className="text-center text-large">
+        Timer:
+        <Timer pageDuration = {duration}></Timer>
+        </h2> 
       </div>
       </>
   )
 }
-export default End;
+export default Role;

@@ -1,20 +1,24 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect, useContext } from "react";
+import { SocketContext } from "../services/Socket";
+import { useRecoilState } from "recoil";
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
+import { roomIdState, playersState } from "../services/Atoms";
 import Timer from '../services/Timer';
 
-function Sunset({gotoHandle}){
-  const history = useHistory();
+function Sunset(){
+  // SocketContext
+  const socket = useContext(SocketContext);
+  // room id
+  const [roomId, setRoomId] = useRecoilState(roomIdState);
+  // Timer duration
+  const [duration, setDuration] = useState();
 
-  const timesUp = () => {
-    console.log("time up in sunset");
-    gotoHandle("end");
-	}
-
-    useEffect(()=>{
-        //TODO: call server to retrieve who was voted out 
-
-    },[])  
-
+  useEffect(() => {
+    // Receive timer duration from server 
+    socket.on("startTimer", pageTime => {
+      setDuration(pageTime);
+    })
+  });
 
   return (
       <>
@@ -24,11 +28,11 @@ function Sunset({gotoHandle}){
           XXX has been voted OUT! <br></br>
           {/* IF GAME DIDN'T END, LOOP BACK TO NIGHT PAGE <br></br>
           OTHERWISE GO TO END  */}<br></br>
-          <Timer timesUp ={timesUp}></Timer>
+
           </h1>
-         
+
         
-        <button className="text-medium absolute bottom-5 left-3"  onClick={() => gotoHandle("end")} >GotoEnd</button>
+        {/* <button className="text-medium absolute bottom-5 left-3"  onClick={() => gotoHandle("end")} >GotoEnd</button> */}
        
       </div>
       </>
