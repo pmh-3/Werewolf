@@ -46,24 +46,6 @@ io.on("connection", (socket) => {
             io.to(code).emit('joined', name);
         }
     });
-
-    
-
-    socket.on("startTimer", function(timerLength, nextPage, code) {
-        console.log(nextPage + "timer started");
-        socket.join(code);
-        let countDown = setInterval(function() {
-            io.to(code).emit('counter', timerLength);
-            timerLength--;
-            if (timerLength ==== 0) {
-                console.log("times up!!!!!!");
-                io.to(code).emit('timesUp', nextPage);
-                clearInterval(countDown);
-            }
-        }, 1000);
-    });
-
-
     
 });//io.off
 

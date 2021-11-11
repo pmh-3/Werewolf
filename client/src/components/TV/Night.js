@@ -1,14 +1,29 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect, useContext } from "react";
+import { SocketContext } from "../services/Socket";
+import { useRecoilState } from "recoil";
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
+import { roomIdState, playersState } from "../services/Atoms";
 import Timer from '../services/Timer';
 
-function Night({gotoHandle}){
-  const history = useHistory();
 
-  const timesUp = () => {
-    console.log("time up in night");
-    gotoHandle("sunrise");
-	}
+function Night(){
+  // SocketContext
+  const socket = useContext(SocketContext);
+  // room id
+  const [roomId, setRoomId] = useRecoilState(roomIdState);
+  // Timer duration
+  const [duration, setDuration] = useState();
+
+
+  useEffect(() => {
+   // Receive timer duration from server 
+    socket.on("startTimer", pageTime => {
+      setDuration(pageTime);
+    })
+  });
+
+  
+
 
   return (
       <>
@@ -16,11 +31,9 @@ function Night({gotoHandle}){
         <h1 className="text-center text-header">
           NIGHT HAS FALLEN
           <br></br>
-          <Timer timesUp ={timesUp}></Timer>
-          </h1>
-         
-    
-        <button className="text-medium absolute bottom-5 left-3"  onClick={() => gotoHandle("sunrise")} >GotoSunrise</button>
+          </h1> 
+        {/*     
+        <button className="text-medium absolute bottom-5 left-3"  onClick={() => gotoHandle("sunrise")} >GotoSunrise</button> */}
        
       </div>
       </>

@@ -5,11 +5,7 @@ import Timer from '../services/Timer';
 function DNight({gotoHandle}){
   const history = useHistory();
 
-  const timesUp = () => {
-    console.log("time up in night");
-    gotoHandle("sunrise");
-	}
-
+ 
 
   return (
       <>
@@ -22,8 +18,7 @@ function DNight({gotoHandle}){
           WHO DO YOU WANT TO XXX (kill/heal/pick)?
           <br></br>
           (Show a list of players to be picked)
-
-          <Timer timesUp ={timesUp}></Timer>
+          
           </h1>
          
         <button  onClick={() => gotoHandle("sunrise")} >GotoSunriseButton</button>

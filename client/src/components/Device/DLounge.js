@@ -32,20 +32,12 @@ function DLounge({ gotoHandle, Gcode }) {
     setPlayers(players);
   });
 
-  // const beginGame = () => {
-  //   //tell server players are ready
-  //   // gotoHandle("role")
-
+ 
   const startGame = () => {
     // Tell server to start game
-    socket.emit("startRequest", roomId);
+    socket.emit("startGameRequest", roomId);
   };
 
-  // Get nextPage("rolePage") from server
-  socket.on("goToNextPage", (nextPage) => {
-    // TODO: Fix nextPage
-    gotoHandle(nextPage);
-  });
 
   return (
     <>
