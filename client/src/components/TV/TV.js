@@ -27,6 +27,9 @@ function TV() {
     //receive ... from server
   }, []);
 
+  socket.on("goToNextPage", (nextPage) => {
+    goto(nextPage);
+  });
   const goto = (newState) => {
     setSelector(newState);
   };

@@ -27,7 +27,8 @@ function DLounge({ gotoHandle, Gcode }) {
   //   setPlayers(players);
   // });
 
-  socket.on("newPlayer", (player) => {
+  socket.on("newPlayer", (players) => {
+    console.log("newPlayer event detected");
     setPlayers(players);
   });
 
@@ -35,16 +36,16 @@ function DLounge({ gotoHandle, Gcode }) {
   //   //tell server players are ready
   //   // gotoHandle("role")
 
- 
   const startGame = () => {
     // Tell server to start game
-    socket.emit("startRequest", roomId);  
-  }
+    socket.emit("startRequest", roomId);
+  };
 
-  // Get nextPage("rolePage") from server 
+  // Get nextPage("rolePage") from server
   socket.on("goToNextPage", (nextPage) => {
+    // TODO: Fix nextPage
     gotoHandle(nextPage);
-  })
+  });
 
   return (
     <>

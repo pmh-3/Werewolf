@@ -37,11 +37,11 @@ function DJoin({ gotoHandle, setCodeHandle }) {
     let code = formData.get("roomCode");
     setPlayerName(name);
     socket.emit("joinRoom", name, code);
-    socket.on("joinedRoom", ({ roomCode, players }) => {
+    socket.on("newPlayer", (players) => {
       setRoomNotFound(false);
-      setRoomId(roomCode);
+      setRoomId(code);
       setPlayers(players);
-      console.log(players);
+      console.log("newPlayer event detected");
       gotoHandle("lounge");
     });
   };

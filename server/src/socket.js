@@ -27,15 +27,17 @@ const socket = (io) => {
     socket.on("joinRoom", (playerName, roomCode) => {
       console.log(`Player ${playerName} trying to join roomCode ${roomCode}`);
       if (findGame(roomCode) !== undefined) {
+        // Find game in the games[] array
         let game = findGame(roomCode);
         console.log(`Game: ${game}`);
+        // Create a new player and add it to the game
         let player = new Player(playerName, socket.id);
         game.addPlayer(player);
+        // Join the socket to the room requested
         socket.join(roomCode);
-        // TODO: Delete this later - probably not needed
-        socket.emit("joinedRoom", { roomCode, players: game.getPlayers() });
         // Broadcast when a player connects to a room
-        socket.broadcast.to(roomCode).emit("newPlayer", game.getPlayers());
+        io.to(roomCode).emit("newPlayer", game.getPlayers());
+        console.log("Broadcast emitted");
       } else {
         socket.emit("roomNotFound");
       }
@@ -51,11 +53,11 @@ const socket = (io) => {
       }
     });
 
-    // Start game 
+    // Start game
     socket.on("startRequest", (roomCode) => {
       if (findGame(roomCode) !== undefined) {
         let nextPage = "rolePage";
-        socket.broadcast.to(roomCode).emit("goToNextPage", nextPage);
+        io.to(roomCode).emit("goToNextPage", nextPage);
       }
     });
 

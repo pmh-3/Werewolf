@@ -53,9 +53,9 @@ function Lounge({ gotoHandle }) {
   });
 
   // Get nextPage("rolePage") from server
-  socket.on("goToNextPage", (nextPage) => {
-    gotoHandle(nextPage);
-  })
+  // socket.on("goToNextPage", (nextPage) => {
+  //   gotoHandle(nextPage);
+  // })
 
   return (
     <>
