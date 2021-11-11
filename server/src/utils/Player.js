@@ -1,15 +1,17 @@
+const { get } = require("https");
+
 module.exports = class Player {
   constructor(name, socketId) {
-    this.name = name;
-    this.socketId = socketId;
-    this.role = null;
-    this.action = null;
-    this.roles = ["werewolf", "seer", "healer", "villager"];
+    this.name = name; // string representation of the player
+    this.socketId = socketId; // explain this ? 
+    this.role = null; // "werewolf", "seer", "healer", "villager"
+    this.action = null; // to kill, to see, to heal , to vote
+    this.roles = ["werewolf", "seer", "healer", "villager"]; // do we need to initializ here? 
   }
 
   getPlayer() {
     return {
-      name: this.name,
+      name: this.name, 
       socketId: this.socketId,
       role: this.role,
       action: this.action,
@@ -24,6 +26,7 @@ module.exports = class Player {
     return this.action;
   }
 
+  // Jason: in the future assignRoleAndAction() take at least a param
   assignRoleAndAction() {
     // game roles
     let roles = ["werewolf", "seer", "healer", "villager"];
@@ -49,4 +52,39 @@ module.exports = class Player {
         this.action = "vote";
     }
   }
+
+  // Jason: added this
+  // during night, seer, werewolf, healer takes action in order;
+  // during day, everyone can vote
+  executeAction(gameState) {
+    if (ture) { // true: placeholder for gameState == "night"
+      switch(this.getAction()) {
+        case "kill": 
+          // to kill
+          break;
+        case "see": 
+          // to see
+          break;
+        case "heal": 
+          // to heal
+          break;
+        default: 
+          // villager does nothing
+      }
+    } else { // gameState == "day", when all player only get to vote
+      // everyone votes
+    }
+  }
+
+  // Jason: get a list of players who are alive
+  getPlayerList() {
+    if (this.getAction() === "kill") {
+      // werewolf has to konw her teammate(s)
+
+      // return a SPECIAL list that has her teammate(s)
+    } else {
+      // eveyone get a REGULAR list that does not disclose play roles
+    }
+  }
+
 };
