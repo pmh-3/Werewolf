@@ -47,16 +47,7 @@ io.on("connection", (socket) => {
         }
     });
 
-    socket.on("start", (code) => {
-        // can only start an existing game
-        if (rooms[code] != null) {
-            let nextPage = "startGame";
-            console.log("game started", code);
-            socket.join(code);
-            io.to(code).emit('startGame', nextPage);
-
-        }
-    });
+    
 
     socket.on("startTimer", function(timerLength, nextPage, code) {
         console.log(nextPage + "timer started");

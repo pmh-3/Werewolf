@@ -35,15 +35,16 @@ function DLounge({ gotoHandle, Gcode }) {
   //   //tell server players are ready
   //   // gotoHandle("role")
 
-  //   socket.emit("start", code);
-  //   socket.on("startGame", (nextPage) => {
-  //     gotoHandle(nextPage);
-  //   });
-  // };
+ 
+  const startGame = () => {
+    // Tell server to start game
+    socket.emit("startRequest", roomId);  
+  }
 
-  // socket.on("joined", (name) => {
-  //   setPlayers((players) => [...players, name]);
-  // });
+  // Get nextPage("rolePage") from server 
+  socket.on("goToNextPage", (nextPage) => {
+    gotoHandle(nextPage);
+  })
 
   return (
     <>
@@ -52,7 +53,6 @@ function DLounge({ gotoHandle, Gcode }) {
         {/* <h1>First Player to join, starts the game.</h1> */}
         <br></br>
         <h3>Waiting for players...</h3>
-        {/* Show Player List */}
         <div>
           <h2 className="block font-bold">Player List</h2>
           <div className="inline-flex">
@@ -66,8 +66,7 @@ function DLounge({ gotoHandle, Gcode }) {
             ))}
           </div>
         </div>
-        {/* <button onClick={() => beginGame()}>StartGameButton</button> */}
-        <button>Start Game</button>
+        <button onClick ={() => startGame()}>Start Game</button>
       </div>
     </>
   );

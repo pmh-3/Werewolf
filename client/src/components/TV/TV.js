@@ -34,7 +34,7 @@ function TV() {
   var screen = <></>;
   if (selector === "init") {
     screen = <Lounge gotoHandle={goto} />;
-  } else if (selector === "startGame") {
+  } else if (selector === "rolePage") {
     screen = <Introduction gotoHandle={goto} socket={socket} />;
   } else if (selector === "night") {
     screen = <Night gotoHandle={goto} />;

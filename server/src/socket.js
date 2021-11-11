@@ -51,10 +51,20 @@ const socket = (io) => {
       }
     });
 
+    // Start game 
+    socket.on("startRequest", (roomCode) => {
+      if (findGame(roomCode) !== undefined) {
+        let nextPage = "rolePage";
+        socket.broadcast.to(roomCode).emit("goToNextPage", nextPage);
+      }
+    });
+
     socket.on("disconnect", () => {
       // TODO: Remove player from game
       console.log("user disconnected");
     });
+
+    
   });
 };
 
