@@ -47,9 +47,15 @@ function Lounge({ gotoHandle }) {
   //   gotoHandle(nextPage);
   // });
 
+  // Get updated list of players from server
   socket.on("newPlayer", (players) => {
     setPlayers(players);
   });
+
+  // Get nextPage("rolePage") from server
+  socket.on("goToNextPage", (nextPage) => {
+    gotoHandle(nextPage);
+  })
 
   return (
     <>

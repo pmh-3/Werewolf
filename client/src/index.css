@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 * {
-  color: white;
+  color: rgb(211, 204, 204);
 }
