@@ -2,7 +2,7 @@
 @font-face {
   font-family: 'carnivalee-freakshow';
   font-style: normal;
-  src: local('carnivalee-freakshow'), url(./assets/fonts/carnivalee-freakshow/Carnevalee\ Freakshow/Carnevalee\ Freakshow.ttf);
+  src: local('carnivalee-freakshow'), url(./components/assets/fonts/carnivalee-freakshow/Carnevalee\ Freakshow/Carnevalee\ Freakshow.ttf);
 
 
 }
