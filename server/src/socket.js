@@ -1,3 +1,4 @@
+const { emit } = require("process");
 const Game = require("./utils/Game");
 const Player = require("./utils/Player");
 
@@ -57,9 +58,9 @@ const socket = (io) => {
     socket.on("startGameRequest", (roomCode) => {
       if (findGame(roomCode) !== undefined) {
         // Cusomize timer duration for each page 
-        const rolePageTime = 10;
-        const nightPageTime = 5;
-        const sunrisePageTime = 4;
+        const rolePageTime = 5;
+        const nightPageTime = 50;
+        const sunrisePageTime = 5;
         const dayPageTime = 3;
         const sunsetPageTime = 3;
         const endPageTime = 3;
@@ -106,6 +107,32 @@ const socket = (io) => {
 
       }
     });
+
+    // Zi: Start voting draft 
+    socket.on("nightBegins", roomCode => {
+
+      // Hardcoded player list for now:
+      const players = ["Peter", "Nirm", "Jason", "Zi", "Alina"];
+      // Hardcoded wolf list for now:
+      const wolves = ["Peter", "Nirm"];
+      // Hardcoded villager list for now:
+      const villagers = ["Jason", "Zi", "Alina"];
+      
+      // TODO: Switch role parameter between wolf/healer/seer/villager to test 
+      const role = "wolf";
+      io.to(roomCode).emit("startVoting", role, players, wolves, villagers);
+
+      // Get vote from client 
+      socket.on("sendVote", (voterRole, targetedPlayer) => {
+        // If voter was seer, send back targeted player's identity 
+        if (voterRole === "TESTSEER") 
+          io.to(roomCode).emit("revealIdentity", "SUPERSTAR");
+      }); 
+
+
+    })
+    
+
 
     socket.on("disconnect", () => {
       // TODO: Remove player from game

@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react';
 
 function Timer({pageDuration}) {
-  const aduration = 8
-  const [seconds, setSeconds] = useState(aduration);
+  
+  const [seconds, setSeconds] = useState(pageDuration);
+  console.log("$$$$$" + seconds);
 
     useEffect(() => {
-      console.log(aduration);
+      console.log("$$" + seconds);
         if (seconds > 0) {
           setTimeout(() => setSeconds(seconds - 1), 1000);
-          console.log(seconds);
         } else if (seconds === 0) {
           setSeconds("Times Up!");
         }

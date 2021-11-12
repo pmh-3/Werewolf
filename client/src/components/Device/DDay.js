@@ -16,7 +16,7 @@ function DDay({gotoHandle}){
       <>
       <div>
         <h1>
-        DEVICE DAY: VOTING PAGE
+        DAY
         <br></br>
         Pick someone! 
 {/*         

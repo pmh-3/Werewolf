@@ -14,7 +14,7 @@ function DRole({gotoHandle, Gcode}) {
       <>
       <div>
         <h1>
-        DEVICE ROLE PAGE   
+        ROLE
         </h1> 
         <h2>
         You are a {role}

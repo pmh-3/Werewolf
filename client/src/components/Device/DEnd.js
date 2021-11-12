@@ -23,7 +23,8 @@ function DEnd(){
       <>
       <div className="end">
         <h1>
-          DEVICE END PAGE: XXXX WON!<br></br>
+          END<br></br>
+          XXXX WON!<br></br>
           <br></br>
           Here is everyone's identity:
           {players.map((n)=>(

@@ -59,7 +59,7 @@ function Device() {
 
   return (
     <>
-      PersonalDevice
+      PD
       <div>{screen}</div>
     </>
   );
