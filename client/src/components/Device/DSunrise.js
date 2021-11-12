@@ -10,7 +10,7 @@ function DSunrise({gotoHandle}){
       <>
       <div className="sunrise">
         <h1>
-          DEVICE SUNRISE PAGE<br></br>
+          SUNRISE<br></br>
           
           (NOT SURE WHAT TO SHOW HERE)
           <br></br>

@@ -49,7 +49,7 @@ function DJoin({ gotoHandle }) {
   return (
     <>
       <div className="join-instruction">
-        <h1>DEVICE JOIN PAGE</h1>
+        <h1>PLEASE ENTER</h1>
         <form onSubmit={handleSubmit}>
           <label>
             <h2>ROOM CODE:</h2>
