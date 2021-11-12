@@ -29,6 +29,7 @@ function Sunrise({gotoHandle}){
           SUNRISE<br></br>
           XXX was killed<br></br>
           XXX was Saved<br></br>
+          here is who was left: show a list of current player 
          <br></br>
           NOW it's time to discuss and vote one of you OUT!
          
