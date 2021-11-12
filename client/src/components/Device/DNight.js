@@ -30,6 +30,8 @@ function DNight({gotoHandle}){
   const [myAction, setMyAction] = useState();
   // Initialize list to show wolf list
   const [showWolveMsg, setShowWolvesMsg] = useState();
+  // Initialize identity
+  const [identity, setIdentity] = useState();
   
   
 
@@ -63,11 +65,8 @@ function DNight({gotoHandle}){
             setMyAction("SEE");
             setTargets(allPlayers);
           } else {
-            // Get revealed identity from server; NOT SURE WHY NEED TO CLICK SEND TWICE FOR THIS TO SHOW
-            socket.on("revealIdentity", identity => {
-              console.log("Step 2")
-              setActionSummary(`${finalTarget}`+ "'S IDENTITY is " + identity);
-            });
+            console.log("step 3");
+            setActionSummary(`${finalTarget}`+ "'S IDENTITY is " + `${identity}`);
           }
           break;
         default:
@@ -80,7 +79,7 @@ function DNight({gotoHandle}){
           break;
       }
     })
-  },[voteComplete])
+  },[voteComplete, identity])
 
 
   // TODO:   If time is up and user did not click SEND, send an empty vote to server 
@@ -98,6 +97,12 @@ function DNight({gotoHandle}){
     socket.emit("sendVote", "TESTSEER", finalTarget);
     console.log("Step 1");
     
+    socket.on("revealIdentity", rID => {
+      setIdentity(rID);
+      console.log("Step 2")
+      
+    });
+
     // Set vote complete to true, update useEffect
     setVoteComplete(true);
   };
@@ -130,6 +135,7 @@ function DNight({gotoHandle}){
         <br></br>  
         <button onClick={() => gotoHandle("sunrise")} >GotoSunriseButton</button>
 
+        <button>NAMEOFBUTTON</button>
       </div>
       </>
   )

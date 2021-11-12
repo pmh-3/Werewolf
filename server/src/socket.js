@@ -58,7 +58,7 @@ const socket = (io) => {
     socket.on("startGameRequest", (roomCode) => {
       if (findGame(roomCode) !== undefined) {
         // Cusomize timer duration for each page 
-        const rolePageTime = 5;
+        const rolePageTime = 10;
         const nightPageTime = 50;
         const sunrisePageTime = 5;
         const dayPageTime = 3;
@@ -119,7 +119,7 @@ const socket = (io) => {
       const villagers = ["Jason", "Zi", "Alina"];
       
       // TODO: Switch role parameter between wolf/healer/seer/villager to test 
-      const role = "wolf";
+      const role = "seer";
       io.to(roomCode).emit("startVoting", role, players, wolves, villagers);
 
       // Get vote from client 

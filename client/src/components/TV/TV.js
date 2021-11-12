@@ -29,6 +29,7 @@ function TV() {
   });
 
   var screen = <></>;
+
   if (nextPage === "init") {
     screen = <Lounge/>;
   } else if (nextPage === "rolePage") {

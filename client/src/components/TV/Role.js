@@ -18,8 +18,7 @@ function Role(){
   useEffect(() => {
     // Receive timer duration from server 
     socket.on("startTimer", pageTime => {
-      setDuration(pageTime);
-      console.log(pageTime);
+        setDuration(pageTime);
     })
   });
 
