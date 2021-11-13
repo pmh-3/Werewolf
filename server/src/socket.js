@@ -32,6 +32,7 @@ const socket = (io) => {
         let game = findGame(roomCode);
         console.log(`Game: ${game}`);
         // Create a new player and add it to the game
+        
         let player = new Player(playerName, socket.id);
         game.addPlayer(player);
         // Join the socket to the room requested
@@ -129,9 +130,27 @@ const socket = (io) => {
           io.to(roomCode).emit("revealIdentity", "SUPERSTAR");
       }); 
 
-
     })
     
+    // Jason: send a list of alive player upon request
+    socket.on("req-tv-allplayers-fullinfo", roomCode => {
+
+      // Hardcoded player list for now:
+      const players = ["Peter", "Nirm", "Jason", "Zi", "Alina"];
+      // Game Object should have a list of player
+      // I am constructing a dumy player object list
+      const playerObjList = [];
+      let i = 0;
+      for (const playerName of players) {
+        // param: player's name& socket ID
+        let playerObj = new Player(playerName, i);
+        playerObj.assignRoleAndAction();
+        console.log(playerObj)
+        playerObjList.push(playerObj);
+        i++;
+      }
+      io.to(roomCode).emit("res-tv-allplayers-fullinfo", playerObjList);
+    })
 
 
     socket.on("disconnect", () => {
