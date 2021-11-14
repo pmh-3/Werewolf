@@ -3,6 +3,12 @@ module.exports = class Game {
     this.code = this.generateRoom(4);
     this.players = [];
     this.gameState = "lounge";
+    this.playerRolesAndActions = {
+      "werewolf": "kill",
+      "villager": "vote",
+      "healer": "heal",
+      "seer": "see",
+    }
   }
 
   getRoomCode() {
@@ -42,10 +48,10 @@ module.exports = class Game {
   }
 
   // according to total # of players, assign them a role
-  assignPlayerRoles() {
+  assignPlayerRolesAndActions() {
     // Default case of 3 players
     let assignedRole = {
-      wolf: 1,
+      werewolf: 1,
       villager: 1,
       healer: 1,
       seer: 0,
@@ -77,7 +83,11 @@ module.exports = class Game {
       // reduce the assigned role by 1
       assignedRole[player.role]--;
     });
-    console.log(this.getPlayers());
+    
+    // Assiciate actions to players based on their role
+    shuffledPlayers.forEach((player) => {
+      player.action = this.playerRolesAndActions[player.role];
+    });
   }
 
   generateRoom(length) {

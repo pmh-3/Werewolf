@@ -58,7 +58,9 @@ const socket = (io) => {
     // Start game
     socket.on("startGameRequest", (roomCode) => {
       if (findGame(roomCode) !== undefined) {
-        // Cusomize timer duration for each page 
+        // Cusomize timer duration for each page
+        let game = findGame(roomCode);
+        game.assignPlayerRolesAndAction();
         let timer = {
           rolePageTime: 5,
           nightPageTime: 50,
@@ -66,7 +68,7 @@ const socket = (io) => {
           dayPageTime: 3,
           sunsetPageTime: 3,
           endPageTime: 3,
-        }
+        };
         const rolePageTime = 50;
         const nightPageTime = 50;
         const sunrisePageTime = 10;
@@ -74,46 +76,56 @@ const socket = (io) => {
         const sunsetPageTime = 3;
         const endPageTime = 3;
         // Server will count down using totalGameTime
-        let totalGameTime = rolePageTime + nightPageTime + sunrisePageTime +
-        dayPageTime + sunsetPageTime + endPageTime;
+        let totalGameTime =
+          rolePageTime +
+          nightPageTime +
+          sunrisePageTime +
+          dayPageTime +
+          sunsetPageTime +
+          endPageTime;
 
-        // After client presses start game, all devices go to role page 
+        // After client presses start game, all devices go to role page
         io.to(roomCode).emit("goToNextPage", "rolePage");
         io.to(roomCode).emit("startTimer", rolePageTime);
 
-        // Server controls time and tells all devices 
-        // 1) When to go to next page 
+        // Server controls time and tells all devices
+        // 1) When to go to next page
         // 2) how much time each page has
-        let countDown = setInterval(function() {
+        let countDown = setInterval(function () {
           totalGameTime--;
-          if (totalGameTime === nightPageTime + sunrisePageTime +
-            dayPageTime + sunsetPageTime + endPageTime) {
+          if (
+            totalGameTime ===
+            nightPageTime +
+              sunrisePageTime +
+              dayPageTime +
+              sunsetPageTime +
+              endPageTime
+          ) {
             io.to(roomCode).emit("goToNextPage", "nightPage");
             io.to(roomCode).emit("startTimer", nightPageTime);
-          } 
-          else if (totalGameTime === sunrisePageTime +
-            dayPageTime + sunsetPageTime + endPageTime) {
+          } else if (
+            totalGameTime ===
+            sunrisePageTime + dayPageTime + sunsetPageTime + endPageTime
+          ) {
             io.to(roomCode).emit("goToNextPage", "sunrisePage");
             io.to(roomCode).emit("startTimer", sunrisePageTime);
-          } 
-          else if (totalGameTime === dayPageTime + sunsetPageTime + endPageTime) {
+          } else if (
+            totalGameTime ===
+            dayPageTime + sunsetPageTime + endPageTime
+          ) {
             io.to(roomCode).emit("goToNextPage", "dayPage");
             io.to(roomCode).emit("startTimer", dayPageTime);
-          } 
-          else if (totalGameTime === sunsetPageTime + endPageTime) {
+          } else if (totalGameTime === sunsetPageTime + endPageTime) {
             io.to(roomCode).emit("goToNextPage", "sunsetPage");
             io.to(roomCode).emit("startTimer", sunsetPageTime);
-          } 
-          else if (totalGameTime === endPageTime) {
+          } else if (totalGameTime === endPageTime) {
             io.to(roomCode).emit("goToNextPage", "endPage");
             io.to(roomCode).emit("startTimer", endPageTime);
-          } 
-          else if (totalGameTime === 0) {
+          } else if (totalGameTime === 0) {
             io.to(roomCode).emit("goToNextPage", "welcomePage");
             clearInterval(countDown);
           }
         }, 1000);
-
       } else {
         socket.emit("roomNotFound", {error: "Room not found"});
       }
