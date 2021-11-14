@@ -19,25 +19,19 @@ function DLounge({ gotoHandle, Gcode }) {
   const [roomId, setRoomId] = useRecoilState(roomIdState);
   // players in the current room
   const [players, setPlayers] = useRecoilState(playersState);
+  
 
-  // Get room details
-  // TODO: get room details from server
-  // socket.emit("getRoom", roomId);
-  // socket.on("roomDetails", ({ code, players, gameState}) => {
-  //   setPlayers(players);
-  // });
+
 
   socket.on("newPlayer", (players) => {
     console.log("newPlayer event detected");
     setPlayers(players);
   });
 
- 
   const startGame = () => {
     // Tell server to start game
     socket.emit("startGameRequest", roomId);
   };
-
 
   return (
     <>
@@ -59,7 +53,12 @@ function DLounge({ gotoHandle, Gcode }) {
             ))}
           </div>
         </div>
-        <button onClick ={() => startGame()}>Start Game</button>
+        <button onClick={() => startGame()} disabled={players.length < 3}>
+          Start Game
+        </button>
+        {players.length < 3 && (
+          <p>Minimum 3 players required to start the game</p>
+        )}
       </div>
     </>
   );

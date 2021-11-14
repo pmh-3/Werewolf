@@ -3,15 +3,14 @@ const { get } = require("https");
 module.exports = class Player {
   constructor(name, socketId) {
     this.name = name; // string representation of the player
-    this.socketId = socketId; // explain this ? 
+    this.socketId = socketId; // player's socket id
     this.role = null; // "werewolf", "seer", "healer", "villager"
     this.action = null; // to kill, to see, to heal , to vote
-    this.roles = ["werewolf", "seer", "healer", "villager"]; // do we need to initializ here? 
   }
 
   getPlayer() {
     return {
-      name: this.name, 
+      name: this.name,
       socketId: this.socketId,
       role: this.role,
       action: this.action,
@@ -57,21 +56,23 @@ module.exports = class Player {
   // during night, seer, werewolf, healer takes action in order;
   // during day, everyone can vote
   executeAction(gameState) {
-    if (ture) { // true: placeholder for gameState == "night"
-      switch(this.getAction()) {
-        case "kill": 
+    if (ture) {
+      // true: placeholder for gameState == "night"
+      switch (this.getAction()) {
+        case "kill":
           // to kill
           break;
-        case "see": 
+        case "see":
           // to see
           break;
-        case "heal": 
+        case "heal":
           // to heal
           break;
-        default: 
-          // villager does nothing
+        default:
+        // villager does nothing
       }
-    } else { // gameState == "day", when all player only get to vote
+    } else {
+      // gameState == "day", when all player only get to vote
       // everyone votes
     }
   }
@@ -80,11 +81,9 @@ module.exports = class Player {
   getPlayerList() {
     if (this.getAction() === "kill") {
       // werewolf has to konw her teammate(s)
-
       // return a SPECIAL list that has her teammate(s)
     } else {
       // eveyone get a REGULAR list that does not disclose play roles
     }
   }
-
 };

@@ -59,7 +59,15 @@ const socket = (io) => {
     socket.on("startGameRequest", (roomCode) => {
       if (findGame(roomCode) !== undefined) {
         // Cusomize timer duration for each page 
-        const rolePageTime = 5;
+        let timer = {
+          rolePageTime: 5,
+          nightPageTime: 50,
+          sunrisePageTime: 10,
+          dayPageTime: 3,
+          sunsetPageTime: 3,
+          endPageTime: 3,
+        }
+        const rolePageTime = 50;
         const nightPageTime = 50;
         const sunrisePageTime = 10;
         const dayPageTime = 3;
@@ -106,6 +114,8 @@ const socket = (io) => {
           }
         }, 1000);
 
+      } else {
+        socket.emit("roomNotFound", {error: "Room not found"});
       }
     });
 
