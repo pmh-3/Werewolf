@@ -62,7 +62,6 @@ function Device() {
 
   return (
     <>
-      PersonalDevice
       <div>{screen}</div>
     </>
   );

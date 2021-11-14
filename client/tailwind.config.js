@@ -9,6 +9,7 @@ module.exports = {
       'orange': '#d87d05',
       'teeth': '#FFFFFF',
       'darkOrange': '#b06604',
+      'ice': '#074355',
     },
     fontSize: {
       'computer': '10rem',
@@ -22,7 +23,11 @@ module.exports = {
     screens: {
     'laptop': '2560px',
     },
-    extend: {},
+    extend: {
+      inset: {
+        '1/5':'20%'
+      }
+    },
   },
   variants: {
     extend: {},

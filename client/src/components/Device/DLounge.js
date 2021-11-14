@@ -49,13 +49,13 @@ function DLounge({ gotoHandle, Gcode }) {
 
   return (
     <>
-      <div className="lounge">
-        <h1>DEVICE LOUNGE PAGE</h1>
+      <div className="lounge font-spooky text-orange text-medium">
         {/* <h1>First Player to join, starts the game.</h1> */}
         <br></br>
-        <h3>Waiting for players...</h3>
+        <h3 className=" absolute top-5">Waiting for players...</h3>
+        <br></br>
         <div>
-          <h2 className="block font-bold">Player List</h2>
+          <h2 className="block font-bold">Players: </h2>
           <div className="inline-flex">
             {players.map((player) => (
               <div
@@ -67,7 +67,10 @@ function DLounge({ gotoHandle, Gcode }) {
             ))}
           </div>
         </div>
-        <button onClick ={() => startGame()}>Start Game</button>
+        <div className="absolute left-1/5 right-1/5 bottom-1/5">
+          <button className="bg-orange text-teeth text-button hover:bg-darkOrange rounded py-1 px-12 " 
+            onClick ={() => startGame()}>START GAME</button>
+        </div>
       </div>
     </>
   );
