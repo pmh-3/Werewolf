@@ -41,7 +41,7 @@ function DLounge({ gotoHandle, Gcode }) {
 
   return (
     <>
-      <div className="lounge">
+      <div className="lounge font-spooky text-orange text-medium">
         <h1>LOUNGE</h1>
         {/* <h1>First Player to join, starts the game.</h1> */}
         <br></br>
