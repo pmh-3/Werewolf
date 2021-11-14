@@ -48,30 +48,30 @@ function DJoin({ gotoHandle }) {
 
   return (
     <>
-      <div className="join-instruction">
+      <div className="join-instruction text-medium font-spooky text-orange text-center">
         <h1>PLEASE ENTER</h1>
         <form onSubmit={handleSubmit}>
           <label>
-            <h2>ROOM CODE:</h2>
+            <h2>ROOM CODE</h2>
             <input
               type="text"
               name="roomCode"
-              placeholder="Enter room code"
-              className="border-2 rounded p-2 mr-2 block my-2"
+              placeholder="room code"
+              className="border-4 border-ice rounded-full container mx:auto px-4  p-2 block my-3 placeholder-orange placeholder-opacity-50"
             />
           </label>
           <label>
-            <h2>ENTER YOUR NAME:</h2>
+            <h2>ENTER YOUR NAME</h2>
             <input
               type="text"
               name="playerName"
-              placeholder="Enter your name"
-              className="border-2 rounded p-2 mr-2 block my-2"
+              className="border-4 border-ice rounded-full block p-2 mt-3 mb-6 container placeholder-orange placeholder-opacity-50"
+              placeholder="name "
             />
           </label>
           <button
             type="submit"
-            className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            className="bg-orange text-teeth hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-5 py-2.5"
           >
             JOIN
           </button>

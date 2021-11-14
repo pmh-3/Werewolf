@@ -13,18 +13,20 @@ function WelcomePage() {
           <p className="pt-24 text-computer text-orange">
           Werewolf
           </p> 
-          <button 
-            className="text-8xl bg-orange text-teeth text-button hover:bg-darkOrange px-10 rounded-full mr-4 inline-flex " 
-            onClick={() => history.push("/TV")} 
+          <div className="text-button">
+            <button 
+              className=" bg-orange text-teeth hover:bg-darkOrange px-10 rounded-full mr-4 inline-flex " 
+              onClick={() => history.push("/TV")} 
+            >
+              START
+            </button>
+            <button 
+              className="bg-orange text-teeth hover:bg-darkOrange px-12 rounded-full inline-flex"
+              onClick={() => history.push("/device")} 
           >
-            START
-          </button>
-          <button 
-            className="bg-orange text-teeth text-button hover:bg-darkOrange px-12 rounded-full inline-flex"
-            onClick={() => history.push("/device")} 
-          >
-            JOIN
-          </button>
+              JOIN
+            </button>
+          </div>
         </div>
         </>
     )
