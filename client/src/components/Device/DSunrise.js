@@ -3,10 +3,6 @@ import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router
 import { useRecoilState } from "recoil";
 import { SocketContext } from "../services/Socket";
 import { roomIdState, playersState, playerRoleState, playerFinalTargetState } from "../services/Atoms";
-import healerImage from "../assets/images/roles/healer.png";
-import villagerImage from "../assets/images/roles/villager.png";
-import werewolfImage from "../assets/images/roles/werewolf.png";
-import Timer from '../services/Timer';
 
 
 function DSunrise({gotoHandle}){
@@ -64,9 +60,7 @@ function DSunrise({gotoHandle}){
         <h1>SUNRISE</h1>
         <h1>You are a: {TEST_ROLE}</h1>
         <h2>{actionSummary}</h2>
-        <h2></h2>  
-
-      <button  onClick={() => gotoHandle("day")} >GoToDayButton</button>
+        <h2>Waiting for other's votes...</h2>  
        
       </div>
       </>
