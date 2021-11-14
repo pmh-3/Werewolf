@@ -22,6 +22,8 @@ function Role(){
     socket.on("startTimer", pageTime => {
         setDuration(pageTime);
     })
+
+    socket.emit("assignPlayerRole", roomId);
   });
 
   // request a list of players

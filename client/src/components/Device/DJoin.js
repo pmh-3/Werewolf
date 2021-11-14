@@ -81,8 +81,6 @@ function DJoin({ gotoHandle }) {
             <p>Room not found</p>
           </div>
         )}
-        {/* <Timer timesUp={timesUp}></Timer>
-        <button onClick={timesUp}>gotoLounge</button> */}
       </div>
     </>
   );
