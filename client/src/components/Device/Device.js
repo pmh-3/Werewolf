@@ -30,7 +30,6 @@ function Device() {
     setNextPage(page);
   });
 
-  // TODO: delete after we remove the buttons from each page 
   const goto = (newPage) => {
     setNextPage(newPage);
   };
@@ -44,7 +43,7 @@ function Device() {
   } else if (nextPage === "rolePage") {
     screen = <DRole gotoHandle={goto}/>;
   } else if (nextPage === "nightPage") {
-    screen = <DNight gotoHandle={goto} />;
+    screen = <DNight gotoHandle={goto}/>;
   } else if (nextPage === "sunrisePage") {
     screen = <DSunrise gotoHandle={goto} />;
   } else if (nextPage === "dayPage") {
