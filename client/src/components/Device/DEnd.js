@@ -6,10 +6,10 @@ function DEnd(){
   const history = useHistory();
   const [players,setPlayers] = useState([]);
 
-  const timesUp = () => {
-    console.log("time up in end")
-    history.push("/")
-    }
+  // const timesUp = () => {
+  //   console.log("time up in end")
+  //   history.push("/")
+  //   }
 
     useEffect(()=>{
         //call server to see who won
@@ -23,14 +23,14 @@ function DEnd(){
       <>
       <div className="end">
         <h1>
-          DEVICE END PAGE: XXXX WON!<br></br>
+          END<br></br>
+          XXXX WON!<br></br>
           <br></br>
           Here is everyone's identity:
           {players.map((n)=>(
           <li>{n}</li>
           ))}
         
-          <Timer timesUp ={timesUp}></Timer>
           </h1>
          
         

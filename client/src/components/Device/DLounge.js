@@ -32,24 +32,17 @@ function DLounge({ gotoHandle, Gcode }) {
     setPlayers(players);
   });
 
-  // const beginGame = () => {
-  //   //tell server players are ready
-  //   // gotoHandle("role")
-
+ 
   const startGame = () => {
     // Tell server to start game
-    socket.emit("startRequest", roomId);
+    socket.emit("startGameRequest", roomId);
   };
 
-  // Get nextPage("rolePage") from server
-  socket.on("goToNextPage", (nextPage) => {
-    // TODO: Fix nextPage
-    gotoHandle(nextPage);
-  });
 
   return (
     <>
-      <div className="lounge font-spooky text-orange text-medium">
+      <div className="lounge">
+        <h1>LOUNGE</h1>
         {/* <h1>First Player to join, starts the game.</h1> */}
         <br></br>
         <h3 className=" absolute top-5">Waiting for players...</h3>

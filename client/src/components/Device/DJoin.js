@@ -10,7 +10,7 @@ import { useRecoilState } from "recoil";
 import { SocketContext } from "../services/Socket";
 import { roomIdState, playerNameState, playersState } from "../services/Atoms";
 
-function DJoin({ gotoHandle, setCodeHandle }) {
+function DJoin({ gotoHandle }) {
   // SocketContext
   const socket = useContext(SocketContext);
   // useHistory - react router dom
@@ -23,11 +23,6 @@ function DJoin({ gotoHandle, setCodeHandle }) {
   const [players, setPlayers] = useRecoilState(playersState);
   // room not found
   const [roomNotFound, setRoomNotFound] = useState(null);
-
-  const timesUp = () => {
-    console.log("time up in end");
-    gotoHandle("lounge");
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent page refresh
@@ -53,7 +48,8 @@ function DJoin({ gotoHandle, setCodeHandle }) {
 
   return (
     <>
-      <div className="join-instruction text-medium font-spooky text-orange text-center">
+      <div className="join-instruction">
+        <h1>PLEASE ENTER</h1>
         <form onSubmit={handleSubmit}>
           <label>
             <h2>ENTER ROOM CODE</h2>
@@ -85,8 +81,6 @@ function DJoin({ gotoHandle, setCodeHandle }) {
             <p>Room not found</p>
           </div>
         )}
-        <Timer timesUp={timesUp}></Timer>
-        <button onClick={timesUp}>gotoLounge</button>
       </div>
     </>
   );

@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { SocketContext } from "../services/Socket.js";
 import Lounge from "./Lounge.js";
-import Introduction from "./Introduction.js";
+import Role from "./Role.js";
 import Night from "./Night.js";
 import Sunrise from "./Sunrise.js";
 import Day from "./Day.js";
@@ -20,35 +20,32 @@ function TV() {
   const socket = useContext(SocketContext);
   // useHistory
   const history = useHistory();
-  // selector state
-  const [selector, setSelector] = useState("init");
+  // next page state
+  const [nextPage, setNextPage] = useState("init");
 
-  useEffect(() => {
-    //receive ... from server
-  }, []);
-
-  socket.on("goToNextPage", (nextPage) => {
-    goto(nextPage);
+  // Receive next page instruction from server 
+  socket.on("goToNextPage", (page) => {
+    setNextPage(page);
   });
-  const goto = (newState) => {
-    setSelector(newState);
-  };
 
   var screen = <></>;
-  if (selector === "init") {
-    screen = <Lounge gotoHandle={goto} />;
-  } else if (selector === "rolePage") {
-    screen = <Introduction gotoHandle={goto} socket={socket} />;
-  } else if (selector === "night") {
-    screen = <Night gotoHandle={goto} />;
-  } else if (selector === "sunrise") {
-    screen = <Sunrise gotoHandle={goto} />;
-  } else if (selector === "day") {
-    screen = <Day gotoHandle={goto} />;
-  } else if (selector === "sunset") {
-    screen = <Sunset gotoHandle={goto} />;
-  } else if (selector === "end") {
+
+  if (nextPage === "init") {
+    screen = <Lounge/>;
+  } else if (nextPage === "rolePage") {
+    screen = <Role/>;
+  } else if (nextPage === "nightPage") {
+    screen = <Night/>;
+  } else if (nextPage === "sunrisePage") {
+    screen = <Sunrise/>;
+  } else if (nextPage === "dayPage") {
+    screen = <Day/>;
+  } else if (nextPage === "sunsetPage") {
+    screen = <Sunset/>;
+  } else if (nextPage === "endPage") {
     screen = <End />;
+  } else if (nextPage === "welcomePage") {
+    history.push("/")
   }
 
   return (

@@ -1,22 +1,26 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect, useContext } from "react";
+import { SocketContext } from "../services/Socket";
+import { useRecoilState } from "recoil";
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
+import { roomIdState, playersState } from "../services/Atoms";
 import Timer from '../services/Timer';
 
-function End({gotoHandle}){
+function End(){
+  // SocketContext
+  const socket = useContext(SocketContext);
+  // room id
+  const [roomId, setRoomId] = useRecoilState(roomIdState);
+  // Timer duration
+  const [duration, setDuration] = useState();
+
   const history = useHistory();
-  const [players,setPlayers] = useState([]);
 
-  const timesUp = () => {
-    console.log("time up in end")
-    history.push("/");
-    }
-
-    useEffect(()=>{
-        //call server to see who won
-        // call server to reveal everyone's identity 
-        setPlayers(['XXX','XXX','XXX','XXX', 'XXX']);
-
-    },[])  
+  useEffect(() => {
+   // Receive timer duration from server 
+    socket.on("startTimer", pageTime => {
+      setDuration(pageTime);
+    })
+  });
 
 
   return (
@@ -26,16 +30,15 @@ function End({gotoHandle}){
           XXXX WON!
           <p className="text-large">
           Identity reveal:
-          {players.map((n)=>(
+          {/* {players.map((n)=>(
           <li>{n}</li>
-          ))}
-          <Timer timesUp ={timesUp}></Timer>
+          ))} */}
           </p>
           </h1>
          
         
-        <button className="text-medium absolute bottom-5 left-3"  onClick={() => history.push("/")} >GotoMain</button>
-       
+        {/* <button className="text-medium absolute bottom-5 left-3"  onClick={() => history.push("/")} >GotoMain</button>
+        */}
       </div>
       </>
   )

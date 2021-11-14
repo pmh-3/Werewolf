@@ -16,52 +16,49 @@ import DDay from "./DDay.js";
 import DSunset from "./DSunset.js";
 import DEnd from "./DEnd.js";
 
-import villager from "../../assets/images/roles/villager.png";
-import werewolf from "../../assets/images/roles/werewolf.png";
-import healer from "../../assets/images/roles/healer.png";
-
 function Device() {
+  // SocketContext
   const socket = useContext(SocketContext);
+  // useHistory
   const history = useHistory();
-  const [selector, setSel] = useState("join");
-  const [code, setCode] = useState();
+  // next page state
+  const [nextPage, setNextPage] = useState("join");
 
-  useEffect(() => {
-    //receive role from server
-  }, []);
 
-  socket.on("goToNextPage", (nextPage) => {
-    goto(nextPage);
+  // Receive next page instruction from server 
+  socket.on("goToNextPage", (page) => {
+    setNextPage(page);
   });
 
-  const goto = (newState) => {
-    setSel(newState);
-  };
-  const setCodeHandle = (c) => {
-    setCode(c);
+  const goto = (newPage) => {
+    setNextPage(newPage);
   };
 
+
   var screen = <></>;
-  if (selector === "join") {
-    screen = <DJoin gotoHandle={goto} setCodeHandle={setCodeHandle} />;
-  } else if (selector === "lounge") {
-    screen = <DLounge gotoHandle={goto} Gcode={code} />;
-  } else if (selector === "rolePage") {
-    screen = <DRole gotoHandle={goto} Gcode={code} />;
-  } else if (selector === "nightPage") {
-    screen = <DNight gotoHandle={goto} />;
-  } else if (selector === "sunrise") {
+  if (nextPage === "join") {
+    screen = <DJoin gotoHandle={goto}/>;
+  } else if (nextPage === "lounge") {
+    screen = <DLounge gotoHandle={goto}/>;
+  } else if (nextPage === "rolePage") {
+    screen = <DRole gotoHandle={goto}/>;
+  } else if (nextPage === "nightPage") {
+    screen = <DNight gotoHandle={goto}/>;
+  } else if (nextPage === "sunrisePage") {
     screen = <DSunrise gotoHandle={goto} />;
-  } else if (selector === "day") {
+  } else if (nextPage === "dayPage") {
     screen = <DDay gotoHandle={goto} />;
-  } else if (selector === "sunset") {
+  } else if (nextPage === "sunsetPage") {
     screen = <DSunset gotoHandle={goto} />;
-  } else if (selector === "end") {
+  } else if (nextPage === "endPage") {
     screen = <DEnd />;
+  } else if (nextPage === "welcomePage") {
+    history.push("/")
   }
 
   return (
     <>
+      PD
       <div>{screen}</div>
     </>
   );

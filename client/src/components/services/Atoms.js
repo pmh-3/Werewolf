@@ -25,3 +25,15 @@ export const playersState = atom({
   key: "playersState",
   default: [],
 });
+
+// Current Player role
+export const playerRoleState = atom({
+  key: "playerRoleState",
+  default: "",
+});
+
+// Current Player final target
+export const playerFinalTargetState = atom({
+  key: "playerTargetState",
+  default: "",
+});
