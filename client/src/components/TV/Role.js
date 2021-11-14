@@ -14,8 +14,10 @@ function Role(){
   // Timer duration
   const [duration, setDuration] = useState();
 
-  
+  const playerObjList = [];
+
   useEffect(() => {
+
     // Receive timer duration from server 
     socket.on("startTimer", pageTime => {
         setDuration(pageTime);
@@ -24,6 +26,12 @@ function Role(){
     socket.emit("assignPlayerRole", roomId);
   });
 
+  // request a list of players
+  socket.on("req-tv-allplayers-fullinfo", (roomId) => {
+    socket.on("res-tv-allplayers-fullinfo", (response) => {
+      playerObjList = response;
+    })
+  })
 
   return (
       <>
@@ -34,11 +42,23 @@ function Role(){
         The town's destiny depends on the villagers!<br></br>
         Everyone will vote to kick out someone once day breaks.<br></br>
         Don't trust anyone with your identity!<br></br> Good luck!
-        </h1> 
+        </h1>
+
         <h2 className="text-center text-large">
         Timer:
         <Timer pageDuration = {duration}></Timer>
-        </h2> 
+        </h2>
+
+        <p className="text-medium absolute left-3 top-21">
+            Lounge
+            <p>
+              Players:
+              {playerObjList.map((player) => (
+                <li key={player.name}>{player.name} </li>
+              ))}
+            </p>
+        </p>
+
       </div>
       </>
   )
