@@ -60,7 +60,7 @@ const socket = (io) => {
       if (findGame(roomCode) !== undefined) {
         // Cusomize timer duration for each page
         let game = findGame(roomCode);
-        game.assignPlayerRolesAndAction();
+        // game.assignPlayerRolesAndAction();     // ZI: I commented it out for server to run
         let timer = {
           rolePageTime: 8,
           nightPageTime: 20,
@@ -69,6 +69,11 @@ const socket = (io) => {
           sunsetPageTime: 5,
           endPageTime: 3,
         };
+        const rolePageTime = 8;
+        const nightPageTime = 20;
+        const sunrisePageTime = 5;
+        const dayPageTime = 20;
+        const sunsetPageTime = 5;
         const endPageTime = 3;
         // Server will count down using totalGameTime
         let totalGameTime =
