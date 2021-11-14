@@ -31,7 +31,8 @@ function Day(){
         ))} */}
 
         </h1> 
-       
+        <Timer pageDuration = {duration}></Timer>
+        
         {/* <button className="text-medium absolute bottom-5 left-3" onClick={() => gotoHandle("sunset")} >goToSunset</button> */}
        
       </div>

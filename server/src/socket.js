@@ -62,18 +62,13 @@ const socket = (io) => {
         let game = findGame(roomCode);
         game.assignPlayerRolesAndAction();
         let timer = {
-          rolePageTime: 5,
-          nightPageTime: 50,
-          sunrisePageTime: 10,
-          dayPageTime: 3,
-          sunsetPageTime: 3,
+          rolePageTime: 8,
+          nightPageTime: 20,
+          sunrisePageTime: 5,
+          dayPageTime: 20,
+          sunsetPageTime: 5,
           endPageTime: 3,
         };
-        const rolePageTime = 50;
-        const nightPageTime = 50;
-        const sunrisePageTime = 10;
-        const dayPageTime = 3;
-        const sunsetPageTime = 3;
         const endPageTime = 3;
         // Server will count down using totalGameTime
         let totalGameTime =
@@ -131,7 +126,7 @@ const socket = (io) => {
       }
     });
 
-    // Zi: Start voting draft 
+    // Zi: Start voting for night; this event is for TESTING PURPOSE 
     socket.on("nightBegins", roomCode => {
 
       // Hardcoded player list for now:
@@ -145,13 +140,29 @@ const socket = (io) => {
       io.to(roomCode).emit("startVoting", players, wolves, villagers);
 
       // Get vote from client 
-      socket.on("sendVote", (voterRole, targetedPlayer) => {
+      socket.on("submitVote", (voterRole, targetedPlayer) => {
         // If voter was seer, send back targeted player's identity 
         if (voterRole === "TESTSEER") 
           io.to(roomCode).emit("revealIdentity", "SUPERSTAR");
       }); 
 
     })
+
+    // Zi: Start voting for day; this event is for TESTING PURPOSE 
+    socket.on("dayBegins", roomCode => {
+
+      // Hardcoded alive player list for now:
+      const players = ["Peter", "Nirm", "Jason", "Zi", "Alina"];
+      
+      io.to(roomCode).emit("startVoting", players, undefined, undefined);
+
+    })
+
+    // Zi: process temporary vote (from wolf during night and from everyone during day)
+    socket.on("sendTemporaryVote", (roomCode, playerName, playerTarget) => {
+      io.to(roomCode).emit("temporaryVote", playerName, playerTarget);
+
+    }) 
     
     // Jason: send a list of alive player upon request
     socket.on("req-tv-allplayers-fullinfo", roomCode => {
@@ -172,7 +183,6 @@ const socket = (io) => {
       }
       io.to(roomCode).emit("res-tv-allplayers-fullinfo", playerObjList);
     })
-
 
     socket.on("disconnect", () => {
       // TODO: Remove player from game

@@ -35,5 +35,23 @@ export const playerRoleState = atom({
 // Current Player final target
 export const playerFinalTargetState = atom({
   key: "playerTargetState",
+  default: "noVote",
+});
+
+// Vote submitted or not 
+export const voteSubmittedState = atom({
+  key: "voteSubmittedState",
+  default: false,
+});
+
+// Other voter name 
+export const otherVoterNameState = atom({
+  key: "otherVoterNameState",
+  default: "",
+});
+
+// Other voter target
+export const otherVoterTargetState = atom({
+  key: "otherVoterTargetState",
   default: "",
 });

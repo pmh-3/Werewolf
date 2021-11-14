@@ -32,7 +32,7 @@ function Sunrise({gotoHandle}){
           here is who was left: show a list of current player 
          <br></br>
           NOW it's time to discuss and vote one of you OUT!
-         
+          <Timer pageDuration = {duration}></Timer>
           </h1>
         {/* <button className="text-medium absolute bottom-5 left-3"onClick={() => gotoHandle("day")} >GotoDay</button> */}
       </div>

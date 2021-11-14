@@ -44,7 +44,7 @@ function Night(){
         <button className="text-medium absolute bottom-5 left-3"  onClick={() => gotoHandle("sunrise")} >GotoSunrise</button> */}
 
         <h2 className="text-center text-large">
-          Timer: <Timer pageDuration = {duration}></Timer>
+        Timer: <Timer pageDuration = {duration}></Timer>
         </h2> 
 
       </div>

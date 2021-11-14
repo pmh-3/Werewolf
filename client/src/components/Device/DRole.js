@@ -7,7 +7,6 @@ import healerImage from "../assets/images/roles/healer.png";
 import villagerImage from "../assets/images/roles/villager.png";
 import wolfImage from "../assets/images/roles/werewolf.png";
 import seerImage from "../assets/images/roles/seer.png";
-import Timer from '../services/Timer';
 
 function DRole({gotoHandle, Gcode}) {
      // SocketContext
