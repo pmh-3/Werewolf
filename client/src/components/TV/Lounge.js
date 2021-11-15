@@ -47,17 +47,22 @@ function Lounge() {
           Werewolf
           <p className="text-medium absolute left-3 top-21">
             Lounge
-            <p>
-              Players:
+            <p>Players:</p>
+              <div className="inline-flex">
               {players.map((player) => (
-                <li key={player.socketId}>{player.name}</li>
-              ))}
-            </p>
+                <div key={player.socketId}
+                className="rounded-full h-24 w-24 flex items-center justify-center bg-teeth mr-4"
+                
+                >
+                  <div className="text-center">{player.name}</div>
+                </div>
+                ))}
+              </div>  
           </p>
         </h1>
         <p className="text-large absolute top-0 right-10">
           ROOM CODE <br></br>
-          <p className="text-header absolute top-201 right-10 bg-orange text-teeth rounded px-10">
+          <p className="text-header bg-orange text-teeth rounded px-10">
             {roomId}
           </p>
         </p>

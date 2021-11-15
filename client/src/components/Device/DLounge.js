@@ -33,18 +33,17 @@ function DLounge({ gotoHandle, Gcode }) {
   return (
     <>
       <div className="lounge font-spooky text-orange text-medium">
-        <h1>LOUNGE</h1>
+        <h1 className="text-large">LOUNGE</h1>
         {/* <h1>First Player to join, starts the game.</h1> */}
-        <br></br>
-        <h3 className=" absolute top-5">Waiting for players...</h3>
+        <h2 className="block font-bold">Players: </h2>
+        <h3 className=" absolute bottom-5">Waiting for players...</h3>
         <br></br>
         <div>
-          <h2 className="block font-bold">Players: </h2>
-          <div className="inline-flex">
+          <div className="grid gap-4 grid-cols-3">
             {players.map((player) => (
               <div
                 key={player.socketId}
-                className="rounded-full h-24 w-24 flex items-center justify-center bg-indigo-500 mr-4"
+                className="rounded-full h-24 w-24 flex items-center justify-center bg-teeth mr-4"
               >
                 <div className="text-center">{player.name}</div>
               </div>
