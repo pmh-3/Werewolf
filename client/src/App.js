@@ -4,6 +4,7 @@ import './App.css';
 import WelcomePage from './WelcomePage.js';
 import Device from './components/Device/Device.js';
 import TV from './components/TV/TV.js';
+
 function App() {
 
   const [state,setState] = useState('init');
@@ -11,7 +12,6 @@ function App() {
   //default home page is always just "/"
 
   return (
-
     <div className="App">
     <Router>
     <Route path="/" exact render={() => <WelcomePage />} /> 
@@ -20,10 +20,10 @@ function App() {
 
     </Router>
     </div>
-
-    
   )
+  
 }
+export default App;
 
 // function Button(props) {
 //   const {onPress, tlte = 'Save'} = props;
@@ -52,6 +52,3 @@ function App() {
 //     color: 'white',
 //   },
 // });
-
-
-export default App;

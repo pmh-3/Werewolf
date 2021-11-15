@@ -20,7 +20,16 @@ function Lounge() {
   // current room players
   const [players, setPlayers] = useRecoilState(playersState);
 
+  // import the audio
+  let audio = new Audio("./../assets/audio/wolf_howl.wav")
+
+  //plays a howling sound effect
+  const audioOnStart = () => {
+    audio.play()
+  }
+
   useEffect(() => {
+
     if (roomId === undefined) {
       // Create a room
       socket.emit("createRoom");
@@ -42,6 +51,7 @@ function Lounge() {
 
   return (
     <>
+      <div> {audioOnStart}</div> 
       <div className="lounge font-spooky text-orange">
         <h1 className="text-header absolute top-0 left-3">
           Werewolf
