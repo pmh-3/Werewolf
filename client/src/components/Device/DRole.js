@@ -23,15 +23,27 @@ function DRole({gotoHandle, Gcode}) {
     // my image 
     const [image, setImage] = useState();
 
+    // client-side
+socket.emit("update item", "1", { name: "updated" }, (response) => {
+  console.log(response.status); // ok
+});
+
+// // server-side
+// io.on("connection", (socket) => {
+//   socket.on("update item", (arg1, arg2, callback) => {
+//     console.log(arg1); // 1
+//     console.log(arg2); // { name: "updated" }
+//     callback({
+//       status: "ok"
+//     });
+//   });
+// });
+
 
     useEffect(()=>{
-      // Get assignedRole from server (assignedRole will be undefined initially) 
-      socket.emit('getRole', name, roomId, function (data) {
-        let assignedRole = data.result;
-        console.log("assigning role: " + assignedRole);
-        setPlayerRole(assignedRole);    
-      });
-      
+        console.log("clean up");
+
+
     },[])   // TODO: Add "assignedRole" in the [] bracke
 
     // socket.io.on("assignedRole", (assignedRole) =>{
@@ -40,6 +52,20 @@ function DRole({gotoHandle, Gcode}) {
     //    // setPlayerRole(assignedRole);    
     //   }  
     // });
+
+
+      // Get assignedRole from server (assignedRole will be undefined initially) 
+        socket.emit('getRole', name, roomId, (response) => {
+          let assignedRole = response.role;
+          console.log("assigning role: " + assignedRole);
+          console.log("role: " + role);
+  
+            setPlayerRole(assignedRole);   
+            console.log("role2: " + role);
+        });
+
+                
+
   
     if (role !== undefined) {           
       // Different role will get different instruction 
