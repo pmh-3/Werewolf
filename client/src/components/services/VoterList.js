@@ -57,7 +57,7 @@ function VoterList({currentTarget, gameState}) {
     return (
         <div>
             {voterList.map((vL) => (
-                <li>Vote by: {vL}</li>
+                <ul>Vote by: {vL}</ul>
             ))}
         </div>
     )

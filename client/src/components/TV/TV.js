@@ -21,7 +21,7 @@ function TV() {
   // useHistory
   const history = useHistory();
   // next page state
-  const [nextPage, setNextPage] = useState("init");
+  const [nextPage, setNextPage] = useState("lounge");
 
   // Receive next page instruction from server 
   socket.on("goToNextPage", (page) => {
@@ -30,7 +30,7 @@ function TV() {
 
   var screen = <></>;
 
-  if (nextPage === "init") {
+  if (nextPage === "lounge") {
     screen = <Lounge/>;
   } else if (nextPage === "rolePage") {
     screen = <Role/>;

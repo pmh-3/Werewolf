@@ -25,6 +25,8 @@ function Device() {
   const [finalTarget, setFinalTarget] = useRecoilState(playerFinalTargetState);
   // next page state
   const [nextPage, setNextPage] = useState("join");
+
+  const [noRole, setNoRole] = useState(true);
   // Initialize voteComplete
   const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
 
@@ -45,6 +47,8 @@ function Device() {
     // Go to next page     
     setNextPage(page);
   });
+
+
 
   const goto = (newPage) => {
     setNextPage(newPage);
