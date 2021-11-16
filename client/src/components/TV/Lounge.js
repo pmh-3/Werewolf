@@ -61,7 +61,7 @@ function Lounge() {
               <div className="inline-flex">
               {players.map((player) => (
                 <div key={player.socketId}
-                className="rounded-full h-24 w-24 flex items-center justify-center bg-teeth mr-4"
+                className="rounded-full h-24 w-24 flex items-center justify-center bg-teeth mr-4 mt-8"
                 
                 >
                   <div className="text-center">{player.name}</div>

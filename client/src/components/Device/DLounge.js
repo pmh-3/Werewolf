@@ -51,7 +51,7 @@ function DLounge({ gotoHandle, Gcode }) {
           </div>
         </div>
 
-        <div className="absolute left-1/5 right-1/5 bottom-1/5">
+        <div className="flex items-center justify-center mt-20">
           <button
             className="bg-orange text-teeth text-button hover:bg-darkOrange rounded py-1 px-12 "
             onClick={() => startGame()}
@@ -59,8 +59,10 @@ function DLounge({ gotoHandle, Gcode }) {
           >
             Start Game
           </button>
+        </div>
+        <div className="flex items-center justify-center">
           {players.length < 3 && (
-            <p>Minimum 3 players required to start the game</p>
+            <p>3 players required</p>
           )}
         </div>
       </div>

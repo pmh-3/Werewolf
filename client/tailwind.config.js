@@ -13,6 +13,7 @@ module.exports = {
     },
     fontSize: {
       'computer': '10rem',
+      'device': '7rem',
       'TV': '15rem',
       'header': '6rem',
       'large': '3rem',
@@ -21,7 +22,7 @@ module.exports = {
       'button': '2rem',
     },
     screens: {
-    'laptop': '2560px',
+    'small': '640px',
     },
     extend: {
       inset: {

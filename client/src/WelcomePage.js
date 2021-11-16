@@ -9,23 +9,27 @@ function WelcomePage() {
 
     return (
         <>
-        <div className="text-center font-spooky">
-          <p className="pt-24 text-computer text-orange">
-          Werewolf
-          </p> 
-          <div className="text-button">
-            <button 
-              className=" bg-orange text-teeth hover:bg-darkOrange px-10 rounded-full mr-4 inline-flex " 
-              onClick={() => history.push("/TV")} 
-            >
-              START
-            </button>
-            <button 
-              className="bg-orange text-teeth hover:bg-darkOrange px-12 rounded-full inline-flex"
-              onClick={() => history.push("/device")} 
-          >
-              JOIN
-            </button>
+        <div className="font-spooky">
+          <div className="flex items-center justify-center">
+            <p className="pt-24 text-device small:text-computer text-orange">
+            Werewolf
+            </p> 
+          </div>
+          <div className="flex items-center justify-center">
+            <div className="text-button">
+              <button 
+                className=" bg-orange text-teeth hover:bg-darkOrange px-10 rounded-full mr-4 inline-flex " 
+                onClick={() => history.push("/TV")} 
+              >
+                START
+              </button>
+              <button 
+                className="bg-orange text-teeth hover:bg-darkOrange px-12 rounded-full inline-flex"
+                onClick={() => history.push("/device")} 
+              >
+                JOIN
+              </button>
+            </div>
           </div>
         </div>
         </>
