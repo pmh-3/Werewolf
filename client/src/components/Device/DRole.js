@@ -46,23 +46,20 @@ socket.emit("update item", "1", { name: "updated" }, (response) => {
 
     },[])   // TODO: Add "assignedRole" in the [] bracke
 
-    // socket.io.on("assignedRole", (assignedRole) =>{
-    //   console.log("assigning role: " + assignedRole);
-    //   if(role !== assignedRole){
-    //    // setPlayerRole(assignedRole);    
-    //   }  
-    // });
+    socket.on("assignedRole", (assignedRole) =>{
+      console.log("assigning role: " + assignedRole);
+      setPlayerRole(assignedRole);    
+    });
 
-
-      // Get assignedRole from server (assignedRole will be undefined initially) 
-        socket.emit('getRole', name, roomId, (response) => {
-          let assignedRole = response.role;
-          console.log("assigning role: " + assignedRole);
-          console.log("role: " + role);
+      // // Get assignedRole from server (assignedRole will be undefined initially) 
+      //   socket.emit('getRole', name, roomId, (response) => {
+      //     let assignedRole = response.role;
+      //     console.log("assigning role: " + assignedRole);
+      //     console.log("role: " + role);
   
-            setPlayerRole(assignedRole);   
-            console.log("role2: " + role);
-        });
+      //       setPlayerRole(assignedRole);   
+      //       console.log("role2: " + role);
+      //   });
 
                 
 

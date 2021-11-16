@@ -82,30 +82,24 @@ const socket = (io) => {
   //   });
   // });
 
-     // send role to each respective player using call back 
-    socket.on('getRole', (n, roomCode, callback) => {
-      let game = findGame(roomCode);
-      if(game == undefined){
-        return;
-      }
-      console.log('assigning role ' + n);
+    //  // send role to each respective player using call back 
+    // socket.on('getRole', (n, roomCode, callback) => {
+    //   let game = findGame(roomCode);
+    //   if(game == undefined){
+    //     return;
+    //   }
+    //   console.log('assigning role ' + n);
     
-      game.players.forEach((p)=>{
-        if(n == p.getPlayer().name ){
-          //socket.emit("assignedRole", p.getPlayer().role);
-          callback({role: p.getPlayer().role});
-          console.log('assigning ' + p.getPlayer().role + " to " + p.getPlayer().name + " " + p.getPlayer().socketId + " orr " + socket.id )
-        }
-      })
-    });
+    //   game.players.forEach((p)=>{
+    //     if(n == p.getPlayer().name ){
+    //       //socket.emit("assignedRole", p.getPlayer().role);
+    //       callback({role: p.getPlayer().role});
+    //       console.log('assigning ' + p.getPlayer().role + " to " + p.getPlayer().name + " " + p.getPlayer().socketId + " orr " + socket.id )
+    //     }
+    //   })
+    // });
     
-    // if(s = )
-    // game.players.forEach((p)=>{
-    //   let id = p.getId();
-  
-    //   socket.to(id).emit("assignedRole", p.getPlayer().role);
-    //     console.log('assigning ' + p.getPlayer().role + " to " + p.getPlayer().name + " " + p.getPlayer().socketId  + "orr" + p.getId())
-    // })
+
 
   /********************STATE*************************** */
     // Start game
@@ -134,6 +128,12 @@ const socket = (io) => {
         // After client presses start game, all devices go to role page
         game.assignPlayerRolesAndActions()
 
+        game.players.forEach((p)=>{
+          let id = p.getId();
+      
+          socket.broadcast.to(id).emit("assignedRole", p.getPlayer().role);
+            console.log('assigning ' + p.getPlayer().role + " to " + p.getPlayer().name + " " + p.getPlayer().socketId  + "orr" + p.getId())
+        })
 
 
         io.to(roomCode).emit("goToNextPage", "rolePage");
