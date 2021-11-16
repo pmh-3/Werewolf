@@ -1,14 +1,22 @@
 module.exports = class Game {
   constructor(code) {
-    this.code = this.generateRoom(4);
+    this.code = this.generateRoom(3);
     this.players = [];
     this.gameState = "lounge";
     this.playerRolesAndActions = {
-      "werewolf": "kill",
+      "wolf": "kill",
       "villager": "vote",
       "healer": "heal",
       "seer": "see",
+      "spectator": "watch"
     }
+    // Default case of 3 players 
+    this.assignedRole = {
+      wolf: 1,
+      villager: 1,
+      healer: 1,
+      seer: 0,
+    };
   }
 
   getRoomCode() {
@@ -35,8 +43,16 @@ module.exports = class Game {
   // lounge, night,day
   // for night& day, special its # as well
   // if # is needed for lounge, assign it 0
-  getGameState() {
+  getState(){
     return this.gameState;
+  }
+
+  setState(state){
+    this.gameState = state;
+    //clear votes
+    this.players.forEach(player => {
+        player.clearVotes();
+    });
   }
 
   getRoom() {
@@ -49,14 +65,7 @@ module.exports = class Game {
 
   // according to total # of players, assign them a role
   assignPlayerRolesAndActions() {
-    // Default case of 3 players
-    let assignedRole = {
-      werewolf: 1,
-      villager: 1,
-      healer: 1,
-      seer: 0,
-    };
-
+    let playerCount = this.players.length;
     // role assignment generation based on total # of players
     if (playerCount > 3) {
       let val =
@@ -74,14 +83,14 @@ module.exports = class Game {
     // assign roles to players
     shuffledPlayers.forEach((player) => {
       // get the available roles for the player
-      let availableRoles = Object.keys(assignedRole).filter(
-        (role) => assignedRole[role] > 0
+      let availableRoles = Object.keys(this.assignedRole).filter(
+        (role) => this.assignedRole[role] > 0
       );
       // assign a role to the player
       player.role =
         availableRoles[Math.floor(Math.random() * availableRoles.length)];
       // reduce the assigned role by 1
-      assignedRole[player.role]--;
+      this.assignedRole[player.role]--;
     });
     
     // Assiciate actions to players based on their role
@@ -98,5 +107,58 @@ module.exports = class Game {
         Math.floor(Math.random() * characters.length)
       );
     return result;
+  }
+
+  Vote(p, cmd){
+    this.players.forEach(player => {
+        if(player == p){
+          if(cmd == "add"){
+            player.addVote();
+          }else if(cmd == 'delete'){
+            player.deleteVote();
+          }
+        }
+    });
+  }
+
+  countVote(state){
+    let player = null;
+    if(state == 'sunrise'){
+      this.players.forEach(player =>{
+        if(player.vote == this.assignedRole.werewolf){
+          player.role = this.assignedRole.spectator
+          return player
+        }
+      })
+    }else if(state == 'sunset'){
+      //find player with most votes
+      let banished = this.players[0]; 
+      this.players.forEach(player =>{
+        if(player.vote > banished.vote){ 
+          banished = player
+        }
+      })
+
+      //find and account for tie 
+      this.players.forEach(player =>{
+        //compare player with most votes to everyone else but themselves
+        if(player.vote == banished.vote && player != banished){ 
+          //decide tie with coin toss either 0 or 1
+          if(Math.floor(Math.random()*2)){
+            banished = player
+          }
+        }
+      })
+      return player;
+    }
+  }
+
+  Clock(time){
+    setInterval(function(){
+      time--;
+      if(time == 0){
+        return "times up";
+      }
+    }, 1000);
   }
 };
