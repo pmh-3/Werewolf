@@ -204,6 +204,7 @@ const socket = (io) => {
     const vote = (game) =>{
       let wolfList = [];
       let villagerList = [];
+
       game.getPlayers().forEach(p =>{
           const { role } = p;
           const { name } = p;
@@ -216,14 +217,13 @@ const socket = (io) => {
             villagerList.push(p);
           }
 
-        });
-        console.log("wolf List: " + wolfList);
-        console.log("villager list:" + villagerList);
+      });
 
+      console.log("wolf List: " + findByRole(game, 'wolf'));
+      console.log("villager list:" + villagerList);
       console.log("night vote");
       io.to(game.code).emit("startVoting", wolfList, villagerList, game.getPlayers());
     }
-
 
      // Zi: process temporary vote (from wolf during night and from everyone during day)
      socket.on("sendTemporaryVote", (roomCode, playerName, playerTarget) => {
@@ -243,40 +243,32 @@ const socket = (io) => {
       let game = findGame(ballot.room);
       console.log("Vote Recorded: " , ballot.voterName ," the ", ballot.role + ", targets: " + ballot.target);
 
+      // count all votes to switch to next state when everyone has voted.
+      game.Vote(ballot.target, 'count');
+
       if(ballot.time == 'night'){
+        // If voter was seer, send back targeted player's identity to seer
+        if ( ballot.role === "seer"){
+            reveal(game, ballot.target);
+        }
 
-      }
-      if(ballot.time == 'day'){
+        if (ballot.role === "wolf") {
+          game.Vote(ballot.target, "add");
+        }
 
-      }
+        if (ballot.role === "healer") {
+          game.Vote(ballot.target, "delete");
+        }
 
-      // If voter was seer, send back targeted player's identity to seer
-      if ( ballot.role === "seer"){
-          reveal(game, ballot.target);
-      }
+        // Nothing is being done with villager vote at night at the moment
+        if (ballot.role == 'villager'){}
 
-      if (ballot.role === "wolf") {
-        game.Vote(ballot.target, "add");
-      }
-
-      if (ballot.role === "healer") {
-        game.Vote(ballot.target, "delete");
-      }
-
-      // Nothing is being done with villager vote at night at the moment
-      // vote is counted to change state once all players have submitted voted
-      if (ballot.role == 'villager'){
-        game.Vote(ballot.target, 'count')
-      }
-
-      // DAY time votes treated the same regardless of role, 
-      // game state is checked for redundency 
-      // Votes counted at sunset and sundown
-      if (ballot.role === 'day' && game.getState() == 'day'){
+      }else if(ballot.time == 'day'){
+      // treat all day votes the same
         game.Vote(ballot.target, 'add');
-
       }
 
+      //// still testing
       // if(game.isAllVotesIn() && game.getState() == 'night'){
       //   switchState(game,'sunrise')
       // }else if(game.isAllVotesIn() && game.getState() == 'day'){
@@ -290,26 +282,22 @@ const socket = (io) => {
 
     // TODO client side recieve
 
-    // const reveal = (games, name) => {
-    //   return games.find(game => game.code === code);
-    // }
+  const findByName = (game, name) => {
+    return game.getPlayers().find(p => p.name === name);
+  }
 
-    const reveal = (game, name) => {
-      
-      games.find(role)
-      let seer, revealed;
-      game.players.forEach((p) => {
-        if(p.role == 'seer'){
-          seer = p;
-        }
-        if(p.name == 'name'){
-          revealed = p;
-        }
-      });
+  const findByRole = (game, role) => {
+    return game.getPlayers().find(p => p.role=== role);
+  }
 
+  const reveal = (game, name) => {
+    
+    let seer = findByRole(game, 'seer');
+    let revealed = findByName(game, 'name');
     io.to(seer.socketId).emit("assignedRole", {
       role: revealed.role,
     });
+
   }
 
 
