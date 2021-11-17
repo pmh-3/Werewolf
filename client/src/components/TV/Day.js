@@ -4,6 +4,7 @@ import { useRecoilState } from "recoil";
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
 import { roomIdState, playersState } from "../services/Atoms";
 import Timer from '../services/Timer';
+import VoterList from '../services/VoterList.js';
 
 function Day(){
   // SocketContext
@@ -12,6 +13,7 @@ function Day(){
   const [roomId, setRoomId] = useRecoilState(roomIdState);
   // Timer duration
   const [duration, setDuration] = useState();
+  const [players, setPlayers] = useRecoilState(playersState);
 
 
   useEffect(() => {
@@ -26,9 +28,18 @@ function Day(){
       <div className="day text-orange font-spooky text-center text-large">
         <h1>
         VOTE SOMEONE OUT OF THE TOWN
-        {/* {players.map((n)=>(
-          <li>{n}</li>
-        ))} */}
+        <div className="inline-flex">
+
+            {players.map((player) => (
+              <div
+                key={player.socketId}
+                className="rounded-full h-24 w-24 flex items-center justify-center bg-indigo-500 mr-4"
+              >
+                <div className="text-center">{player.name}</div>
+              </div>
+            ))}
+              <h2><VoterList currentTarget = {"me"} gameState = {"day"}/></h2>
+          </div>
 
         </h1> 
         <Timer pageDuration = {duration}></Timer>

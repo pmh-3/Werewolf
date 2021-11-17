@@ -65,26 +65,28 @@ function Vote({showTargets, gameState}) {
 
 
     return (
-        <div>
-        <p> MAKE YOUR VOTE BELOW:
-            {showTargets.map((t) => (
-                <li>
-                    <button onClick={() => saveTarget(t)} >{t}</button>
-                    <h2><VoterList currentTarget = {t} gameState = {gameState}/></h2>
-                
-                </li>
-
-            ))}
+      <div>
+        <p>
+          {" "}
+          MAKE YOUR VOTE BELOW:
+          {showTargets.map((t) => (
+            <li key={Date.now()}>
+              <button onClick={() => saveTarget(t)}>{t}</button>
+              <h2>
+                <VoterList currentTarget={t} gameState={gameState} />
+              </h2>
+            </li>
+          ))}
         </p>
-        <br></br>  
-        <form onSubmit = {submitFinalVote}>
+        <br></br>
+        <form onSubmit={submitFinalVote}>
           <button> SUBMIT! </button>
         </form>
         <h2>You picked: {finalTarget}</h2>
         <h2>{waitMessage}</h2>
         <h2>{sorryMessage}</h2>
-        </div>
-    )
+      </div>
+    );
 }
 
 export default Vote;

@@ -29,7 +29,7 @@ export const playersState = atom({
 // Current Player role
 export const playerRoleState = atom({
   key: "playerRoleState",
-  default: "",
+  default: undefined,
 });
 
 // Current Player final target

@@ -21,30 +21,32 @@ function VoterList({currentTarget, gameState}) {
     
 
     useEffect(() => {
-        // Update voter list ONLY for wolves during night OR for everyone during the day 
-        if (gameState === "day" || (gameState === "night" && playerRole === "wolf")) {
-
-            // If otherVoterTarget === currentTarget, check voter list  
-            if (otherVoterTarget === currentTarget) {
-
-                // Append voter's name if list is empty or if voter's name is not listed yet
-                if (voterList === undefined || !voterList.includes(otherVoterName)) {
-                    const updatedList = [...voterList, otherVoterName];
-                    setVoterList(updatedList);
-                }
-            }
-        
-            // If otherVoterTarget !== currentTarget, check voter list 
-            else {
-                // If voter list is not empty, traverse list and remove voter's name since voter has changed their vote 
-                if (voterList !== undefined) {
-                    const updatedList = voterList.filter(item => item !== otherVoterName);   
-                    setVoterList(updatedList);
-                }
-            }
+      // Update voter list ONLY for wolves during night OR for everyone during the day
+      if (
+        gameState === "day" ||
+        (gameState === "night" && playerRole === "wolf")
+      ) {
+        // If otherVoterTarget === currentTarget, check voter list
+        if (otherVoterTarget === currentTarget) {
+          // Append voter's name if list is empty or if voter's name is not listed yet
+          if (voterList === undefined || !voterList.includes(otherVoterName)) {
+            const updatedList = [...voterList, otherVoterName];
+            setVoterList(updatedList);
+          }
         }
 
-    }, [otherVoterName, otherVoterTarget, currentTarget]);
+        // If otherVoterTarget !== currentTarget, check voter list
+        else {
+          // If voter list is not empty, traverse list and remove voter's name since voter has changed their vote
+          if (voterList !== undefined) {
+            const updatedList = voterList.filter(
+              (item) => item !== otherVoterName
+            );
+            setVoterList(updatedList);
+          }
+        }
+      }
+    });
 
 
     // Listen for temporary vote from other people 
@@ -57,7 +59,7 @@ function VoterList({currentTarget, gameState}) {
     return (
         <div>
             {voterList.map((vL) => (
-                <li>Vote by: {vL}</li>
+                <ul>Vote by: {vL}</ul>
             ))}
         </div>
     )

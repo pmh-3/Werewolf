@@ -19,14 +19,12 @@ const [targetList, setTargetList] = useState([]);
 const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
 
 
-useEffect(()=>{
-
+useEffect(() => {
   socket.emit("dayBegins", roomId);
   socket.on("startVoting", (allPlayers, allWolves, allVillagers) => {
     setTargetList(allPlayers);
-  })
-
-},[])
+  });
+}, [roomId, socket]);
 
 return (
     <>

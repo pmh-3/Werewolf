@@ -13,9 +13,9 @@ function DNight({gotoHandle}){
   // players in the current room
   const [players, setPlayers] = useRecoilState(playersState);
   // my role
-  const [playerRole, setPlayerRole] = useRecoilState(playerRoleState);
+  const [role, setPlayerRole] = useRecoilState(playerRoleState);
   // my target
-  const [targetList, setTargetList] = useState([]);
+  const [targetList, setTargetList] = useState(['A', 'B','C']);
   // Initialize voteComplete
   const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
   
@@ -28,42 +28,41 @@ function DNight({gotoHandle}){
   // ** FOR TESTING *** 
   const TEST_ROLE = "wolf";   // TODO: change TEST_ROLE to playerRole
 
-  useEffect(()=>{
+  useEffect(() => {
+    //socket.emit("nightBegins", roomId);
+    // If vote is submitted, go to next page
+    if (voteSubmitted === true) gotoHandle("sunrisePage");
+  }, [gotoHandle, voteSubmitted]);
 
-    socket.emit("nightBegins", roomId);
-    socket.on("startVoting", (allPlayers, allWolves, allVillagers) => {
-      switch (TEST_ROLE) {    // TODO: change TEST_ROLE to playerRole
-        case "wolf":
-          setMyAction("KILL");
-          setShowWolvesMsg(`Other wolves :\n` + allWolves);
-          setTargetList(allVillagers);     
-          break;
-        case "healer":
-          setMyAction("HEAL");
-          setTargetList(allPlayers);
-          break;
-        case "seer":
-          setMyAction("SEE");
-          setTargetList(allPlayers);     // TODO: Show list except myself! 
-          break;
-        case "villager": 
-          setMyAction("VOTE");
-          setTargetList(allPlayers);     // TODO: Show list except myself! 
-          break;
-      }
-    })
-
-    // If vote is submitted, go to next page 
-    if (voteSubmitted === true)
-      gotoHandle("sunrisePage");
-
-  },[voteSubmitted])
+  socket.on("startVoting", (allPlayers, allWolves, allVillagers) => {
+    switch (role) {
+      case "wolf":
+        setMyAction("KILL");
+        setShowWolvesMsg(`Other wolves :\n` + allWolves);
+        setTargetList(allVillagers);
+        break;
+      case "healer":
+        setMyAction("HEAL");
+        setTargetList(allPlayers);
+        break;
+      case "seer":
+        setMyAction("SEE");
+        setTargetList(allPlayers); // TODO: Show list except myself!
+        break;
+      case "villager":
+        setMyAction("VOTE");
+        setTargetList(allPlayers); // TODO: Show list except myself!
+        break;
+      default:
+        break;
+    }
+  });
 
   return (
       <>
       <div className="night font-spooky text-orange">
         <h1>NIGHT</h1>
-        <h1>You are a: {TEST_ROLE}</h1>    
+        <h1>You are a: {role}</h1>    
         <h2>{showWolveMsg}</h2> 
         <h1>WHO DO YOU WANT TO  {myAction} ??</h1>
         <Vote showTargets={targetList} gameState = "night"/>  
