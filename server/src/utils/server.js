@@ -109,6 +109,35 @@ server.listen(port, () => console.log(`Listening on port ${port}`));
 //         socket.on("disconnect", () => {
 //             console.log("Client disconnected");
 //             clearInterval(interval);
-//         });
+//         })
+
+
+//    //Utility
+//    const tiktok = (time) => {
+//     console.log('test time: ', time)
+//     time--;
+//     if(time == 0){
+//       return true;
+//     }
+//     return false;
+// }
+
+// const gameTimer = (game) => {
+//   setInterval(, 1000);
+//   switchState(game, "intro");
+//   while(Clock(timer.intro) && game.getState() == 'intro');
+//   switchState(game, "night");
+//   while(Clock(timer.night) && game.getState() == 'night');
+//   switchState(game, "sunrise");
+//   while(Clock(timer.sunrise) && game.getState() == 'sunrise');
+//   switchState(game, "day");
+//   while(Clock(timer.day) && game.getState() == 'day');
+//   switchState(game, "sunset");
+//   while(Clock(timer.sunset) && game.getState() == 'sunset');
+//   switchState(game, "end");
+//   while(Clock(timer.end) && game.getState() == 'end');
+//   switchState(game, "welcome");
+// }
+
 //         /***********************Example ***************************/
 // let interval;

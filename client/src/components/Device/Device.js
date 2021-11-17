@@ -21,15 +21,20 @@ function Device() {
   const [roomId, setRoomId] = useRecoilState(roomIdState);
   // my role
   const [playerRole, setPlayerRole] = useRecoilState(playerRoleState);
+  // all players
+  const [players, setPlayers] = useRecoilState(playersState);
   // my final target
   const [finalTarget, setFinalTarget] = useRecoilState(playerFinalTargetState);
   // next page state
   const [nextPage, setNextPage] = useState("join");
 
-  const [noRole, setNoRole] = useState(true);
   // Initialize voteComplete
   const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
 
+  // TODO place in useEFFECT ??
+  socket.on('playerList', pl => {
+    setPlayers(pl);
+  })
 
   // Receive next page instruction from server 
   socket.on("goToNextPage", (page) => {

@@ -69,8 +69,9 @@ const socket = (io) => {
         game.addPlayer(player);
         // Join the socket to the room requested
         socket.join(roomCode);
+
         // Broadcast when a player connects to a room
-        io.to(roomCode).emit("newPlayer", game.getPlayers());
+        io.to(roomCode).emit("playerList", game.getPlayers());
         console.log("Broadcast emitted");
       } else {
         socket.emit("roomNotFound");
@@ -97,7 +98,6 @@ const socket = (io) => {
       } else {
         console.log("starting game");
         let game = findGame(roomCode);
-        switchState(game, "intro");
         clock(game);
       }
     });
@@ -117,7 +117,6 @@ const socket = (io) => {
 
           io.to(roomCode).emit("goToNextPage", "rolePage");
           game.players.forEach((p) => {
-            let id = p.getId();
 
             io.to(p.socketId).emit("assignedRole", {
               role: p.role,
@@ -139,32 +138,54 @@ const socket = (io) => {
           console.log("night");
           io.to(roomCode).emit("goToNextPage", "nightPage");
           io.to(roomCode).emit("startTimer", timer.night);
-          console.log("night vote");
-          io.to(roomCode).emit("startVoting", playerStore);
+          vote(game);
           break;
 
         case "sunrise":
           console.log("sunrise");
+          //keep in mind sometimes nobody can be eaten
           let eaten = game.countVote(game.getState());
+          
           io.to(roomCode).emit("goToNextPage", "sunrisePage");
           io.to(roomCode).emit("startTimer", timer.sunrise);
-          io.to(roomCode).emit("eaten", eaten);
+
+          if(eaten != null){
+            console.log(eaten.name,' was eaten');
+            io.to(roomCode).emit("eaten", eaten.name);
+          }
+          if(game.saved != null){
+            io.to(roomCode).emit('saved', game.saved.name);
+          }
+        
+          //send entire player list to all clients
+          //I know ppl could cheat if they wanted to 
+          //fix it if you want but this is a simple option for now
+          //maybe client side can take only info needed for role
+          //or server creates and sends individual list to every client
+          io.to(roomCode).emit('playerList', game.getPlayers());
+          game.resetVotes();
           break;
 
         case "day":
           console.log("day");
           io.to(roomCode).emit("goToNextPage", "dayPage");
           io.to(roomCode).emit("startTimer", timer.day);
-        //TODO send only list of all players
-          io.to(roomCode).emit("startVoting", playerStore);
+          vote(game);
           break;
 
         case "sunset":
           let banished = game.countVote(game.getState());
+          
           console.log("sunset");
           io.to(roomCode).emit("goToNextPage", "sunsetPage");
           io.to(roomCode).emit("startTimer", timer.sunset);
-          io.to(roomCode).emit("banished", banished);
+
+          if(banished != null){
+            console.log(banished.name,' was banished');
+            io.to(roomCode).emit("banished", banished);
+          }
+
+          game.resetVotes();
           break;
 
         case "end":
@@ -180,11 +201,34 @@ const socket = (io) => {
 
     /********************VOTING*************************** */
 
+    const vote = (game) =>{
+      let wolfList = [];
+      let villagerList = [];
+      game.getPlayers().forEach(p =>{
+          const { role } = p;
+          const { name } = p;
+
+          if(role == 'wolf'){
+            console.log('new wolf: ', name)
+            wolfList.push(p);
+          }else{
+            console.log('new villager: ', name)
+            villagerList.push(p);
+          }
+
+        });
+        console.log("wolf List: " + wolfList);
+        console.log("villager list:" + villagerList);
+
+      console.log("night vote");
+      io.to(game.code).emit("startVoting", wolfList, villagerList, game.getPlayers());
+    }
+
 
      // Zi: process temporary vote (from wolf during night and from everyone during day)
      socket.on("sendTemporaryVote", (roomCode, playerName, playerTarget) => {
       io.to(roomCode).emit("temporaryVote", playerName, playerTarget);
-      });
+    });
 
 
     socket.on("submitVote", (ballot) => {
@@ -222,9 +266,17 @@ const socket = (io) => {
       // DAY time votes treated the same regardless of role, 
       // game state is checked for redundency 
       // Votes counted at sunset and sundown
-      if (ballot.role === 'day' && game.state == 'sunset'){
+      if (ballot.role === 'day' && game.getState() == 'day'){
         game.Vote(ballot.target, 'add');
+
       }
+
+      // if(game.isAllVotesIn() && game.getState() == 'night'){
+      //   switchState(game,'sunrise')
+      // }else if(game.isAllVotesIn() && game.getState() == 'day'){
+      //   switchState(game,'sunset')
+      // }
+
     });
     /******************** END VOTING*************************** */
 
@@ -248,8 +300,8 @@ const socket = (io) => {
   }
 
 
-
   const clock = (game) => {
+    switchState(game, "intro");
     const rolePageTime = timer.intro;
     const nightPageTime = timer.night;
     const sunrisePageTime = timer.sunrise;
