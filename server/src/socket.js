@@ -241,8 +241,14 @@ const socket = (io) => {
       }
 
       let game = findGame(ballot.room);
-
       console.log("Vote Recorded: " , ballot.voterName ," the ", ballot.role + ", targets: " + ballot.target);
+
+      if(ballot.time == 'night'){
+
+      }
+      if(ballot.time == 'day'){
+
+      }
 
       // If voter was seer, send back targeted player's identity to seer
       if ( ballot.role === "seer"){
