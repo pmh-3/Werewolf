@@ -5,7 +5,7 @@ import { SocketContext } from "../services/Socket";
 import { roomIdState, playersState, playerRoleState, playerFinalTargetState } from "../services/Atoms";
 
 
-function DSunrise({gotoHandle}){
+function DSunrise(){
   // SocketContext
   const socket = useContext(SocketContext);
   // my room id

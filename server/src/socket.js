@@ -6,7 +6,7 @@ let games = [];
 
 let timer = {
   intro: 10,
-  night: 50,
+  night: 10,
   sunrise: 10,
   day: 10,
   sunset: 10,
@@ -283,7 +283,14 @@ const socket = (io) => {
     /******************** TOOLS*************************** */
 
     // TODO client side recieve
+
+    const reveal = (games, name) => {
+      return games.find(game => game.code === code);
+    }
+
     const reveal = (game, name) => {
+      
+      games.find(role)
       let seer, revealed;
       game.players.forEach((p) => {
         if(p.role == 'seer'){

@@ -38,12 +38,6 @@ export const playerFinalTargetState = atom({
   default: "noVote",
 });
 
-// Vote submitted or not 
-export const voteSubmittedState = atom({
-  key: "voteSubmittedState",
-  default: false,
-});
-
 // Other voter name 
 export const otherVoterNameState = atom({
   key: "otherVoterNameState",

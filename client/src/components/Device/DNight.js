@@ -5,7 +5,7 @@ import { SocketContext } from "../services/Socket";
 import { roomIdState, playersState, playerRoleState, playerFinalTargetState, voteSubmittedState } from "../services/Atoms";
 import Vote from "../services/Vote";
 
-function DNight({gotoHandle}){
+function DNight(){
   // SocketContext
   const socket = useContext(SocketContext);
   // my room id
@@ -16,8 +16,6 @@ function DNight({gotoHandle}){
   const [role, setPlayerRole] = useRecoilState(playerRoleState);
   // my target
   const [targetList, setTargetList] = useState([]);
-  // Initialize voteComplete
-  const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
   // wolve list
   const [wolfList, setWolvesList] = useState([]);
   // villager list 
@@ -29,13 +27,6 @@ function DNight({gotoHandle}){
   const [myAction, setMyAction] = useState();
   // Initialize list to show wolf list
   const [showWolveMsg, setShowWolvesMsg] = useState();
-
-
-  useEffect(() => {
-    //socket.emit("nightBegins", roomId);
-    // If vote is submitted, go to next page
-    if (voteSubmitted === true) gotoHandle("sunrisePage");
-  }, [gotoHandle, voteSubmitted]);
 
   useEffect(() => {
     socket.on("startVoting", (w,v,a) => {

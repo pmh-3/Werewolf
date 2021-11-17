@@ -60,7 +60,7 @@ function DJoin({ gotoHandle }) {
               type="text"
               name="roomCode"
               placeholder="room code"
-              maxLength="20"
+              maxLength="3"
               required="required"
               className="border-4 border-ice rounded-full container mx:auto px-4  p-2 block my-3 placeholder-orange placeholder-opacity-50"
             />

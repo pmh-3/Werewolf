@@ -6,7 +6,7 @@ import { roomIdState, playersState, playerRoleState, playerFinalTargetState, vot
 import Vote from "../services/Vote";
 
 
-function DDay({gotoHandle}){
+function DDay(){
   // SocketContext
   const socket = useContext(SocketContext);
   // my room id
@@ -15,8 +15,7 @@ function DDay({gotoHandle}){
   const [players, setPlayers] = useRecoilState(playersState);
   // my target
   const [targetList, setTargetList] = useState([]);
-  // Initialize voteComplete
-  const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
+
 
 
 useEffect(() => {

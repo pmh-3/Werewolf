@@ -10,7 +10,7 @@ import { SocketContext } from "../services/Socket";
 import { roomIdState, playersState } from "../services/Atoms";
 import Timer from "../services/Timer";
 
-function DLounge({ gotoHandle, Gcode }) {
+function DLounge() {
   // SocketContext
   const socket = useContext(SocketContext);
   // useHistory - react router dom
