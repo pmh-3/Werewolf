@@ -10,7 +10,7 @@ import VoterList  from './VoterList';
   // If user clicked SUBMIT but did not select a target, will submit default "noVote".
 
 
-function Vote({showTargets, gameState}) {
+function Vote({showTargets, gameState, device}) {
     // SocketContext
     const socket = useContext(SocketContext);
     // my room id
@@ -27,12 +27,33 @@ function Vote({showTargets, gameState}) {
     const [waitMessage, setWaitMessage] = useState();
     // sorry message
     const [sorryMessage, setSorryMessage] = useState();
+    // set button alignment
+    const [buttonAlign, setButtonAlign] = useState();
+    // set voterList alignment
+    const [listAlign, setListAlign] = useState();
+    // set button style
+    const [buttonStyle, setButtonStyle] = useState();
+
+
 
 
     useEffect(() => {
         // Send temporary vote to server (ONLY for wolves during night OR for everyone during day)
         if (gameState === "day" || (gameState === "night" && playerRole === "wolf"))
             socket.emit("sendTemporaryVote", roomId, playerName,  finalTarget);
+
+        // If device is TV, set buttons horizontally with voters' list below 
+        // If device is PD, set buttons vertically with voters' list at the side
+        if (device === "TV") {
+          setButtonAlign(`inline-flex`);
+          setListAlign(`flex-col`);
+          setButtonStyle(`rounded-full h-24 w-24 items-center justify-center bg-teeth mr-4 mt-8`);
+        }
+        if (device === "PD") {
+          setButtonAlign(`flex-col`);
+          setListAlign(`inline-flex`);
+          setButtonStyle(`rounded-full h-14 w-14 items-center justify-center bg-teeth mr-4 mt-8`);
+        }
 
     }, [finalTarget]);
 
@@ -83,15 +104,15 @@ function Vote({showTargets, gameState}) {
       <div>
         <div>
           {" "}
-          
-          MAKE YOUR VOTE BELOW:
+          <h2>MAKE YOUR VOTE BELOW:</h2>
           {showTargets.map((t) => (
-            <li key={t.name}>
-              <button onClick={() => saveTarget(t)}>{t.name}</button>
-              <h2>
-                <VoterList currentTarget={t.name} gameState={gameState} />
-              </h2>
-            </li>
+            <div className = {buttonAlign} key={t.name}>
+                <div className = {listAlign} >
+                  <button className = {buttonStyle}
+                  onClick={() => saveTarget(t)}>{t.name}</button>
+                  <VoterList currentTarget={t.name} gameState={gameState} device = {device} />
+              </div>
+            </div>
           ))}
         </div>
         <br></br>

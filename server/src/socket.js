@@ -6,11 +6,11 @@ let games = [];
 
 let timer = {
   intro: 10,
-  night: 10,
+  night: 50,
   sunrise: 10,
-  day: 60,
-  sunset: 60,
-  end: 60,
+  day: 10,
+  sunset: 10,
+  end: 10,
 };
 
 // Hardcoded player list for now:
@@ -201,7 +201,7 @@ const socket = (io) => {
       console.log("Vote Recorded: " , ballot.voterName ," the ", ballot.role + ", targets: " + ballot.target);
 
       // If voter was seer, send back targeted player's identity to seer
-      if ( ballot.role === "TESTSEER"){
+      if ( ballot.role === "seer"){
           reveal(game, ballot.target);
       }
 
