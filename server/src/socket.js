@@ -5,12 +5,12 @@ const Player = require("./utils/Player");
 let games = [];
 
 let timer = {
-  intro: 8,
-  night: 20,
-  sunrise: 5,
-  day: 20,
-  sunset: 5,
-  end: 3,
+  intro: 60,
+  night: 60,
+  sunrise: 60,
+  day: 60,
+  sunset: 60,
+  end: 60,
 };
 
 // Hardcoded player list for now:
@@ -122,11 +122,15 @@ const socket = (io) => {
         case "intro":
           // After client presses start game, all devices go to role page
           game.assignPlayerRolesAndActions();
+          console.log(game.players);
 
+          io.to(roomCode).emit("goToNextPage", "rolePage");
           game.players.forEach((p) => {
             let id = p.getId();
 
-            socket.broadcast.to(id).emit("assignedRole", p.getPlayer().role);
+            io.to(p.socketId).emit("assignedRole", {
+              role: p.role,
+            });
             console.log(
               "assigning " +
                 p.getPlayer().role +
@@ -138,8 +142,6 @@ const socket = (io) => {
                 p.getId()
             );
           });
-
-          io.to(roomCode).emit("goToNextPage", "rolePage");
           io.to(roomCode).emit("startTimer", timer.intro);
           console.log("intro");
           break;
