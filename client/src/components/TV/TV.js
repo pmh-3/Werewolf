@@ -50,7 +50,6 @@ function TV() {
 
   return (
     <>
-      TV
       <div>{screen}</div>
     </>
   );

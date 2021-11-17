@@ -69,7 +69,7 @@ const socket = (io) => {
           sunsetPageTime: 5,
           endPageTime: 3,
         };
-        const rolePageTime = 8;
+        const rolePageTime = 500; //8
         const nightPageTime = 20;
         const sunrisePageTime = 5;
         const dayPageTime = 20;

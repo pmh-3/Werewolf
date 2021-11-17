@@ -3,7 +3,8 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      'spooky': ['carnivalee-freakshow']
+      'spooky': ['carnivalee-freakshow'],
+      'read':['ui-monospace'],
     },
     colors: {
       'orange': '#d87d05',
