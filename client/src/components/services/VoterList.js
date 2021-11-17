@@ -7,7 +7,7 @@ import { roomIdState, playerNameState, playersState, playerRoleState, playerFina
 
 // Listen for vote change from other people and show voter list accordingly 
 
-function VoterList({currentTarget, gameState}) {
+function VoterList({currentTarget, gameState, device}) {
     // SocketContext
     const socket = useContext(SocketContext);
     // my role
@@ -18,6 +18,8 @@ function VoterList({currentTarget, gameState}) {
     const [otherVoterTarget, setOtherVoterTarget] = useState();
     // current target's voter list 
     const [voterList, setVoterList] = useState([]);
+    // styling for device
+    const [style, setStyle] = useState();
     
 
     useEffect(() => {
@@ -43,6 +45,22 @@ function VoterList({currentTarget, gameState}) {
           }
         }
       }
+
+      // Voter list only show:
+      // 1) on TV during the day, not on PD
+      // 2) on wolves' devices during the night 
+      if ((gameState === "day" && device === "TV")) {
+        setStyle(`rounded-full h-14 w-24 items-center justify-center bg-teeth mr-4 mt-8`);    
+      } 
+
+      if (gameState === "day" && device === "PD") {
+        setStyle(`invisible`);
+      }
+
+      if (gameState === "night" && playerRole === "wolf") {
+        setStyle(`rounded-full h-7 w-12 items-center justify-center bg-teeth mr-4 mt-8`);
+      }
+
     }, [currentTarget, otherVoterName, otherVoterTarget]);
 
 
@@ -51,12 +69,11 @@ function VoterList({currentTarget, gameState}) {
         setOtherVoterName(tempVoterName);
         setOtherVoterTarget(tempTargetName);
     });
-    
 
     return (
         <div>
             {voterList.map((vL) => (
-                <ul>Vote by: {vL}</ul>
+                <ul className = {style}>{vL}</ul>
             ))}
         </div>
     )

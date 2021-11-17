@@ -18,6 +18,11 @@ function DNight({gotoHandle}){
   const [targetList, setTargetList] = useState([]);
   // Initialize voteComplete
   const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
+  // wolve list
+  const [wolvesList, setWolvesList] = useState([]);
+  // villager list 
+  const [villagerList, setVillagerList] = useState([]);
+
   
 
   // Initialize action --> delete if can access from PlayerRecoilState 
@@ -32,13 +37,36 @@ function DNight({gotoHandle}){
     if (voteSubmitted === true) gotoHandle("sunrisePage");
   }, [gotoHandle, voteSubmitted]);
 
+  useEffect(() => {
+
+  }, []);
+
   socket.on("startVoting", (Players) => {
     switch (role) {
       case "wolf":
         setMyAction("KILL");
+        // Process Players list and get all wolves and all villagers 
+        //  ==> COULDN'T GET THIS TO WORK
+        // for (let p of Players.all) {
+        //   if (p.role == 'wolf') {
+        //     console.log("p.role" + p.role);
+        //     const updatedList = [...wolvesList, p.name]
+        //     console.log("Step 1: wolveList: " + updatedList);
+        //     setWolvesList(updatedList);
+            
+        //   }
+        //   if (p.role == 'villager') {
+        //     console.log("p.role" + p.role);
+        //     const updatedList = [...villagerList, p];
+        //     console.log("Step 2: villagerlist: " + updatedList);
+        //     setVillagerList(updatedList);
+        //   }
+        // };
+        // console.log("wolveList: " + wolvesList);
+        // console.log("village list:" + villagerList);
+
         setShowWolvesMsg(`Other wolves :\n` + Players.wolves);
         setTargetList(Players.villagers);
-        console.log(Players.wolves);
         break;
       case "healer":
         setMyAction("HEAL");
@@ -64,7 +92,7 @@ function DNight({gotoHandle}){
         <h1>You are a: {role}</h1>    
         <h2>{showWolveMsg}</h2> 
         <h1>WHO DO YOU WANT TO  {myAction} ??</h1>
-        <Vote showTargets={targetList} gameState = "night"/>  
+        <Vote showTargets={targetList} gameState = "night" device = "PD"/>  
         
       </div>
       </>

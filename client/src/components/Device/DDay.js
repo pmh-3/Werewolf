@@ -7,16 +7,16 @@ import Vote from "../services/Vote";
 
 
 function DDay({gotoHandle}){
-// SocketContext
-const socket = useContext(SocketContext);
-// my room id
-const [roomId, setRoomId] = useRecoilState(roomIdState);
-// players in the current room
-const [players, setPlayers] = useRecoilState(playersState);
-// my target
-const [targetList, setTargetList] = useState([]);
-// Initialize voteComplete
-const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
+  // SocketContext
+  const socket = useContext(SocketContext);
+  // my room id
+  const [roomId, setRoomId] = useRecoilState(roomIdState);
+  // players in the current room
+  const [players, setPlayers] = useRecoilState(playersState);
+  // my target
+  const [targetList, setTargetList] = useState([]);
+  // Initialize voteComplete
+  const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
 
 
 useEffect(() => {
@@ -33,7 +33,7 @@ return (
       <h2>Now vote someone out of the village.</h2>
       <h2>You can look at TV to see who is voting you! You can change your vote before hitting submit.</h2>
       <h1>WHO DO YOU WANT TO VOTE ??</h1>
-        <Vote showTargets={targetList} gameState = "day"/>
+        <Vote showTargets={targetList} gameState = "day" device = "PD"/>
     </div>
     </>
 )
