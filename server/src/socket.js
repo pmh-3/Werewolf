@@ -59,7 +59,7 @@ const socket = (io) => {
     // When a player wants to joins a room
     socket.on("joinRoom", (playerName, roomCode) => {
       console.log(`Player ${playerName} trying to join roomCode ${roomCode}`);
-      if (findGame(roomCode) !== undefined) {
+      if (findGame(roomCode) !== undefined && findGame(roomCode).getState() === "lounge") {
         // Find game in the games[] array
         let game = findGame(roomCode);
         console.log(`Game: ${game}`);
