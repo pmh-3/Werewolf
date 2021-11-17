@@ -22,10 +22,7 @@ function VoterList({currentTarget, gameState}) {
 
     useEffect(() => {
       // Update voter list ONLY for wolves during night OR for everyone during the day
-      if (
-        gameState === "day" ||
-        (gameState === "night" && playerRole === "wolf")
-      ) {
+      if (gameState === "day" || (gameState === "night" && playerRole === "wolf")) {
         // If otherVoterTarget === currentTarget, check voter list
         if (otherVoterTarget === currentTarget) {
           // Append voter's name if list is empty or if voter's name is not listed yet
@@ -46,7 +43,7 @@ function VoterList({currentTarget, gameState}) {
           }
         }
       }
-    }, [otherVoterName]);
+    }, [currentTarget, otherVoterName, otherVoterTarget]);
 
 
     // Listen for temporary vote from other people 

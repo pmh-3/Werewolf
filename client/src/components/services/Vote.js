@@ -89,7 +89,7 @@ function Vote({showTargets, gameState}) {
             <li key={t.name}>
               <button onClick={() => saveTarget(t)}>{t.name}</button>
               <h2>
-                <VoterList currentTarget={t} gameState={gameState} />
+                <VoterList currentTarget={t.name} gameState={gameState} />
               </h2>
             </li>
           ))}

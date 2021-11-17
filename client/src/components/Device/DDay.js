@@ -20,11 +20,11 @@ const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
 
 
 useEffect(() => {
-  socket.emit("dayBegins", roomId);
   socket.on("startVoting", (Players) => {
     setTargetList(Players.all);
   });
-}, [roomId, socket]);
+}, []);
+
 
 return (
     <>
