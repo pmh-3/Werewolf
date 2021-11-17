@@ -5,7 +5,7 @@ const Player = require("./utils/Player");
 let games = [];
 
 let timer = {
-  intro: 60,
+  intro: 20,
   night: 60,
   sunrise: 60,
   day: 60,
@@ -19,6 +19,16 @@ const players = ["Peter", "Nirm", "Jason", "Zi", "Alina"];
 const wolves = ["Peter", "Nirm"];
 // Hardcoded villager list for now:
 const villagers = ["Jason", "Zi", "Alina"];
+
+const playerStore = {
+
+  all: ["Peter", "Nirm", "Jason", "Zi", "Alina"],
+
+  wolves: ["Peter", "Nirm"],
+  
+  villagers: ["Jason", "Zi", "Alina"],
+
+}
 
 const findGame = (code) => {
   return games.find((game) => game.code === code);
@@ -73,30 +83,6 @@ const socket = (io) => {
     });
     /********************END SET UP*************************** */
 
-    // socket.on("update item", (arg1, arg2, callback) => {
-    //   console.log(arg1); // 1
-    //   console.log(arg2); // { name: "updated" }
-    //   callback({
-    //     status: "ok"
-    //   });
-    // });
-
-    //  // send role to each respective player using call back
-    // socket.on('getRole', (n, roomCode, callback) => {
-    //   let game = findGame(roomCode);
-    //   if(game == undefined){
-    //     return;
-    //   }
-    //   console.log('assigning role ' + n);
-
-    //   game.players.forEach((p)=>{
-    //     if(n == p.getPlayer().name ){
-    //       //socket.emit("assignedRole", p.getPlayer().role);
-    //       callback({role: p.getPlayer().role});
-    //       console.log('assigning ' + p.getPlayer().role + " to " + p.getPlayer().name + " " + p.getPlayer().socketId + " orr " + socket.id )
-    //     }
-    //   })
-    // });
 
     /********************STATE*************************** */
     // Start game
@@ -246,9 +232,10 @@ const socket = (io) => {
 
       if (game.state == "night") {
         console.log("night vote");
-        io.to(roomCode).emit("startVoting", players, wolves, villagers);
+        io.to(roomCode).emit("startVoting", playerStore);
       } else {
-        io.to(roomCode).emit("startVoting", players, undefined, undefined);
+        //TODO send only list of players
+        io.to(roomCode).emit("startVoting", playerStore);
       }
 
       // Zi: process temporary vote (from wolf during night and from everyone during day)
@@ -256,9 +243,11 @@ const socket = (io) => {
         io.to(roomCode).emit("temporaryVote", playerName, playerTarget);
       });
 
-      socket.on("submitVote", (voterRole, targetedPlayer) => {
+
+      socket.on("submitVote", (ballot) => {
+        console.log("Vote Recorded: " , ballot.voterName ," as a ", ballot.role + " targets: " + ballot.target);
         // If voter was seer, send back targeted player's identity
-        if (voterRole === "TESTSEER")
+        if ( ballot.role === "TESTSEER")
           io.to(roomCode).emit("revealIdentity", "SUPERSTAR");
 
         if (voterRole === "wolf") {
@@ -266,6 +255,10 @@ const socket = (io) => {
         }
         if (voterRole === "healer") {
           game.Vote(targetedPlayer, "delete");
+        }
+        //DAY
+        if (ballot.role === 'day'){
+          
         }
       });
     };

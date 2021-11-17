@@ -15,7 +15,7 @@ function DNight({gotoHandle}){
   // my role
   const [role, setPlayerRole] = useRecoilState(playerRoleState);
   // my target
-  const [targetList, setTargetList] = useState(['A', 'B','C']);
+  const [targetList, setTargetList] = useState([]);
   // Initialize voteComplete
   const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
   
@@ -25,8 +25,6 @@ function DNight({gotoHandle}){
   // Initialize list to show wolf list
   const [showWolveMsg, setShowWolvesMsg] = useState();
 
-  // ** FOR TESTING *** 
-  const TEST_ROLE = "wolf";   // TODO: change TEST_ROLE to playerRole
 
   useEffect(() => {
     //socket.emit("nightBegins", roomId);
@@ -34,24 +32,24 @@ function DNight({gotoHandle}){
     if (voteSubmitted === true) gotoHandle("sunrisePage");
   }, [gotoHandle, voteSubmitted]);
 
-  socket.on("startVoting", (allPlayers, allWolves, allVillagers) => {
+  socket.on("startVoting", (Players) => {
     switch (role) {
       case "wolf":
         setMyAction("KILL");
-        setShowWolvesMsg(`Other wolves :\n` + allWolves);
-        setTargetList(allVillagers);
+        setShowWolvesMsg(`Other wolves :\n` + Players.wolves);
+        setTargetList(Players.villagers);
         break;
       case "healer":
         setMyAction("HEAL");
-        setTargetList(allPlayers);
+        setTargetList(Players.all);
         break;
       case "seer":
         setMyAction("SEE");
-        setTargetList(allPlayers); // TODO: Show list except myself!
+        setTargetList(Players.all); // TODO: Show list except myself!
         break;
       case "villager":
         setMyAction("VOTE");
-        setTargetList(allPlayers); // TODO: Show list except myself!
+        setTargetList(Players.all); // TODO: Show list except myself!
         break;
       default:
         break;

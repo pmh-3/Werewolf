@@ -56,8 +56,20 @@ function Vote({showTargets, gameState}) {
         // Update voteSubmittedState
         setVoteSubmitted(true);
 
+        //Role is set to day to process all votes the same
+        let tmpRole = playerRole;
+        if(gameState == 'day'){
+             tmpRole = 'day';
+        }
+
+       let ballot = {
+        role: tmpRole,
+        voterName: playerName,
+        target: finalTarget,
+       }
+
         // Send vote to server for processing 
-        socket.emit("submitVote", roomId, playerRole, finalTarget);
+        socket.emit("submitVote", ballot);
        
         // Display wait message
         setWaitMessage(`Waiting for other players to vote...`);

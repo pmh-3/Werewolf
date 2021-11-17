@@ -68,7 +68,7 @@ function DRole({ gotoHandle, Gcode }) {
           break;
       }
     }
-  }, [playerRole, setPlayerRole, socket]); // TODO: Add "assignedRole" in the [] bracke
+  }, [playerRole, setPlayerRole, socket]); 
 
   // // Get assignedRole from server (assignedRole will be undefined initially)
   //   socket.emit('getRole', name, roomId, (response) => {
