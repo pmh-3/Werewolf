@@ -24,6 +24,8 @@ function DJoin({ gotoHandle }) {
   // room not found
   const [roomNotFound, setRoomNotFound] = useState(null);
 
+
+
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent page refresh
     console.log("Joining room...");
@@ -46,6 +48,7 @@ function DJoin({ gotoHandle }) {
     setRoomNotFound(true);
   });
 
+
   return (
     <>
       <div className="join-instruction text-medium font-spooky text-orange text-center">
@@ -57,6 +60,8 @@ function DJoin({ gotoHandle }) {
               type="text"
               name="roomCode"
               placeholder="room code"
+              maxLength="20"
+              required="required"
               className="border-4 border-ice rounded-full container mx:auto px-4  p-2 block my-3 placeholder-orange placeholder-opacity-50"
             />
           </label>
@@ -65,8 +70,10 @@ function DJoin({ gotoHandle }) {
             <input
               type="text"
               name="playerName"
-              className="border-4 border-ice rounded-full block p-2 mt-3 mb-6 container placeholder-orange placeholder-opacity-50"
               placeholder="name "
+              maxLength="20"
+              required="required"
+              className="border-4 border-ice rounded-full block p-2 mt-3 mb-6 container placeholder-orange placeholder-opacity-50"
             />
           </label>
           <button
