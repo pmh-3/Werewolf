@@ -35,8 +35,8 @@ function Role(){
 
   return (
       <>
-      <div className="introduction text-orange font-spooky"> 
-        <h1 className="text-center text-large">
+      <div className="introduction text-teeth text-center"> 
+        <h1 className="text-center text-large font-read bg-ice text-teeth my-8 rounded">
         Wolves have infiltrated the town!<br></br>
         The wolves will kill once night falls.<br></br>
         The town's destiny depends on the villagers!<br></br>
@@ -44,21 +44,12 @@ function Role(){
         Don't trust anyone with your identity!<br></br> Good luck!
         </h1>
 
-        <h2 className="text-center text-large">
+        <h2 className="text-center text-large text-ice bg-teeth font-read font-semibold rounded-full mx-20">
         Timer:
-        <Timer pageDuration = {duration}></Timer>
-        </h2>
-
-        <p className="text-medium absolute left-3 top-21">
-            Lounge
-            <p>
-              Players:
-              {playerObjList.map((player) => (
-                <li key={player.name}>{player.name} </li>
-              ))}
-            </p>
+        <p className="bg-ice text-teeth">
+          <Timer pageDuration = {duration}></Timer>
         </p>
-
+        </h2>
       </div>
       </>
   )
