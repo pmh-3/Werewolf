@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { SocketContext } from "../services/Socket";
-import { roomIdState, playerNameState, playersState, playerRoleState, playerFinalTargetState, voteSubmittedState } from "../services/Atoms";
+import { roomIdState, playerNameState, playersState, playerRoleState, playerFinalTargetState } from "../services/Atoms";
 import VoterList  from './VoterList';
 
 
@@ -21,8 +21,6 @@ function Vote({showTargets, gameState, device}) {
     const [playerRole, setPlayerRole] = useRecoilState(playerRoleState);
     // my final target
     const [finalTarget, setFinalTarget] = useRecoilState(playerFinalTargetState);
-    // Initialize voteComplete
-    const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
     // wait message 
     const [waitMessage, setWaitMessage] = useState();
     // sorry message
@@ -57,6 +55,7 @@ function Vote({showTargets, gameState, device}) {
         }
 
         return () => {
+          console.log("@@@ CLEAN UP!!");
             if(!voteSubmitted){
                 submitFinalVote();
             }
