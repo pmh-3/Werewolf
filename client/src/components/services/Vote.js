@@ -21,6 +21,8 @@ function Vote({showTargets, gameState, device}) {
     const [playerRole, setPlayerRole] = useRecoilState(playerRoleState);
     // my final target
     const [finalTarget, setFinalTarget] = useRecoilState(playerFinalTargetState);
+    // Initialize voteComplete
+    const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
     // wait message 
     const [waitMessage, setWaitMessage] = useState();
     // sorry message
@@ -71,6 +73,9 @@ function Vote({showTargets, gameState, device}) {
     // Upon submitting the vote  
     const submitFinalVote = (e) => {
         e.preventDefault(); // Prevent page refresh
+
+        // Update voteSubmittedState
+        setVoteSubmitted(true);
 
        let ballot = {
         room: roomId,

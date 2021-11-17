@@ -284,9 +284,9 @@ const socket = (io) => {
 
     // TODO client side recieve
 
-    const reveal = (games, name) => {
-      return games.find(game => game.code === code);
-    }
+    // const reveal = (games, name) => {
+    //   return games.find(game => game.code === code);
+    // }
 
     const reveal = (game, name) => {
       
