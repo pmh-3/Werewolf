@@ -15,7 +15,8 @@ function DDay(){
   const [players, setPlayers] = useRecoilState(playersState);
   // my target
   const [targetList, setTargetList] = useState([]);
-
+  // Initialize voteComplete
+  const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
 
 
 useEffect(() => {
