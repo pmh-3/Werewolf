@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { SocketContext } from "../services/Socket";
-import { roomIdState, playersState, playerRoleState, playerFinalTargetState, voteSubmittedState} from "../services/Atoms";
+import { roomIdState, playersState, playerRoleState, playerFinalTargetState} from "../services/Atoms";
 import DJoin from "./DJoin.js";
 import DLounge from "./DLounge.js";
 import DRole from "./DRole.js";
@@ -28,6 +28,7 @@ function Device() {
   // next page state
   const [nextPage, setNextPage] = useState("join");
 
+
   // TODO place in useEFFECT ??
   socket.on('playerList', pl => {
     setPlayers(pl);
@@ -36,18 +37,21 @@ function Device() {
   // Receive next page instruction from server 
   socket.on("goToNextPage", (page) => {
 
-    // If player never submitted vote before sunrise, will submit his/her last pick
-    if (page === "sunrisePage" && !voteSubmitted)
-      socket.emit("submitVote", roomId, playerRole, finalTarget);
+    // // If player never submitted vote before sunrise, will submit his/her last pick
+    // if (page === "sunrisePage" && !voteSubmitted)
+    //   socket.emit("submitVote", roomId, playerRole, finalTarget);
 
     // If next page is day or night, we will reset these states   
     if (page === "dayPage" || page === "nightPage") {
+      // setVoteSubmitted(false);
       setFinalTarget("");
     }
 
     // Go to next page     
     setNextPage(page);
   });
+
+
 
   const goto = (newPage) => {
     setNextPage(newPage);

@@ -2,10 +2,10 @@ import React, {useState, useEffect, useContext} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { SocketContext } from "../services/Socket";
-import { roomIdState, playersState, playerRoleState, playerFinalTargetState, voteSubmittedState } from "../services/Atoms";
+import { roomIdState, playersState, playerRoleState, playerFinalTargetState } from "../services/Atoms";
 import Vote from "../services/Vote";
 
-function DNight(){
+function DNight({gotoHandle}){
   // SocketContext
   const socket = useContext(SocketContext);
   // my room id
@@ -27,6 +27,9 @@ function DNight(){
   const [myAction, setMyAction] = useState();
   // Initialize list to show wolf list
   const [showWolveMsg, setShowWolvesMsg] = useState();
+
+
+
 
   useEffect(() => {
     socket.on("startVoting", (w,v,a) => {

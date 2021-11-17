@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { SocketContext } from "../services/Socket";
-import { roomIdState, playersState, playerRoleState, playerFinalTargetState, voteSubmittedState } from "../services/Atoms";
+import { roomIdState, playersState, playerRoleState, playerFinalTargetState } from "../services/Atoms";
 import healerImage from "../assets/images/roles/healer.png";
 import villagerImage from "../assets/images/roles/villager.png";
 import wolfImage from "../assets/images/roles/werewolf.png";
