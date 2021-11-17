@@ -82,12 +82,22 @@ function DRole({ gotoHandle, Gcode }) {
 
   // TODO: change TEST_ROLE to playerRole
   return (
-    <div>
-      <h1>ROLE</h1>
-      <h2>You are a {playerRole}</h2>
-      <img src={image} width="50" height="50" alt={playerRole} />
-      <h2>{instruction}</h2>
-    </div>
-  );
+      <>
+      <div className="text-orange font-spooky text-center text-medium">
+        <h1 className="text-large bg-ice text-teeth">
+        ROLE
+        </h1> 
+        <h2 className="text-ice text-large">
+        You are a {playerRole}
+        </h2>
+        <div className="flex items-center justify-center py-4">
+          <img src = {image} width = "150" height = "150" alt={playerRole} />
+        </div>
+        <h2 className="font-read font-semibold bg-ice text-teeth">
+        {instruction}
+        </h2>
+      </div>
+      </>
+  )
 }
 export default DRole;

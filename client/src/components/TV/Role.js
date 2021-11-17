@@ -36,7 +36,7 @@ function Role(){
   return (
       <>
       <div className="introduction text-orange font-spooky"> 
-        <h1 className="text-center text-large">
+        <h1 className="text-center text-large font-read">
         Wolves have infiltrated the town!<br></br>
         The wolves will kill once night falls.<br></br>
         The town's destiny depends on the villagers!<br></br>
