@@ -38,6 +38,7 @@ function DNight({gotoHandle}){
         setMyAction("KILL");
         setShowWolvesMsg(`Other wolves :\n` + Players.wolves);
         setTargetList(Players.villagers);
+        console.log(Players.wolves);
         break;
       case "healer":
         setMyAction("HEAL");

@@ -6,8 +6,8 @@ let games = [];
 
 let timer = {
   intro: 10,
-  night: 60,
-  sunrise: 60,
+  night: 10,
+  sunrise: 10,
   day: 60,
   sunset: 60,
   end: 60,
