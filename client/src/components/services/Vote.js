@@ -32,6 +32,7 @@ function Vote({showTargets, gameState, device}) {
     // set button style
     const [buttonStyle, setButtonStyle] = useState();
 
+    const [voteSubmitted, setVoteSubmitted] = useState(false);
 
 
 
@@ -53,6 +54,12 @@ function Vote({showTargets, gameState, device}) {
           setButtonStyle(`rounded-full h-14 w-14 items-center justify-center bg-teeth mr-4 mt-8`);
         }
 
+        return () => {
+            if(!voteSubmitted){
+                submitFinalVote();
+            }
+        }
+
     }, [finalTarget]);
 
     // Upon picking a player 
@@ -71,6 +78,7 @@ function Vote({showTargets, gameState, device}) {
     // Upon submitting the vote  
     const submitFinalVote = (e) => {
         e.preventDefault(); // Prevent page refresh
+        setVoteSubmitted(true);
 
        let ballot = {
         room: roomId,
@@ -83,6 +91,7 @@ function Vote({showTargets, gameState, device}) {
         // Send vote to server for processing 
         socket.emit("submitVote", ballot);
         console.log('vote submitted');
+        
        
         // Display wait message
         setWaitMessage(`Waiting for other players to vote...`);
