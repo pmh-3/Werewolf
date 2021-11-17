@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { SocketContext } from "../services/Socket";
-import { roomIdState, playersState, playerRoleState, playerFinalTargetState, voteSubmittedState } from "../services/Atoms";
+import { roomIdState, playersState, playerRoleState, playerFinalTargetState } from "../services/Atoms";
 import Vote from "../services/Vote";
 
 
@@ -15,8 +15,7 @@ function DDay(){
   const [players, setPlayers] = useRecoilState(playersState);
   // my target
   const [targetList, setTargetList] = useState([]);
-  // Initialize voteComplete
-  const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
+
 
 
 useEffect(() => {
