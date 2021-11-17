@@ -21,8 +21,6 @@ function Vote({showTargets, gameState, device}) {
     const [playerRole, setPlayerRole] = useRecoilState(playerRoleState);
     // my final target
     const [finalTarget, setFinalTarget] = useRecoilState(playerFinalTargetState);
-    // Initialize voteComplete
-    const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
     // wait message 
     const [waitMessage, setWaitMessage] = useState();
     // sorry message
@@ -74,20 +72,12 @@ function Vote({showTargets, gameState, device}) {
     const submitFinalVote = (e) => {
         e.preventDefault(); // Prevent page refresh
 
-        // Update voteSubmittedState
-        setVoteSubmitted(true);
-
-        //Role is set to day to process all votes the same
-        let tmpRole = playerRole;
-        if(gameState == 'day'){
-             tmpRole = 'day';
-        }
-
        let ballot = {
         room: roomId,
-        role: tmpRole,
+        role: playerRole,
         voterName: playerName,
         target: finalTarget,
+        time: gameState
        }
 
         // Send vote to server for processing 

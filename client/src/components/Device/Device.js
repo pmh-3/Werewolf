@@ -28,9 +28,6 @@ function Device() {
   // next page state
   const [nextPage, setNextPage] = useState("join");
 
-  // Initialize voteComplete
-  const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
-
   // TODO place in useEFFECT ??
   socket.on('playerList', pl => {
     setPlayers(pl);
@@ -45,15 +42,12 @@ function Device() {
 
     // If next page is day or night, we will reset these states   
     if (page === "dayPage" || page === "nightPage") {
-      setVoteSubmitted(false);
       setFinalTarget("");
     }
 
     // Go to next page     
     setNextPage(page);
   });
-
-
 
   const goto = (newPage) => {
     setNextPage(newPage);
@@ -67,17 +61,17 @@ function Device() {
   if (nextPage === "join") {
     screen = <DJoin gotoHandle={goto} />;
   } else if (nextPage === "lounge") {
-    screen = <DLounge gotoHandle={goto} />;
+    screen = <DLounge/>;
   } else if (nextPage === "rolePage") {
-    screen = <DRole gotoHandle={goto} />;
+    screen = <DRole/>;
   } else if (nextPage === "nightPage") {
-    screen = <DNight gotoHandle={goto} />;
+    screen = <DNight/>;
   } else if (nextPage === "sunrisePage") {
-    screen = <DSunrise gotoHandle={goto} />;
+    screen = <DSunrise/>;
   } else if (nextPage === "dayPage") {
-    screen = <DDay gotoHandle={goto} />;
+    screen = <DDay/>;
   } else if (nextPage === "sunsetPage") {
-    screen = <DSunset gotoHandle={goto} />;
+    screen = <DSunset/>;
   } else if (nextPage === "endPage") {
     screen = <DEnd />;
   } else if (nextPage === "welcomePage") {

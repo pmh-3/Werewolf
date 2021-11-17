@@ -12,7 +12,7 @@ import villagerImage from "../assets/images/roles/villager.png";
 import wolfImage from "../assets/images/roles/werewolf.png";
 import seerImage from "../assets/images/roles/seer.png";
 
-function DRole({ gotoHandle, Gcode }) {
+function DRole() {
   // SocketContext
   const socket = useContext(SocketContext);
   // my room id
