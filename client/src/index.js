@@ -14,7 +14,6 @@ import App from "./App";
 
 ReactDOM.render(
   <RecoilRoot>
-
     <SocketContext.Provider value={socket}>
       <App />
     </SocketContext.Provider>

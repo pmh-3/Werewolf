@@ -50,24 +50,24 @@ function Lounge() {
 
 
   return (
-    <>
-      <div> {audioOnStart}</div> 
+    <div>
+      <div> {audioOnStart}</div>
       <div className="lounge font-spooky text-orange">
         <h1 className="text-header absolute top-0 left-3">
           Werewolf
           <p className="text-medium absolute left-3 top-21">
             Lounge
             <p>Players:</p>
-              <div className="inline-flex">
+            <div className="inline-flex">
               {players.map((player) => (
-                <div key={player.socketId}
-                className="rounded-full h-24 w-24 flex items-center justify-center bg-teeth mr-4 mt-8"
-                
+                <div
+                  key={player.socketId}
+                  className="rounded-full h-24 w-24 flex items-center justify-center bg-teeth mr-4 mt-8"
                 >
                   <div className="text-center">{player.name}</div>
                 </div>
-                ))}
-              </div>  
+              ))}
+            </div>
           </p>
         </h1>
         <p className="text-large absolute top-0 right-10">
@@ -83,7 +83,7 @@ function Lounge() {
           WAITING FOR PLAYERS ...
         </p>
       </div>
-    </>
+    </div>
   );
 }
 export default Lounge;

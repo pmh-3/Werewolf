@@ -28,19 +28,18 @@ function DNight({gotoHandle}){
   // ** FOR TESTING *** 
   const TEST_ROLE = "wolf";   // TODO: change TEST_ROLE to playerRole
 
-  useEffect(()=>{
+  useEffect(() => {
     //socket.emit("nightBegins", roomId);
-    // If vote is submitted, go to next page 
-    if (voteSubmitted === true)
-      gotoHandle("sunrisePage");
-  },[voteSubmitted])
+    // If vote is submitted, go to next page
+    if (voteSubmitted === true) gotoHandle("sunrisePage");
+  }, [gotoHandle, voteSubmitted]);
 
   socket.on("startVoting", (allPlayers, allWolves, allVillagers) => {
-    switch (role) { 
+    switch (role) {
       case "wolf":
         setMyAction("KILL");
         setShowWolvesMsg(`Other wolves :\n` + allWolves);
-        setTargetList(allVillagers);     
+        setTargetList(allVillagers);
         break;
       case "healer":
         setMyAction("HEAL");
@@ -48,14 +47,16 @@ function DNight({gotoHandle}){
         break;
       case "seer":
         setMyAction("SEE");
-        setTargetList(allPlayers);     // TODO: Show list except myself! 
+        setTargetList(allPlayers); // TODO: Show list except myself!
         break;
-      case "villager": 
+      case "villager":
         setMyAction("VOTE");
-        setTargetList(allPlayers);     // TODO: Show list except myself! 
+        setTargetList(allPlayers); // TODO: Show list except myself!
+        break;
+      default:
         break;
     }
-  })
+  });
 
   return (
       <>

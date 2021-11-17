@@ -58,15 +58,15 @@ function Device() {
   // TODO: when all votes are in, will move on to next page ... 
   // TODO: make sure all emits have roomId
 
-  var screen = <></>;
+  var screen;
   if (nextPage === "join") {
-    screen = <DJoin gotoHandle={goto}/>;
+    screen = <DJoin gotoHandle={goto} />;
   } else if (nextPage === "lounge") {
-    screen = <DLounge gotoHandle={goto}/>;
+    screen = <DLounge gotoHandle={goto} />;
   } else if (nextPage === "rolePage") {
-    screen = <DRole gotoHandle={goto}/>;
+    screen = <DRole gotoHandle={goto} />;
   } else if (nextPage === "nightPage") {
-    screen = <DNight gotoHandle={goto}/>;
+    screen = <DNight gotoHandle={goto} />;
   } else if (nextPage === "sunrisePage") {
     screen = <DSunrise gotoHandle={goto} />;
   } else if (nextPage === "dayPage") {
@@ -76,14 +76,14 @@ function Device() {
   } else if (nextPage === "endPage") {
     screen = <DEnd />;
   } else if (nextPage === "welcomePage") {
-    history.push("/")
+    history.push("/");
   }
 
   return (
-    <>
+    <div>
       PD
       <div>{screen}</div>
-    </>
+    </div>
   );
 }
 export default Device;
