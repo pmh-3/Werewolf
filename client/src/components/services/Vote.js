@@ -41,7 +41,7 @@ function Vote({showTargets, gameState}) {
         // If vote has not been submitted
         if (!voteSubmitted)
             // Update vote based on the most recent pick 
-            setFinalTarget(target);
+            setFinalTarget(target.name);
         
 
         // If vote has been submitted, display sorry message 
@@ -63,6 +63,7 @@ function Vote({showTargets, gameState}) {
         }
 
        let ballot = {
+        room: roomId,
         role: tmpRole,
         voterName: playerName,
         target: finalTarget,
@@ -70,30 +71,31 @@ function Vote({showTargets, gameState}) {
 
         // Send vote to server for processing 
         socket.emit("submitVote", ballot);
+        console.log('vote submitted');
        
         // Display wait message
         setWaitMessage(`Waiting for other players to vote...`);
     };
 
+//TODO: ADD KEYS using unique and stable id
 
     return (
       <div>
-        <p>
+        <div>
           {" "}
+          
           MAKE YOUR VOTE BELOW:
           {showTargets.map((t) => (
-            <li key={Date.now()}>
-              <button onClick={() => saveTarget(t)}>{t}</button>
+            <li key={t.name}>
+              <button onClick={() => saveTarget(t)}>{t.name}</button>
               <h2>
                 <VoterList currentTarget={t} gameState={gameState} />
               </h2>
             </li>
           ))}
-        </p>
+        </div>
         <br></br>
-        <form onSubmit={submitFinalVote}>
-          <button> SUBMIT! </button>
-        </form>
+          <button onClick={submitFinalVote}> SUBMIT! </button>
         <h2>You picked: {finalTarget}</h2>
         <h2>{waitMessage}</h2>
         <h2>{sorryMessage}</h2>

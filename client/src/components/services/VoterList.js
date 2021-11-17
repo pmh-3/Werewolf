@@ -46,7 +46,7 @@ function VoterList({currentTarget, gameState}) {
           }
         }
       }
-    });
+    }, [otherVoterName]);
 
 
     // Listen for temporary vote from other people 

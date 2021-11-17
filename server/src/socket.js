@@ -5,7 +5,7 @@ const Player = require("./utils/Player");
 let games = [];
 
 let timer = {
-  intro: 20,
+  intro: 10,
   night: 60,
   sunrise: 60,
   day: 60,
@@ -20,13 +20,18 @@ const wolves = ["Peter", "Nirm"];
 // Hardcoded villager list for now:
 const villagers = ["Jason", "Zi", "Alina"];
 
+//TODO
+//Build and Send the entire playerStore object to every client to store in atom
+//might be easiest at the moment to send names and roles and parse on client side as needed
+//If you can think of a way to send only the neccesary info then do that
 const playerStore = {
+  //might need socketid to use as stable key for mapping
+  all: [{name: "Peter", role: 'wolf', id: 'socketid'}, {name: "Nirm", role: 'wolf'}, {name: "Jason"},{name: "Zi" } , {name: "Alina"}],
 
-  all: ["Peter", "Nirm", "Jason", "Zi", "Alina"],
-
-  wolves: ["Peter", "Nirm"],
+  //maybe not needed if roles are sent 
+  wolves: [{name: "Peter"}, {name: "Nirm"}],
   
-  villagers: ["Jason", "Zi", "Alina"],
+  villagers: [{name: "Jason"},{name:"Zi" } , {name: "Alina"}],
 
 }
 
@@ -123,9 +128,7 @@ const socket = (io) => {
                 " to " +
                 p.getPlayer().name +
                 " " +
-                p.getPlayer().socketId +
-                "orr" +
-                p.getId()
+                p.getPlayer().socketId
             );
           });
           io.to(roomCode).emit("startTimer", timer.intro);
@@ -136,8 +139,8 @@ const socket = (io) => {
           console.log("night");
           io.to(roomCode).emit("goToNextPage", "nightPage");
           io.to(roomCode).emit("startTimer", timer.night);
-          //Commence night votes
-          voting(game);
+          console.log("night vote");
+          io.to(roomCode).emit("startVoting", playerStore);
           break;
 
         case "sunrise":
@@ -145,15 +148,15 @@ const socket = (io) => {
           let eaten = game.countVote(game.getState());
           io.to(roomCode).emit("goToNextPage", "sunrisePage");
           io.to(roomCode).emit("startTimer", timer.sunrise);
-          //send eaten to tv
+          io.to(roomCode).emit("eaten", eaten);
           break;
 
         case "day":
           console.log("day");
           io.to(roomCode).emit("goToNextPage", "dayPage");
           io.to(roomCode).emit("startTimer", timer.day);
-          //commence day votes
-          voting(game);
+        //TODO send only list of all players
+          io.to(roomCode).emit("startVoting", playerStore);
           break;
 
         case "sunset":
@@ -161,7 +164,7 @@ const socket = (io) => {
           console.log("sunset");
           io.to(roomCode).emit("goToNextPage", "sunsetPage");
           io.to(roomCode).emit("startTimer", timer.sunset);
-          //send banished to tv
+          io.to(roomCode).emit("banished", banished);
           break;
 
         case "end":
@@ -172,97 +175,132 @@ const socket = (io) => {
       }
     };
 
-    const clock = (game) => {
-      const rolePageTime = timer.intro;
-      const nightPageTime = timer.night;
-      const sunrisePageTime = timer.sunrise;
-      const dayPageTime = timer.day;
-      const sunsetPageTime = timer.sunset;
-      const endPageTime = timer.end;
-      // Server will count down using totalGameTime
-      let totalGameTime =
-        rolePageTime +
-        nightPageTime +
-        sunrisePageTime +
-        dayPageTime +
-        sunsetPageTime +
-        endPageTime;
 
-      // Server controls time and tells all devices
-      // 1) When to go to next page
-      // 2) how much time each page has
-      let countDown = setInterval(function () {
-        totalGameTime--;
-        if (
-          totalGameTime ===
-          nightPageTime +
-            sunrisePageTime +
-            dayPageTime +
-            sunsetPageTime +
-            endPageTime
-        ) {
-          switchState(game, "night");
-        } else if (
-          totalGameTime ===
-          sunrisePageTime + dayPageTime + sunsetPageTime + endPageTime
-        ) {
-          switchState(game, "sunrise");
-        } else if (
-          totalGameTime ===
-          dayPageTime + sunsetPageTime + endPageTime
-        ) {
-          switchState(game, "day");
-        } else if (totalGameTime === sunsetPageTime + endPageTime) {
-          switchState(game, "sunset");
-        } else if (totalGameTime === endPageTime) {
-          switchState(game, "end");
-        } else if (totalGameTime === 0) {
-          switchState(game, "welcome");
-          clearInterval(countDown);
-        }
-      }, 1000);
-    };
     /********************END STATE*************************** */
 
     /********************VOTING*************************** */
 
-    const voting = (game) => {
-      console.log("voting");
-      let roomCode = game.code;
 
-      if (game.state == "night") {
-        console.log("night vote");
-        io.to(roomCode).emit("startVoting", playerStore);
-      } else {
-        //TODO send only list of players
-        io.to(roomCode).emit("startVoting", playerStore);
+     // Zi: process temporary vote (from wolf during night and from everyone during day)
+     socket.on("sendTemporaryVote", (roomCode, playerName, playerTarget) => {
+      io.to(roomCode).emit("temporaryVote", playerName, playerTarget);
+      });
+
+
+    socket.on("submitVote", (ballot) => {
+      if( ballot == undefined ){ 
+        console.log('ballot undefined')
+        return; 
+      }
+      if (findGame(ballot.room) == undefined) {
+        return;
       }
 
-      // Zi: process temporary vote (from wolf during night and from everyone during day)
-      socket.on("sendTemporaryVote", (roomCode, playerName, playerTarget) => {
-        io.to(roomCode).emit("temporaryVote", playerName, playerTarget);
-      });
+      let game = findGame(ballot.room);
 
+      console.log("Vote Recorded: " , ballot.voterName ," the ", ballot.role + ", targets: " + ballot.target);
 
-      socket.on("submitVote", (ballot) => {
-        console.log("Vote Recorded: " , ballot.voterName ," as a ", ballot.role + " targets: " + ballot.target);
-        // If voter was seer, send back targeted player's identity
-        if ( ballot.role === "TESTSEER")
-          io.to(roomCode).emit("revealIdentity", "SUPERSTAR");
+      // If voter was seer, send back targeted player's identity to seer
+      if ( ballot.role === "TESTSEER"){
+          reveal(game, ballot.target);
+      }
 
-        if (voterRole === "wolf") {
-          game.Vote(targetedPlayer, "add");
-        }
-        if (voterRole === "healer") {
-          game.Vote(targetedPlayer, "delete");
-        }
-        //DAY
-        if (ballot.role === 'day'){
-          
-        }
-      });
-    };
+      if (ballot.role === "wolf") {
+        game.Vote(ballot.target, "add");
+      }
+
+      if (ballot.role === "healer") {
+        game.Vote(ballot.target, "delete");
+      }
+
+      // Nothing is being done with villager vote at night at the moment
+      // vote is counted to change state once all players have submitted voted
+      if (ballot.role == 'villager'){
+        game.Vote(ballot.target, 'count')
+      }
+
+      // DAY time votes treated the same regardless of role, 
+      // game state is checked for redundency 
+      // Votes counted at sunset and sundown
+      if (ballot.role === 'day' && game.state == 'sunset'){
+        game.Vote(ballot.target, 'add');
+      }
+    });
     /******************** END VOTING*************************** */
+
+    /******************** TOOLS*************************** */
+
+    // TODO client side recieve
+    const reveal = (game, name) => {
+      let seer, revealed;
+      game.players.forEach((p) => {
+        if(p.role == 'seer'){
+          seer = p;
+        }
+        if(p.name == 'name'){
+          revealed = p;
+        }
+      });
+
+    io.to(seer.socketId).emit("assignedRole", {
+      role: revealed.role,
+    });
+  }
+
+
+
+  const clock = (game) => {
+    const rolePageTime = timer.intro;
+    const nightPageTime = timer.night;
+    const sunrisePageTime = timer.sunrise;
+    const dayPageTime = timer.day;
+    const sunsetPageTime = timer.sunset;
+    const endPageTime = timer.end;
+    // Server will count down using totalGameTime
+    let totalGameTime =
+      rolePageTime +
+      nightPageTime +
+      sunrisePageTime +
+      dayPageTime +
+      sunsetPageTime +
+      endPageTime;
+
+    // Server controls time and tells all devices
+    // 1) When to go to next page
+    // 2) how much time each page has
+    let countDown = setInterval(function () {
+      totalGameTime--;
+      if (
+        totalGameTime ===
+        nightPageTime +
+          sunrisePageTime +
+          dayPageTime +
+          sunsetPageTime +
+          endPageTime
+      ) {
+        switchState(game, "night");
+      } else if (
+        totalGameTime ===
+        sunrisePageTime + dayPageTime + sunsetPageTime + endPageTime
+      ) {
+        switchState(game, "sunrise");
+      } else if (
+        totalGameTime ===
+        dayPageTime + sunsetPageTime + endPageTime
+      ) {
+        switchState(game, "day");
+      } else if (totalGameTime === sunsetPageTime + endPageTime) {
+        switchState(game, "sunset");
+      } else if (totalGameTime === endPageTime) {
+        switchState(game, "end");
+      } else if (totalGameTime === 0) {
+        switchState(game, "welcome");
+        clearInterval(countDown);
+      }
+    }, 1000);
+  };
+
+    /********************END TOOLS*************************** */
 
     socket.on("disconnect", () => {
       // TODO: Remove player from game

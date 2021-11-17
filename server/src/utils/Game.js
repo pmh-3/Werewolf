@@ -122,37 +122,39 @@ module.exports = class Game {
   }
 
   countVote(state){
-    let player = null;
+    console.log('counting votes');
     if(state == 'sunrise'){
-      this.players.forEach(player =>{
-        if(player.vote == this.assignedRole.werewolf){
-          player.role = this.assignedRole.spectator
-          return player
+      this.players.forEach(p =>{
+        if(p.vote == this.assignedRole.werewolf){
+          p.role = this.assignedRole.spectator
+          return p;
         }
       })
+      return null;
     }else if(state == 'sunset'){
       //find player with most votes
       let banished = this.players[0]; 
-      this.players.forEach(player =>{
-        if(player.vote > banished.vote){ 
-          banished = player
+      this.players.forEach(p =>{
+        if(p.vote > banished.vote){ 
+          banished = p;
         }
       })
 
       //find and account for tie 
-      this.players.forEach(player =>{
+      this.players.forEach(p =>{
         //compare player with most votes to everyone else but themselves
-        if(player.vote == banished.vote && player != banished){ 
+        if(p.vote == banished.vote && p != banished){ 
           //decide tie with coin toss either 0 or 1
           if(Math.floor(Math.random()*2)){
-            banished = player
+            banished = p
           }
         }
       })
-      return player;
+      return banished;
     }
   }
 
+  //Utility
   Clock(time){
     setInterval(function(){
       time--;
