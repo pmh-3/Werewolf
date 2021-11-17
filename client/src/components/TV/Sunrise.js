@@ -10,8 +10,16 @@ function Sunrise({gotoHandle}){
   const socket = useContext(SocketContext);
   // room id
   const [roomId, setRoomId] = useRecoilState(roomIdState);
+  // room id
+  const [players, setPlayers] = useRecoilState(playersState);
   // Timer duration
   const [duration, setDuration] = useState();
+
+  //eaten
+  const [eaten, setEaten] = useState('not a soul');
+
+  //saved
+  const [saved, setSaved] = useState('not a soul');
 
 
   useEffect(() => {
@@ -19,6 +27,18 @@ function Sunrise({gotoHandle}){
     socket.on("startTimer", pageTime => {
       setDuration(pageTime);
     })
+
+    //player name is sent
+    socket.on('eaten', e => {
+      setEaten(e);
+    })
+
+    socket.on('saved', s => {
+      setSaved(s);
+    })
+
+    
+
   });  
 
 
@@ -27,8 +47,8 @@ function Sunrise({gotoHandle}){
       <div className="sunrise text-orange font-spooky">
         <h1 className="text-center text-large">
           SUNRISE<br></br>
-          XXX was killed<br></br>
-          XXX was Saved<br></br>
+          {eaten} was eaten<br></br>
+          {saved} was Saved<br></br>
           here is who was left: show a list of current player 
          <br></br>
           NOW it's time to discuss and vote one of you OUT!

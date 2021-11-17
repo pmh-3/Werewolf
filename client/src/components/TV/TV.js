@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useRecoilState } from "recoil";
 import {
   BrowserRouter as Router,
   Route,
@@ -14,6 +15,7 @@ import Sunrise from "./Sunrise.js";
 import Day from "./Day.js";
 import Sunset from "./Sunset.js";
 import End from "./End.js";
+import { roomIdState, playersState } from "../services/Atoms";
 
 function TV() {
   // SocketContext
@@ -22,6 +24,12 @@ function TV() {
   const history = useHistory();
   // next page state
   const [nextPage, setNextPage] = useState("lounge");
+  // player list 
+  const [players, setPlayers] = useRecoilState(playersState);
+
+  socket.on('playerList', pl => {
+    setPlayers(pl);
+  })
 
   // Receive next page instruction from server 
   socket.on("goToNextPage", (page) => {

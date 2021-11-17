@@ -32,7 +32,7 @@ function DJoin({ gotoHandle }) {
     let code = formData.get("roomCode");
     setPlayerName(name);
     socket.emit("joinRoom", name, code);
-    socket.on("newPlayer", (players) => {
+    socket.on("playerList", (players) => {
       setRoomNotFound(false);
       setRoomId(code);
       setPlayers(players);

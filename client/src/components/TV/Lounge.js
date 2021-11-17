@@ -7,6 +7,7 @@ import {
   useHistory,
   BrowserRouter,
 } from "react-router-dom";
+
 import { SocketContext } from "../services/Socket";
 import { roomIdState, playersState } from "../services/Atoms";
 
@@ -44,9 +45,9 @@ function Lounge() {
   });
 
   // Get updated list of players from server
-  socket.on("newPlayer", (players) => {
-    setPlayers(players);
-  });
+  // socket.on("newPlayer", (players) => {
+  //   setPlayers(players);
+  // });
 
 
   return (

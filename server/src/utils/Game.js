@@ -2,7 +2,10 @@ module.exports = class Game {
   constructor(code) {
     this.code = this.generateRoom(3);
     this.players = [];
+    this.voteCount = 0;
     this.gameState = "lounge";
+    //stores saved player
+    this.saved = null;
     this.playerRolesAndActions = {
       "wolf": "kill",
       "villager": "vote",
@@ -39,6 +42,14 @@ module.exports = class Game {
     return this.players[index];
   }
 
+  isAllVotesIn(){
+    if(this.voteCount >= this.players.length){
+      console.log('all votes in');
+      return true;
+    }
+    return false;
+  }
+
   // GameState can be:
   // lounge, night,day
   // for night& day, special its # as well
@@ -49,6 +60,12 @@ module.exports = class Game {
 
   setState(state){
     this.gameState = state;
+
+  }
+
+  resetVotes(){
+    this.voteCount = 0;
+    this.saved = null;
     //clear votes
     this.players.forEach(player => {
         player.clearVotes();
@@ -66,17 +83,18 @@ module.exports = class Game {
   // according to total # of players, assign them a role
   assignPlayerRolesAndActions() {
     let playerCount = this.players.length;
+
     // role assignment generation based on total # of players
     if (playerCount > 3) {
       let val =
         playerCount / 10 == 1 ? playerCount / 10 + 0.1 : playerCount / 10;
       console.log(val);
-      assignedRole.wolf += Math.ceil(val);
-      assignedRole.healer += Math.floor(val);
-      assignedRole.seer = Math.ceil(val);
-      assignedRole.villager =
+      this.assignedRole.wolf += Math.ceil(val);
+      this.assignedRole.healer += Math.floor(val);
+      this.assignedRole.seer = Math.ceil(val);
+      this.assignedRole.villager =
         playerCount -
-        (assignedRole.wolf + assignedRole.seer + assignedRole.healer);
+        (this.assignedRole.wolf + this.assignedRole.seer + this.assignedRole.healer);
     }
     // shuffle the current players to allow random assignment of roles
     let shuffledPlayers = this.getPlayers().sort(() => 0.5 - Math.random());
@@ -109,13 +127,16 @@ module.exports = class Game {
     return result;
   }
 
-  Vote(p, cmd){
+  Vote(targetName, cmd){
+    this.voteCount++
     this.players.forEach(player => {
-        if(player == p){
+        if(player.name == targetName){
           if(cmd == "add"){
             player.addVote();
+            console.log('adding vote to ', player.name);
           }else if(cmd == 'delete'){
             player.deleteVote();
+            this.saved = player;
           }
         }
     });
@@ -123,19 +144,26 @@ module.exports = class Game {
 
   countVote(state){
     console.log('counting votes');
+
+    //Return nobody if everyone was saved
+    let nobody = null;
+
     if(state == 'sunrise'){
       this.players.forEach(p =>{
+        console.log(p.name, ' has ', p.vote)
         if(p.vote == this.assignedRole.werewolf){
           p.role = this.assignedRole.spectator
           return p;
         }
       })
-      return null;
+      return nobody;
     }else if(state == 'sunset'){
       //find player with most votes
-      let banished = this.players[0]; 
+      let banished = this.players[0];
       this.players.forEach(p =>{
-        if(p.vote > banished.vote){ 
+        console.log(p.name, ' has ', p.vote)
+        //must have at least one vote
+        if(p.vote >= 1 && p.vote > banished.vote){ 
           banished = p;
         }
       })
@@ -143,24 +171,23 @@ module.exports = class Game {
       //find and account for tie 
       this.players.forEach(p =>{
         //compare player with most votes to everyone else but themselves
-        if(p.vote == banished.vote && p != banished){ 
+        if(p.vote == banished.vote && p != banished && p.vote >= 1){ 
+          console.log("tie in banishment")
           //decide tie with coin toss either 0 or 1
           if(Math.floor(Math.random()*2)){
             banished = p
           }
         }
       })
-      return banished;
+
+      if(banished.votes >= 1){
+        banished = this.assignedRole.spectator;
+        return banished;
+      }else{
+        return null;
+      }
     }
   }
 
-  //Utility
-  Clock(time){
-    setInterval(function(){
-      time--;
-      if(time == 0){
-        return "times up";
-      }
-    }, 1000);
-  }
+ 
 };
