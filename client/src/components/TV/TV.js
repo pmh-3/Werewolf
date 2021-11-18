@@ -27,15 +27,26 @@ function TV() {
   // player list 
   const [players, setPlayers] = useRecoilState(playersState);
 
-  socket.on('playerList', pl => {
-    setPlayers(pl);
-  })
+  useEffect(() =>{
+   
+    socket.on('playerList', pl => {
+      setPlayers(pl);
+    })
+  
+    // Receive next page instruction from server 
+    socket.on("goToNextPage", (page) => {
+      setNextPage(page);
+    });
+  
+    return () =>{
+      //clean up
+      socket.off("goToNextPage");
+      socket.off('playerList');
+    }
 
-  // Receive next page instruction from server 
-  socket.on("goToNextPage", (page) => {
-    setNextPage(page);
-  });
+});
 
+ 
   var screen = <></>;
 
   if (nextPage === "lounge") {

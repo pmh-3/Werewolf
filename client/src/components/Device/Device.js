@@ -37,11 +37,7 @@ function Device() {
 
       // Receive next page instruction from server 
       socket.on("goToNextPage", (page) => {
-
-        // // If player never submitted vote before sunrise, will submit his/her last pick
-        // if (page === "sunrisePage" && !voteSubmitted)
-        //   socket.emit("submitVote", roomId, playerRole, finalTarget);
-
+        
         // If next page is day or night, we will reset these states   
         if (page === "dayPage" || page === "nightPage") {
           setFinalTarget("");
