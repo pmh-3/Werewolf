@@ -28,32 +28,42 @@ function Device() {
   // next page state
   const [nextPage, setNextPage] = useState("join");
 
-  // TODO place in useEFFECT ??
-  socket.on('playerList', pl => {
-    setPlayers(pl);
-  })
 
-  // Receive next page instruction from server 
-  socket.on("goToNextPage", (page) => {
+  useEffect(() =>{
+     // TODO place in useEFFECT ??
+      socket.on('playerList', pl => {
+        setPlayers(pl);
+      })
 
-    // // If player never submitted vote before sunrise, will submit his/her last pick
-    // if (page === "sunrisePage" && !voteSubmitted)
-    //   socket.emit("submitVote", roomId, playerRole, finalTarget);
+      // Receive next page instruction from server 
+      socket.on("goToNextPage", (page) => {
 
-    // If next page is day or night, we will reset these states   
-    if (page === "dayPage" || page === "nightPage") {
-      setFinalTarget("");
+        // // If player never submitted vote before sunrise, will submit his/her last pick
+        // if (page === "sunrisePage" && !voteSubmitted)
+        //   socket.emit("submitVote", roomId, playerRole, finalTarget);
+
+        // If next page is day or night, we will reset these states   
+        if (page === "dayPage" || page === "nightPage") {
+          setFinalTarget("");
+        }
+
+        // Go to next page     
+        setNextPage(page);
+      });
+
+
+    return () =>{
+      //clean up
+      socket.off("goToNextPage");
+      socket.off('playerList');
     }
 
-    // Go to next page     
-    setNextPage(page);
-  });
+})
 
-  const goto = (newPage) => {
-    setNextPage(newPage);
-  };
-
-
+const goto = (newPage) => {
+  setNextPage(newPage);
+};
+ 
   // TODO: when all votes are in, will move on to next page ... 
   // TODO: make sure all emits have roomId
 

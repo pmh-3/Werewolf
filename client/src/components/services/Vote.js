@@ -100,7 +100,7 @@ function Vote({showTargets, gameState, device}) {
       <div>
         <div>
           {" "}
-          {showTargets.map((t) => (
+          {showTargets && showTargets.map((t) => (
             <div className = {buttonAlign} key={t.name}>
                 <div className = {listAlign} >
                   <button className = {buttonStyle}

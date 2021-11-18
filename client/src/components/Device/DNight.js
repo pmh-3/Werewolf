@@ -56,16 +56,16 @@ function DNight(){
           // console.log("wolveList: " + wolvesList);
           // console.log("village list:" + villagerList);
   
-          setShowWolvesMsg(`Other wolves :\n` + w);
+          setShowWolvesMsg(`Other wolves :\n` + {w});
           setTargetList(v);
           break;
         case "healer":
           setMyAction("HEAL");
-          setTargetList(players);
+          setTargetList(a);
           break;
         case "seer":
           setMyAction("SEE");
-          setTargetList(players); // TODO: Show list except myself!
+          setTargetList(a); // TODO: Show list except myself!
           break;
         case "villager":
           setMyAction("VOTE");
@@ -76,7 +76,6 @@ function DNight(){
       }
     });
 
-   
   }, []);
 
   
