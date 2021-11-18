@@ -57,7 +57,7 @@ function DNight(){
           // console.log("wolveList: " + wolvesList);
           // console.log("village list:" + villagerList);
   
-          setShowWolvesMsg(`Other wolves :\n` + w);
+          setShowWolvesMsg(`Wolves :\n` + w);
           setTargetList(a);
           break;
         case "healer":
@@ -97,8 +97,7 @@ function DNight(){
         <div className="flex items-center justify-center">
           <Vote showTargets={targetList}
           className="font-read" gameState = "night" device = "PD"/> 
-        </div> 
-        
+        </div>     
       </div>
       </>
   )

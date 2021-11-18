@@ -50,7 +50,7 @@ function VoterList({currentTarget, gameState, device}) {
       // 1) on TV during the day, not on PD
       // 2) on wolves' devices during the night 
       if ((gameState === "day" && device === "TV")) {
-        setStyle(`rounded-full h-14 w-24 items-center justify-center bg-teeth mr-4 mt-8`);    
+        setStyle(`rounded-full text-medium h-14 w-24 items-center justify-center bg-teeth mr-4 mt-8`);    
       } 
 
       if (gameState === "day" && device === "PD") {
@@ -58,7 +58,7 @@ function VoterList({currentTarget, gameState, device}) {
       }
 
       if (gameState === "night" && playerRole === "wolf") {
-        setStyle(`rounded-full h-7 w-12 items-center justify-center bg-teeth mr-4 mt-8`);
+        setStyle(`rounded-full text-small h-7 w-12 items-center justify-center bg-teeth mr-4 mt-8`);
       }
 
     }, [currentTarget, otherVoterName, otherVoterTarget]);
@@ -73,7 +73,8 @@ function VoterList({currentTarget, gameState, device}) {
     return (
         <div>
             {voterList.map((vL) => (
-                <ul className = {style}>{vL}</ul>
+                <ul className = {style}>
+                  {vL}</ul>
             ))}
         </div>
     )

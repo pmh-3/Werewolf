@@ -114,7 +114,7 @@ function Vote({showTargets, gameState, device}) {
           ))}
         </div>
         <div className = {invisible}>
-          <button className="bg-orange text-teeth text-button hover:bg-darkOrange rounded py-1 px-12" 
+          <button className="bg-orange text-teeth text-button hover:bg-darkOrange rounded py-1 px-12 mt-8" 
           onClick={submitFinalVote}> SUBMIT! </button>
           <h2>You picked: {finalTarget}</h2>
           <h2>{waitMessage}</h2>
