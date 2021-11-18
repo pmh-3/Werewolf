@@ -29,14 +29,13 @@ function Night(){
         <h1 className="text-center text-header">
           NIGHT HAS FALLEN
           <br></br>
-          Players In the Game:
-          <div>
+          <div className="inline-flex">
             {players.map((player) => (
-              <div className = "inline-flex" key={player.socketId}>
-                <div className = "flex-col" >
+              <div key={player.socketId}
+                   className = "rounded-full h-24 w-52 flex items-center justify-center bg-teeth mr-4 text-medium"
+              >
+                  <div className="text-center">{player.name}</div>
                   <img src={QuestionMark} width="50" height="50"/>
-                  <div className = " rounded-full h-24 w-24 items-center justify-center bg-teeth mr-4 mt-8">{player.name}</div>
-                </div>
               </div>
             ))}
           </div>

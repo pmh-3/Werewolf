@@ -63,7 +63,7 @@ function Lounge() {
               {players.map((player) => (
                 <div
                   key={player.socketId}
-                  className="rounded-full h-24 w-24 flex items-center justify-center bg-teeth mr-4 mt-8"
+                  className="rounded-full h-24 w-32 flex items-center justify-center bg-teeth mr-4 mt-8"
                 >
                   <div className="text-center">{player.name}</div>
                 </div>
@@ -78,7 +78,7 @@ function Lounge() {
           </p>
         </p>
         <h2 className="absolute bottom-20 left-3 text-medium">
-          FIRST Player to join, press start on phone to start game.
+          Press start on phone to start game.
         </h2>
         <p className="absolute bottom-5 right-3 text-medium">
           WAITING FOR PLAYERS ...

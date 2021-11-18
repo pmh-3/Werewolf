@@ -92,12 +92,14 @@ function DNight({gotoHandle}){
 
   return (
       <>
-      <div className="night font-spooky text-orange">
+      <div className="night font-spooky text-orange text-center text-medium">
         <h1>NIGHT</h1>
         <h1>You are a: {role}</h1>    
         <h2>{showWolveMsg}</h2> 
         <h1>WHO DO YOU WANT TO  {myAction} ??</h1>
-        <Vote showTargets={targetList} gameState = "night" device = "PD"/>  
+        <div className="grid gap-4 grid-cols-3">
+          <Vote showTargets={targetList} gameState = "night" device = "PD"/> 
+        </div> 
         
       </div>
       </>

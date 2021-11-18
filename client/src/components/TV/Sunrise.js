@@ -49,7 +49,7 @@ function Sunrise({gotoHandle}){
           SUNRISE<br></br>
           {eaten} was eaten<br></br>
           {saved} was Saved<br></br>
-          here is who was left: show a list of current player 
+          Remaining players
          <br></br>
           NOW it's time to discuss and vote one of you OUT!
           <Timer pageDuration = {duration}></Timer>

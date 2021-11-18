@@ -104,7 +104,6 @@ function Vote({showTargets, gameState, device}) {
       <div>
         <div>
           {" "}
-          <h2>MAKE YOUR VOTE BELOW:</h2>
           {showTargets.map((t) => (
             <div className = {buttonAlign} key={t.name}>
                 <div className = {listAlign} >

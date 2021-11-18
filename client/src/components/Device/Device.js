@@ -86,7 +86,6 @@ function Device() {
 
   return (
     <div>
-      PD
       <div>{screen}</div>
     </div>
   );
