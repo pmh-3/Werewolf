@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
 import Timer from '../services/Timer';
 
-function DSunset({gotoHandle}){
+function DSunset(){
   const history = useHistory();
 
     useEffect(()=>{
@@ -21,7 +21,7 @@ function DSunset({gotoHandle}){
           </h1>
          
         
-          <button  onClick={() => gotoHandle("end")} >GoToEndButton</button>
+          {/* <button  onClick={() => gotoHandle("end")} >GoToEndButton</button> */}
        
       </div>
       </>

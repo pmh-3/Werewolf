@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { SocketContext } from "../services/Socket";
-import { roomIdState, playerNameState, playersState, playerRoleState, playerFinalTargetState, voteSubmittedState } from "../services/Atoms";
+import { roomIdState, playerNameState, playersState, playerRoleState, playerFinalTargetState } from "../services/Atoms";
 import VoterList  from './VoterList';
 
 
@@ -21,8 +21,6 @@ function Vote({showTargets, gameState, device}) {
     const [playerRole, setPlayerRole] = useRecoilState(playerRoleState);
     // my final target
     const [finalTarget, setFinalTarget] = useRecoilState(playerFinalTargetState);
-    // Initialize voteComplete
-    const [voteSubmitted, setVoteSubmitted] = useRecoilState(voteSubmittedState);
     // wait message 
     const [waitMessage, setWaitMessage] = useState();
     // sorry message
@@ -34,6 +32,7 @@ function Vote({showTargets, gameState, device}) {
     // set button style
     const [buttonStyle, setButtonStyle] = useState();
 
+    const [voteSubmitted, setVoteSubmitted] = useState(false);
 
 
 
@@ -55,6 +54,9 @@ function Vote({showTargets, gameState, device}) {
           setButtonStyle(`rounded-full h-14 w-14 items-center justify-center bg-teeth mr-4 mt-8`);
         }
 
+        return () => {
+        }
+
     }, [finalTarget]);
 
     // Upon picking a player 
@@ -73,26 +75,20 @@ function Vote({showTargets, gameState, device}) {
     // Upon submitting the vote  
     const submitFinalVote = (e) => {
         e.preventDefault(); // Prevent page refresh
-
-        // Update voteSubmittedState
         setVoteSubmitted(true);
-
-        //Role is set to day to process all votes the same
-        let tmpRole = playerRole;
-        if(gameState == 'day'){
-             tmpRole = 'day';
-        }
 
        let ballot = {
         room: roomId,
-        role: tmpRole,
+        role: playerRole,
         voterName: playerName,
         target: finalTarget,
+        time: gameState
        }
 
         // Send vote to server for processing 
         socket.emit("submitVote", ballot);
         console.log('vote submitted');
+        
        
         // Display wait message
         setWaitMessage(`Waiting for other players to vote...`);
