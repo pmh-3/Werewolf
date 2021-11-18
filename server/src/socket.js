@@ -6,8 +6,8 @@ let games = [];
 
 let timer = {
   intro: 5,
-  night: 5,
-  sunrise: 5,
+  night: 40,
+  sunrise: 30,
   day: 30,
   sunset: 5,
   end: 30,
@@ -281,7 +281,7 @@ const socket = (io) => {
 
     /******************** TOOLS*************************** */
 
-    // TODO client side recieve
+    // Reveal identity to seer 
 
   const findByName = (game, name) => {
     return game.getPlayers().find(p => p.name === name);
@@ -294,11 +294,9 @@ const socket = (io) => {
   const reveal = (game, name) => {
     
     let seer = findByRole(game, 'seer');
-    let revealed = findByName(game, 'name');
-    io.to(seer.socketId).emit("assignedRole", {
-      role: revealed.role,
-    });
-
+    let revealed = findByName(game, name);
+    io.to(game.code).emit("revealRole", revealed.role);  // io.to(seer.sockedID) did not work 
+   
   }
 
 
