@@ -28,7 +28,6 @@ function Device() {
   // next page state
   const [nextPage, setNextPage] = useState("join");
 
-
   // TODO place in useEFFECT ??
   socket.on('playerList', pl => {
     setPlayers(pl);
@@ -43,15 +42,12 @@ function Device() {
 
     // If next page is day or night, we will reset these states   
     if (page === "dayPage" || page === "nightPage") {
-      // setVoteSubmitted(false);
       setFinalTarget("");
     }
 
     // Go to next page     
     setNextPage(page);
   });
-
-
 
   const goto = (newPage) => {
     setNextPage(newPage);
