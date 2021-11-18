@@ -74,8 +74,7 @@ function DNight(){
         <div className="flex items-center justify-center">
           <Vote showTargets={targetList}
           className="font-read" gameState = "night" device = "PD"/> 
-        </div> 
-        
+        </div>     
       </div>
       </>
   )
