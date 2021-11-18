@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import {BrowserRouter as Router, Route, Redirect, useHistory} from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { SocketContext } from "../services/Socket";
-import { roomIdState, playersState, playerRoleState, playerFinalTargetState, voteSubmittedState } from "../services/Atoms";
+import { roomIdState, playersState, playerRoleState, playerFinalTargetState } from "../services/Atoms";
 import healerImage from "../assets/images/roles/healer.png";
 import villagerImage from "../assets/images/roles/villager.png";
 import wolfImage from "../assets/images/roles/werewolf.png";
@@ -25,10 +25,7 @@ function End(){
 
 
   // ** TEST** 
-  const TEST_WINNER = "Villagers";  // TO change TEST_WINNER 
-
-  // ** TEST+*
-  const TEST_PLAYER = ["wolf", "villager", "seer", "healer"];
+  const TEST_WINNER = "TEST_WINNER";  // TO change TEST_WINNER 
 
 
   // useEffect(()=>{
@@ -37,23 +34,25 @@ function End(){
   //   });
   // },[])
 
-//   const getImage = (player) => {
-//     switch(player) {
-//       case "wolf":
-//         setImage(wolfImage);
-//         break;
-//       case "villager":
-//         setImage(villagerImage);
-//         break;  
-//       case "seer":
-//         setImage(seerImage);
-//         break;
-//       case "healer":
-//         setImage(healerImage);
-//         break;
-//     }
+  
 
-// }
+  const getImage = (role) => {
+    switch(role) {
+      case "wolf":
+        setImage(wolfImage);
+        break;
+      case "villager":
+        setImage(villagerImage);
+        break;  
+      case "seer":
+        setImage(seerImage);
+        break;
+      case "healer":
+        setImage(healerImage);
+        break;
+    }
+
+}
 
 return (
     <>
@@ -63,10 +62,18 @@ return (
         {TEST_WINNER} WON!</h1>
       <h2 className="text-large">
         Here is everyone's identity:</h2>
-        {/* {TEST_PLAYER.map((player)=>(     // TO CHANGE TEST_PLAYER 
-          <li>{image}{player}</li>
-        ))}
-       */}
+        <div className="inline-flex">
+            {players && players.map((player) => (
+              <div className="flex-col">
+                <div key={player.socketId}
+                    className = "rounded-full h-24 w-52 flex items-center justify-center bg-teeth mr-4 text-medium">
+                  {getImage(player.role)}
+                  <div img src={image } width="50" height="50" 
+                  className="text-center">{player.name}</div>
+                </div>
+              </div>
+            ))}
+          </div>
     </div>
     </>
 )

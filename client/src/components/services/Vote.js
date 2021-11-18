@@ -31,9 +31,10 @@ function Vote({showTargets, gameState, device}) {
     const [listAlign, setListAlign] = useState();
     // set button style
     const [buttonStyle, setButtonStyle] = useState();
-
+    // vote submitted
     const [voteSubmitted, setVoteSubmitted] = useState(false);
-
+    // page content visibility 
+    const [invisible, setInvisible] = useState();
 
 
     useEffect(() => {
@@ -45,13 +46,15 @@ function Vote({showTargets, gameState, device}) {
         // If device is PD, set buttons vertically with voters' list at the side
         if (device === "TV") {
           setButtonAlign(`inline-flex`);
-          setListAlign(`inline-flex`);
+          setListAlign(`flex-col`);   // I changed it back to flex col for voter list to be under button (Z)
           setButtonStyle(`rounded-full h-24 w-28 items-center justify-center bg-teeth mr-4 mt-8`);
+          setInvisible(`invisible`);
         }
         if (device === "PD") {
           setButtonAlign(`flex items-center justify-center`);
           setListAlign(`flex items-center justify-center`);
           setButtonStyle(`rounded-full h-14 w-28 items-center justify-center bg-teeth mr-4 mt-8`);
+ 
         }
 
         return () => {
@@ -68,7 +71,7 @@ function Vote({showTargets, gameState, device}) {
         
 
         // If vote has been submitted, display sorry message 
-        if (voteSubmitted)
+        if (gameState === "night" && voteSubmitted)
             setSorryMessage(`Sorry, you cannot change your vote after submitting.`);
     }
 
@@ -110,12 +113,13 @@ function Vote({showTargets, gameState, device}) {
             </div>
           ))}
         </div>
-        <br></br>
+        <div className = {invisible}>
           <button className="bg-orange text-teeth text-button hover:bg-darkOrange rounded py-1 px-12" 
           onClick={submitFinalVote}> SUBMIT! </button>
-        <h2>You picked: {finalTarget}</h2>
-        <h2>{waitMessage}</h2>
-        <h2>{sorryMessage}</h2>
+          <h2>You picked: {finalTarget}</h2>
+          <h2>{waitMessage}</h2>
+          <h2>{sorryMessage}</h2>
+        </div>
       </div>
     );
 }

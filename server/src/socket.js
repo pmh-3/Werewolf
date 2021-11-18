@@ -5,12 +5,12 @@ const Player = require("./utils/Player");
 let games = [];
 
 let timer = {
-  intro: 10,
-  night: 10,
-  sunrise: 10,
-  day: 10,
-  sunset: 10,
-  end: 10,
+  intro: 5,
+  night: 5,
+  sunrise: 5,
+  day: 30,
+  sunset: 5,
+  end: 30,
 };
 
 // Hardcoded player list for now:
