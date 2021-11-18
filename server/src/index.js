@@ -5,7 +5,7 @@ const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http, { cors: { origin: "*" } });
 const socket = require("./socket")(io);
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 
 const helmet = require("helmet");
 
