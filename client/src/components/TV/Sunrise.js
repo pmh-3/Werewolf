@@ -42,17 +42,22 @@ function Sunrise({gotoHandle}){
 
   return (
       <>
-      <div className="sunrise text-orange font-spooky">
-        <h1 className="text-center text-large">
+      <div className="sunrise text-orange font-spooky text-medium">
+        <h1 className="text-center text-header bg-orange text-teeth mb-8">
           SUNRISE<br></br>
-          {eaten} was eaten<br></br>
-          {saved} was Saved<br></br>
+        </h1>
+        <p className="text-center bg-orange text-teeth font-read font-semibold mb-8">
+        {eaten} was eaten<br></br>
+        {saved} was Saved<br></br>
+        </p>
+        <h2 className="text-center text-teeth bg-orange font-read mb-8">
           Remaining players
          <br></br>
           NOW it's time to discuss and vote one of you OUT!
+        </h2>
+        <p className="text-center text-teeth text-large mx-96 rounded-full font-read">
           <Timer pageDuration = {duration}></Timer>
-          </h1>
-        {/* <button className="text-medium absolute bottom-5 left-3"onClick={() => gotoHandle("day")} >GotoDay</button> */}
+        </p>
       </div>
       </>
   )

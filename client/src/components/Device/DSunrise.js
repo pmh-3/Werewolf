@@ -60,12 +60,14 @@ function DSunrise(){
 
   return (
       <>
-      <div className="font-spooky text-center text-medium">
-        <h1>SUNRISE</h1>
-        <h1>You are a: {playerRole}</h1>
-        <h2>{actionSummary}</h2>
-        <h2>Check TV screen for voting result</h2>  
-       
+      <div className="sunrise font-spooky text-center text-medium">
+        <h1 className="bg-orange text-teeth text-large"
+        >SUNRISE
+        </h1>
+        <h1 className="font-read font-semibold">You are a {playerRole}</h1>
+        <h2 className="font-read font-semibold bg-teeth">{actionSummary}</h2>
+        <h2 className="absolute bottom-5 right-3">Check TV screen for voting result</h2>  
+
       </div>
       </>
   )

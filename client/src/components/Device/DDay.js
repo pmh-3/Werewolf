@@ -27,10 +27,9 @@ useEffect(() => {
 return (
     <>
     <div className="night font-spooky text-orange">
-      <h1>DAY</h1>
-      <h2>Now vote someone out of the village.</h2>
-      <h2>You can look at TV to see who is voting you! You can change your vote before hitting submit.</h2>
-      <h1>WHO DO YOU WANT TO VOTE ??</h1>
+      <h1 className="bg-orange text-teeth text-large">DAY</h1>
+      <h2> Vote someone out of the village.</h2>
+      <h2>You can look at TV to see who is voting for you!</h2>
         <Vote showTargets={targetList} gameState = "day" device = "PD"/>
     </div>
     </>

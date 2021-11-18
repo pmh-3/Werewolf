@@ -29,15 +29,17 @@ function Sunset(){
   return (
       <>
       <div className="sunset text-large text-center text-orange font-spooky">
-        <h1>
+        <h1 className="bg-ice text-teeth text-large">
           SUNSET<br></br>
+        </h1>
+        <h2 className=" font-read font-semibold">
           {banished} has been voted OUT! <br></br>
           {/* IF GAME DIDN'T END, LOOP BACK TO NIGHT PAGE <br></br>
           OTHERWISE GO TO END  */}<br></br>
-
-          </h1>
-          <Timer pageDuration = {duration}></Timer>
-        
+        </h2>
+        <p className="mt-14 text-large font-read font-semibold">
+        <Timer pageDuration = {duration}></Timer>
+        </p>
         {/* <button className="text-medium absolute bottom-5 left-3"  onClick={() => gotoHandle("end")} >GotoEnd</button> */}
        
       </div>
