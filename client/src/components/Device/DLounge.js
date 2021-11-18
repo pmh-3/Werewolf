@@ -33,9 +33,9 @@ function DLounge() {
   return (
     <>
       <div className="lounge font-spooky text-orange text-medium">
-        <h1 className="text-large text-center bg-orange text-teeth">LOUNGE</h1>
+        <h1 className="text-large bg-orange text-teeth text-center">LOUNGE</h1>
         {/* <h1>First Player to join, starts the game.</h1> */}
-        <h2 className="block font-read font-semibold text-center">Players: </h2>
+        <h2 className="text-center font-read font-semibold">Players: </h2>
         <h3 className=" absolute bottom-5">Waiting for players...</h3>
         <br></br>
         <div>

@@ -73,7 +73,8 @@ function VoterList({currentTarget, gameState, device}) {
     return (
         <div>
             {voterList.map((vL) => (
-                <ul className = {style}>{vL}</ul>
+                <ul className = {style}>
+                  {vL}</ul>
             ))}
         </div>
     )
