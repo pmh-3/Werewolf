@@ -26,11 +26,14 @@ useEffect(() => {
 
 return (
     <>
-    <div className="night font-spooky text-orange">
+    <div className="night font-spooky text-orange text-center text-small">
       <h1 className="bg-orange text-teeth text-large">DAY</h1>
-      <h2> Vote someone out of the village.</h2>
-      <h2>You can look at TV to see who is voting for you!</h2>
-        <Vote showTargets={targetList} gameState = "day" device = "PD"/>
+      <h2 className="bg-teeth font-read font-semibold"> Vote someone out of the village.<br></br>
+      You can look at TV to see who is voting for you!</h2>
+      <div className="flex items-center justify-center">
+          <Vote showTargets={targetList}
+          className="font-read" gameState = "day" device = "PD"/> 
+        </div>
     </div>
     </>
 )

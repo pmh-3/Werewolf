@@ -53,7 +53,7 @@ function Vote({showTargets, gameState, device}) {
         if (device === "PD") {
           setButtonAlign(`flex items-center justify-center`);
           setListAlign(`flex items-center justify-center`);
-          setButtonStyle(`rounded-full h-14 w-28 items-center justify-center bg-teeth mr-4 mt-8`);
+          setButtonStyle(`rounded-full text-medium h-14 w-28 items-center justify-center bg-teeth mr-4 mt-8`);
  
         }
 
@@ -114,9 +114,9 @@ function Vote({showTargets, gameState, device}) {
           ))}
         </div>
         <div className = {invisible}>
-          <button className="bg-orange text-teeth text-button hover:bg-darkOrange rounded py-1 px-12" 
+          <button className="bg-orange text-teeth text-button hover:bg-darkOrange mt-8 rounded py-1 px-12" 
           onClick={submitFinalVote}> SUBMIT! </button>
-          <h2>You picked: {finalTarget}</h2>
+          <h2 className="text-medium">You picked: {finalTarget}</h2>
           <h2>{waitMessage}</h2>
           <h2>{sorryMessage}</h2>
         </div>
