@@ -24,8 +24,8 @@ function Day(){
       setDuration(pageTime);
     })
 
-    socket.on("startVoting", (Players) => {
-      setTargetList(Players.all);
+    socket.on("startVoting", (wolfList, villagerList, playerList) => {
+      setTargetList(playerList);
     });
 
   });
