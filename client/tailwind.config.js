@@ -14,7 +14,7 @@ module.exports = {
     },
     fontSize: {
       computer: "10rem",
-      device: "7rem",
+      device: "6rem",
       TV: "15rem",
       header: "6rem",
       large: "3rem",
