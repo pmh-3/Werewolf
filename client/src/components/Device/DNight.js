@@ -83,13 +83,20 @@ function DNight(){
 
   return (
       <>
-      <div className="night font-spooky text-orange text-center text-medium">
-        <h1>NIGHT</h1>
-        <h1>You are a: {role}</h1>    
+      <div className="night font-spooky text-center text-medium">
+        <h1 className="text-large bg-ice text-teeth"
+        >
+        NIGHT
+        </h1>
+        <h1 className="bg-teeth text-ice"
+        >
+        You are a {role}
+        </h1>    
         <h2>{showWolveMsg}</h2> 
-        <h1>WHO DO YOU WANT TO  {myAction} ??</h1>
-        <div className="grid gap-4 grid-cols-3">
-          <Vote showTargets={targetList} gameState = "night" device = "PD"/> 
+        <h1>WHO DO YOU WANT TO  {myAction}</h1>
+        <div className="flex items-center justify-center">
+          <Vote showTargets={targetList}
+          className="font-read" gameState = "night" device = "PD"/> 
         </div> 
         
       </div>
