@@ -55,10 +55,6 @@ function Vote({showTargets, gameState, device}) {
         }
 
         return () => {
-          console.log("@@@ CLEAN UP!!");
-            if(!voteSubmitted){
-                submitFinalVote();
-            }
         }
 
     }, [finalTarget]);
@@ -79,9 +75,6 @@ function Vote({showTargets, gameState, device}) {
     // Upon submitting the vote  
     const submitFinalVote = (e) => {
         e.preventDefault(); // Prevent page refresh
-        setVoteSubmitted(true);
-
-        // Update voteSubmittedState
         setVoteSubmitted(true);
 
        let ballot = {
