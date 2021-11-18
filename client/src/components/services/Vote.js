@@ -45,13 +45,13 @@ function Vote({showTargets, gameState, device}) {
         // If device is PD, set buttons vertically with voters' list at the side
         if (device === "TV") {
           setButtonAlign(`inline-flex`);
-          setListAlign(`flex-col`);
-          setButtonStyle(`rounded-full h-24 w-24 items-center justify-center bg-teeth mr-4 mt-8`);
+          setListAlign(`inline-flex`);
+          setButtonStyle(`rounded-full h-24 w-28 items-center justify-center bg-teeth mr-4 mt-8`);
         }
         if (device === "PD") {
-          setButtonAlign(`flex-col`);
-          setListAlign(`inline-flex`);
-          setButtonStyle(`rounded-full h-14 w-14 items-center justify-center bg-teeth mr-4 mt-8`);
+          setButtonAlign(`flex items-center justify-center`);
+          setListAlign(`flex items-center justify-center`);
+          setButtonStyle(`rounded-full h-14 w-28 items-center justify-center bg-teeth mr-4 mt-8`);
         }
 
         return () => {
@@ -111,7 +111,8 @@ function Vote({showTargets, gameState, device}) {
           ))}
         </div>
         <br></br>
-          <button onClick={submitFinalVote}> SUBMIT! </button>
+          <button className="bg-orange text-teeth text-button hover:bg-darkOrange rounded py-1 px-12" 
+          onClick={submitFinalVote}> SUBMIT! </button>
         <h2>You picked: {finalTarget}</h2>
         <h2>{waitMessage}</h2>
         <h2>{sorryMessage}</h2>

@@ -52,10 +52,10 @@ function DJoin({ gotoHandle }) {
   return (
     <>
       <div className="join-instruction text-medium font-spooky text-orange text-center">
-        <h1>PLEASE ENTER</h1>
+        <h1 className="bg-ice">PLEASE ENTER</h1>
         <form onSubmit={handleSubmit}>
           <label>
-            <h2>ROOM CODE</h2>
+            <h2 className="bg-ice">ROOM CODE</h2>
             <input
               type="text"
               name="roomCode"
@@ -66,7 +66,7 @@ function DJoin({ gotoHandle }) {
             />
           </label>
           <label>
-            <h2>ENTER YOUR NAME</h2>
+            <h2 className="bg-ice">ENTER YOUR NAME</h2>
             <input
               type="text"
               name="playerName"

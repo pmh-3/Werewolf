@@ -53,7 +53,7 @@ function DRole() {
           break;
         case "seer":
           setInstruction(
-            `You have a secret power! You can choose one person to reveal his/her identity.\n` +
+            `You can choose one person to reveal his/her identity.\n` +
               `Be careful revealing your identity during the day! If you share your knowledge too obviously, you might become the wolves' next target!`
           );
           setImage(seerImage);
