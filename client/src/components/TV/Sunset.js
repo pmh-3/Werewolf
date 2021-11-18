@@ -13,10 +13,16 @@ function Sunset(){
   // Timer duration
   const [duration, setDuration] = useState();
 
+  const [banished, setBanished] = useState();
+
   useEffect(() => {
     // Receive timer duration from server 
     socket.on("startTimer", pageTime => {
       setDuration(pageTime);
+    })
+
+    socket.on("banished", b => {
+      setBanished(b.name);
     })
   });
 
@@ -25,7 +31,7 @@ function Sunset(){
       <div className="sunset text-large text-center text-orange font-spooky">
         <h1>
           SUNSET<br></br>
-          XXX has been voted OUT! <br></br>
+          {banished} has been voted OUT! <br></br>
           {/* IF GAME DIDN'T END, LOOP BACK TO NIGHT PAGE <br></br>
           OTHERWISE GO TO END  */}<br></br>
 

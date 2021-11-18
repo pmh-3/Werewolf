@@ -27,12 +27,12 @@ function DSunrise(){
   const TEST_ROLE = "seer";   // TODO: change TEST_ROLE to playerRole 
 
   useEffect(()=>{
-    switch (TEST_ROLE) {    
+    switch (playerRole) {    
       case "wolf":
         if (finalTarget == undefined)
           setActionSummary(`Unfortunately, you didn't pick the same person before time ran out.`);
         else 
-          setActionSummary(`YOU ALL CHOSE TO KILL: ` + `${finalTarget}`);
+          setActionSummary(`YOU ALL CHOSE TO KILL: ` + ` ${finalTarget}`);
         break;
       case "healer":
         setActionSummary(`YOU CHOSE TO SAVE: ` + `${finalTarget}`);
@@ -44,7 +44,7 @@ function DSunrise(){
           setActionSummary(`${finalTarget}`+ "'S IDENTITY is " + `${identity}`);
         break;
       case "villager":
-        setActionSummary(`YOU THINK` + `${finalTarget}` + `IS A WOLF`);
+        setActionSummary(`YOU THINK ` + `${finalTarget}` + ` IS A WOLF`);
         break;
     }
   },[identity])
@@ -58,7 +58,7 @@ function DSunrise(){
       <>
       <div className="sunrise">
         <h1>SUNRISE</h1>
-        <h1>You are a: {TEST_ROLE}</h1>
+        <h1>You are a: {playerRole}</h1>
         <h2>{actionSummary}</h2>
         <h2>Waiting for other's votes...</h2>  
        

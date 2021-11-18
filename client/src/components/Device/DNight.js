@@ -34,8 +34,9 @@ function DNight(){
       switch (role) {
         case "wolf":
           setMyAction("KILL");
+
+          //TODO: send list of wolves and villagers players from server
   
-        
           // Process Players list and get all wolves and all villagers 
           //  ==> COULDN'T GET THIS TO WORK
           // for (let p of Players.all) {
@@ -56,8 +57,8 @@ function DNight(){
           // console.log("wolveList: " + wolvesList);
           // console.log("village list:" + villagerList);
   
-          setShowWolvesMsg(`Other wolves :\n` + {w});
-          setTargetList(v);
+          setShowWolvesMsg(`Other wolves :\n` + w);
+          setTargetList(a);
           break;
         case "healer":
           setMyAction("HEAL");

@@ -6,7 +6,8 @@ module.exports = class Player {
     this.socketId = socketId; // player's socket id
     this.role = null; // "werewolf", "seer", "healer", "villager"
     this.action = null; // to kill, to see, to heal , to vote
-    this.vote = 0; 
+    this.votes = 0; 
+    this.isSpectator = false;
   }
 
   getPlayer() {
@@ -20,6 +21,10 @@ module.exports = class Player {
 
   getId(){
     return this.socketId;
+  }
+
+  setSpectator(){
+    this.isSpectator = true;
   }
 
   clearVotes(){

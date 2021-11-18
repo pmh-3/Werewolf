@@ -19,11 +19,10 @@ function DDay(){
 
 
 useEffect(() => {
-  socket.on("startVoting", (Players) => {
-    setTargetList(Players.all);
-  });
+  socket.on("startVoting", (w,v,a) => {
+    setTargetList(a);
+  })
 }, []);
-
 
 return (
     <>

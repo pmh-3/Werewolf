@@ -6,6 +6,7 @@ module.exports = class Game {
     this.gameState = "lounge";
     //stores saved player
     this.saved = null;
+    this.wolfCount = 1;
     this.playerRolesAndActions = {
       "wolf": "kill",
       "villager": "vote",
@@ -90,6 +91,8 @@ module.exports = class Game {
         playerCount / 10 == 1 ? playerCount / 10 + 0.1 : playerCount / 10;
       console.log(val);
       this.assignedRole.wolf += Math.ceil(val);
+      //making copy of number of calculated wolves
+      this.wolfCount = this.assignedRole.wolf;
       this.assignedRole.healer += Math.floor(val);
       this.assignedRole.seer = Math.ceil(val);
       this.assignedRole.villager =
@@ -150,9 +153,10 @@ module.exports = class Game {
 
     if(state == 'sunrise'){
       this.players.forEach(p =>{
-        console.log(p.name, ' has ', p.vote)
-        if(p.vote == this.assignedRole.werewolf){
-          p.role = this.assignedRole.spectator
+        console.log(p.name, ' has ', p.votes)
+        if(p.votes === this.wolfCount){
+          p.setSpectator();
+          console.log('Eaten: ', p.name);
           return p;
         }
       })
@@ -161,9 +165,9 @@ module.exports = class Game {
       //find player with most votes
       let banished = this.players[0];
       this.players.forEach(p =>{
-        console.log(p.name, ' has ', p.vote)
+        console.log(p.name, ' has ', p.votes)
         //must have at least one vote
-        if(p.vote >= 1 && p.vote > banished.vote){ 
+        if(p.votes >= 1 && p.votes > banished.votes){ 
           banished = p;
         }
       })
@@ -171,7 +175,7 @@ module.exports = class Game {
       //find and account for tie 
       this.players.forEach(p =>{
         //compare player with most votes to everyone else but themselves
-        if(p.vote == banished.vote && p != banished && p.vote >= 1){ 
+        if(p.votes === banished.votes && p !== banished && p.votes >= 1){ 
           console.log("tie in banishment")
           //decide tie with coin toss either 0 or 1
           if(Math.floor(Math.random()*2)){
@@ -181,7 +185,8 @@ module.exports = class Game {
       })
 
       if(banished.votes >= 1){
-        banished = this.assignedRole.spectator;
+        banished.setSpectator();
+        console.log('bannished: ', banished.name);
         return banished;
       }else{
         return null;

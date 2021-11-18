@@ -135,6 +135,7 @@ const socket = (io) => {
           break;
 
         case "night":
+          game.resetVotes();
           console.log("night");
           io.to(roomCode).emit("goToNextPage", "nightPage");
           io.to(roomCode).emit("startTimer", timer.night);
@@ -163,10 +164,11 @@ const socket = (io) => {
           //maybe client side can take only info needed for role
           //or server creates and sends individual list to every client
           io.to(roomCode).emit('playerList', game.getPlayers());
-          game.resetVotes();
+          
           break;
 
         case "day":
+          game.resetVotes();
           console.log("day");
           io.to(roomCode).emit("goToNextPage", "dayPage");
           io.to(roomCode).emit("startTimer", timer.day);
@@ -185,7 +187,7 @@ const socket = (io) => {
             io.to(roomCode).emit("banished", banished);
           }
 
-          game.resetVotes();
+          
           break;
 
         case "end":
@@ -203,26 +205,25 @@ const socket = (io) => {
 
     const vote = (game) =>{
       let wolfList = [];
-      let villagerList = [];
-
+      let villagerList =  [];
+      
+      //Function needs work!
       game.getPlayers().forEach(p =>{
-          const { role } = p;
-          const { name } = p;
 
-          if(role == 'wolf'){
-            console.log('new wolf: ', name)
-            wolfList.push(p);
+          if(p.role === 'wolf'){
+            console.log('adding wolf to list: ', p.name)
+            wolfList.push(p.name);
           }else{
-            console.log('new villager: ', name)
-            villagerList.push(p);
+            console.log('adding villager to list: ', p.name)
+            villagerList.push(p.name);
           }
 
       });
 
-      console.log("wolf List: " + findByRole(game, 'wolf'));
+      console.log("wolf List: " + wolfList);
       console.log("villager list:" + villagerList);
       console.log("night vote");
-      io.to(game.code).emit("startVoting", wolfList, villagerList, game.getPlayers());
+      io.to(game.code).emit("startVoting",wolfList, villagerList, game.getPlayers());
     }
 
      // Zi: process temporary vote (from wolf during night and from everyone during day)
@@ -287,7 +288,7 @@ const socket = (io) => {
   }
 
   const findByRole = (game, role) => {
-    return game.getPlayers().find(p => p.role=== role);
+    return game.getPlayers().find(p => p.role === role);
   }
 
   const reveal = (game, name) => {

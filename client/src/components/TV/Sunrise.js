@@ -37,8 +37,6 @@ function Sunrise({gotoHandle}){
       setSaved(s);
     })
 
-    
-
   });  
 
 

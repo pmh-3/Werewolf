@@ -71,28 +71,6 @@ function makeid() {
 }
 
 
-const sendState = () => {
-    //How do i send the right game's state to the right clients?
-    //Does the client have to send the code every time
-    //or is there a way to store and emit to specific clients 
-}
-
-const recordWolfVotes = () =>{
-
-}
-
-const rescordAllVotes = () => {
-
-}
-
-const sendEaten = () => {
-    
-}
-
-const asignRole = () => {
-
-}
-
 server.listen(port, () => console.log(`Listening on port ${port}`));
 
 /***********************Example ***************************/
