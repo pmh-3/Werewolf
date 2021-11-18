@@ -13,11 +13,9 @@ function DSunset(){
 
   return (
       <>
-      <div className="sunset">
-        <h1>
+      <div className="sunset text-center font-spooky">
+        <h1 className="bg-ice text-teeth text-large">
           SUNSET<br></br>
-          (IF GAME DIDN'T END, LOOP BACK TO NIGHT PAGE<br></br>
-          OTHERWISE GO TO END)<br></br>
           </h1>
          
         

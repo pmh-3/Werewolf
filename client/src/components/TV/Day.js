@@ -33,12 +33,13 @@ function Day(){
   return (
       <>
       <div className="day text-orange font-spooky text-center text-large">
-      <h1>VOTE SOMEONE OUT OF THE TOWN</h1>
+      <h1 className="bg-orange text-teeth text-large">VOTE SOMEONE OUT OF THE TOWN</h1>
         <div>
         <Vote showTargets={targetList} gameState = "day" device = "TV"/>
         </div>
-        
+        <p className="mt-14 text-large font-read font-semibold">
         <Timer pageDuration = {duration}></Timer>
+        </p>
         
         {/* <button className="text-medium absolute bottom-5 left-3" onClick={() => gotoHandle("sunset")} >goToSunset</button> */}
        

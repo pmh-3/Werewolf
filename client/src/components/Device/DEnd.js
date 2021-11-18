@@ -21,9 +21,11 @@ function DEnd(){
 
   return (
       <>
-      <div className="end">
-        <h1>END</h1>
-        <h1>{TEST_WINNER} WON!</h1>
+      <div className="end text-large text-center font-spooky">
+        <h1 className="bg-orange text-teeth text-large">
+          END</h1>
+        <h1 className="text-header text-orange">
+          {TEST_WINNER} WON!</h1>
          
       </div>
       </>

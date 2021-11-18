@@ -43,7 +43,7 @@ function Sunrise({gotoHandle}){
   return (
       <>
       <div className="sunrise text-orange font-spooky text-medium">
-        <h1 className="text-center text-large bg-orange text-teeth mb-8">
+        <h1 className="text-center text-header bg-orange text-teeth mb-8">
           SUNRISE<br></br>
         </h1>
         <p className="text-center bg-orange text-teeth font-read font-semibold mb-8">
@@ -55,7 +55,7 @@ function Sunrise({gotoHandle}){
          <br></br>
           NOW it's time to discuss and vote one of you OUT!
         </h2>
-        <p className="text-center bg-ice text-teeth text-large mx-96 rounded-full font-read">
+        <p className="text-center text-teeth text-large mx-96 rounded-full font-read">
           <Timer pageDuration = {duration}></Timer>
         </p>
       </div>
