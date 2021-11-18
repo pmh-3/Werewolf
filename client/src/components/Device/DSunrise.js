@@ -33,7 +33,7 @@ function DSunrise(){
     else {
       switch (playerRole) {    
         case "wolf":
-            setActionSummary(`YOU CHOSE TO KILL: ${finalTarget}`);
+            setActionSummary(`YOU CHOSE TO EAT: ${finalTarget}`);
           break;
         case "healer":
           setActionSummary(`YOU CHOSE TO SAVE: ${finalTarget}`);
@@ -66,7 +66,7 @@ function DSunrise(){
         </h1>
         <h1 className="font-read font-semibold">You are a {playerRole}</h1>
         <h2 className="font-read font-semibold bg-teeth">{actionSummary}</h2>
-        <h2 className="absolute bottom-5 right-3">Check TV screen for voting result</h2>  
+        <h2 className="absolute bottom-5 right-3">Check TV for voting results</h2>  
 
       </div>
       </>

@@ -78,7 +78,7 @@ function Vote({showTargets, gameState, device}) {
     // Upon submitting the vote  
     const submitFinalVote = (e) => {
         e.preventDefault(); // Prevent page refresh
-        setVoteSubmitted(true);
+     
 
        let ballot = {
         room: roomId,
@@ -88,11 +88,14 @@ function Vote({showTargets, gameState, device}) {
         time: gameState
        }
 
+       if(!voteSubmitted){
         // Send vote to server for processing 
         socket.emit("submitVote", ballot);
         console.log('vote submitted');
-        
-       
+
+       }
+
+        setVoteSubmitted(true);
         // Display wait message
         setWaitMessage(`Waiting for other players to vote...`);
     };

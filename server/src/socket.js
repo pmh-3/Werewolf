@@ -5,12 +5,12 @@ const Player = require("./utils/Player");
 let games = [];
 
 let timer = {
-  intro: 5,
-  night: 15,
-  sunrise: 10,
-  day: 30,
-  sunset: 10,
-  end: 30,
+  intro: 20,
+  night: 40,
+  sunrise: 20,
+  day: 40,
+  sunset: 20,
+  end: 60,
 };
 
 // Hardcoded player list for now:
@@ -150,9 +150,9 @@ const socket = (io) => {
           io.to(roomCode).emit("goToNextPage", "sunrisePage");
           io.to(roomCode).emit("startTimer", timer.sunrise);
 
-          if(eaten != null){
-            console.log(eaten.name,' was eaten');
-            io.to(roomCode).emit("eaten", eaten.name);
+          if(game.eaten != null){
+            console.log(game.eaten.name,' was eaten and sent out');
+            io.to(roomCode).emit("eaten", game.eaten.name);
           }
           if(game.saved != null){
             io.to(roomCode).emit('saved', game.saved.name);

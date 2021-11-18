@@ -30,7 +30,7 @@ function Device() {
 
 
   useEffect(() =>{
-     // TODO place in useEFFECT ??
+
       socket.on('playerList', pl => {
         setPlayers(pl);
       })

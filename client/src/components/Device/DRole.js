@@ -53,14 +53,14 @@ function DRole() {
           break;
         case "seer":
           setInstruction(
-            `You can choose one person to reveal his/her identity.\n` +
+            `You can choose one person to reveal their identity.\n` +
               `Be careful revealing your identity during the day! If you share your knowledge too obviously, you might become the wolves' next target!`
           );
           setImage(seerImage);
           break;
         case "villager":
           setInstruction(
-            `The village's destiny depends on you and your fellow villagers! You must work together to vote out all the wolves during the day before they kill you all.`
+            `The village's destiny depends on you and your fellow villagers! You must work together to vote out all the wolves during the day before they eat you all.`
           );
           setImage(villagerImage);
           break;

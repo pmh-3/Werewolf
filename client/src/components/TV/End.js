@@ -25,7 +25,7 @@ function End(){
 
 
   // ** TEST** 
-  const TEST_WINNER = "TEST_WINNER";  // TO change TEST_WINNER 
+  const TEST_WINNER = "Villagers";  // TO change TEST_WINNER 
 
 
   // useEffect(()=>{
@@ -65,12 +65,8 @@ return (
         <div className="inline-flex">
             {players && players.map((player) => (
               <div className="flex-col">
-                <div key={player.socketId}
-                    className = "rounded-full h-24 w-52 flex items-center justify-center bg-teeth mr-4 text-medium">
-                  {getImage(player.role)}
-                  <div img src={image } width="50" height="50" 
-                  className="text-center">{player.name}</div>
-                </div>
+                  <div width="50" height="50" 
+                  className="text-center">..  {player.name},  was a  {player.role}  ..</div>
               </div>
             ))}
           </div>

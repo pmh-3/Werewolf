@@ -38,7 +38,7 @@ function Role(){
       <div className="introduction text-teeth text-center"> 
         <h1 className="text-center text-large font-read bg-ice text-teeth my-8 rounded">
         Wolves have infiltrated the town!<br></br>
-        The wolves will kill once night falls.<br></br>
+        The wolves will feast once night falls.<br></br>
         The town's destiny depends on the villagers!<br></br>
         Everyone will vote to kick out someone once day breaks.<br></br>
         Don't trust anyone with your identity!<br></br> Good luck!

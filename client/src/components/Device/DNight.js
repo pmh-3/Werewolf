@@ -33,7 +33,7 @@ function DNight(){
 
       switch (role) {
         case "wolf":
-          setMyAction("KILL");
+          setMyAction("EAT");
           setShowWolvesMsg(`Other wolves :\n` + w);
           setTargetList(a);
           break;

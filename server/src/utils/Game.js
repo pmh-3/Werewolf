@@ -6,6 +6,7 @@ module.exports = class Game {
     this.gameState = "lounge";
     //stores saved player
     this.saved = null;
+    this.eaten = null;
     this.wolfCount = 1;
     this.playerRolesAndActions = {
       "wolf": "kill",
@@ -67,6 +68,7 @@ module.exports = class Game {
   resetVotes(){
     this.voteCount = 0;
     this.saved = null;
+    this.eaten = null;
     //clear votes
     this.players.forEach(player => {
         player.clearVotes();
@@ -154,9 +156,10 @@ module.exports = class Game {
     if(state == 'sunrise'){
       this.players.forEach(p =>{
         console.log(p.name, ' has ', p.votes)
-        if(p.votes === this.wolfCount){
+        if(p.votes >= this.wolfCount){
           p.setSpectator();
           console.log('Eaten: ', p.name);
+          this.eaten = p;
           return p;
         }
       })
